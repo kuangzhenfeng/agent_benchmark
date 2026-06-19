@@ -16,7 +16,7 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 | 先问对象 | 用户未提供参评 Agent + 模型前，只询问参评对象，不直接出题 |
 | 同题同源 | 所有参评对象拿到完全相同的 C++ 题目与公开要求 |
 | 目录隔离 | 每个参评对象只在自己的 `agents/<slug>/` 下作答 |
-| 不泄答案 | 生成 benchmark 阶段不写参考答案、隐藏测试或评分结论 |
+| 不泄答案 | 生成阶段不向题源或参评目录写参考答案、隐藏测试或评分结论；私有参考解答仅在作答结束后提供给匿名 scorer |
 | 匿名盲评 | 评分必须由 scorer subagent 基于匿名包完成，不能看到 Agent 或模型名称 |
 | 证据评分 | scorer subagent 基于源码、题面、验证记录和统一 rubric 评分 |
 | 克制结论 | 只对本轮题型和样本范围下结论，不外推到所有任务 |
@@ -28,7 +28,7 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 | 风险 | 影响 | 控制方式 |
 |------|------|----------|
 | 评分者知道参评身份 | 对熟悉的 Agent/模型产生期待偏差 | 主 agent 只做组织和解盲；scorer subagent 只看匿名 `P01/P02` |
-| 题目或答案泄漏 | 后作答者可能受益 | 同一时间冻结题目；不生成参考答案；作答目录互相隔离 |
+| 题目或答案泄漏 | 后作答者可能受益 | 同一时间冻结题目；私有参考解答不进入题源/作答目录，且只在全部作答结束后提供给 scorer；作答目录互相隔离 |
 | 执行顺序差异 | 后运行者可能继承前者产物或上下文 | 每个参评对象使用独立目录；不要在同一对话里连续透露结果 |
 | 工具权限不同 | 搜索、编译、联网能力影响成绩 | 在 `participants.md` 记录联网、文件读写、命令执行、测试权限 |
 | 时间盒不同 | 花费时间越长越可能改好 | 对每题设置相同时间盒；超时按未完成项记录 |
@@ -49,7 +49,7 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 - claude code + qwen3.7 max
 - opencode + glm-5.2
 
-如果你有期望题量、难度或时间盒，也一起告诉我；没有的话我默认生成 3 道 C++17 题，每题 20~40 分钟。
+如果你有期望题量、难度或时间盒，也一起告诉我；没有的话我使用 `cpp17-advanced-v1` 的 3 道 C++17 预设题（50 / 70 / 60 分钟）。
 ```
 
 收到回复后整理参评表：
@@ -58,23 +58,31 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 |------|------|
 | 参评对象 | 原样保留用户写法，如 `claude code + qwen3.7 max` |
 | slug | 转成小写短横线目录名，如 `claude-code-qwen3-7-max` |
-| 题量 | 用户指定优先；默认 3 题 |
-| 难度 | 用户指定优先；默认中等偏工程实践 |
-| 时间盒 | 用户指定优先；默认每题 20~40 分钟 |
+| 题量 | 用户指定优先；未指定时使用 3 题预设套题 |
+| 难度 | 用户指定优先；默认 `cpp17-advanced-v1`（高级工程实践） |
+| 时间盒 | 用户指定优先；默认 Q1 50 分钟、Q2 70 分钟、Q3 60 分钟 |
 
 若只有一个参评对象，可以生成单对象能力测评，但最终报告不能写成 A/B 差异。
 
-### 2. 设计 C++ 试题
+### 2. 选择或设计 C++ 试题
 
-默认生成 C++17 题目，题目必须自包含、可离线阅读、可人工审查，不依赖 TPS 私有业务代码或项目编译链。
+默认使用仓库内版本化预设 `cpp17-advanced-v1`，路径为：
 
-默认 3 题组合：
+```text
+.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/
+```
 
-| 题号 | 类型 | 评测能力 | 推荐耗时 |
+不要在默认流程中临时改题、替换单题或根据参评对象调整题面。预设冻结后，同一轮的所有参评对象必须从同一份预设副本作答。只有用户明确要求自定义题量、题型、领域或难度时，才设计新题；此时要在本轮 `README.md` 记录偏离的原因，不能仍标为该预设版本。
+
+`cpp17-advanced-v1` 固定组合：
+
+| 题号 | 类型 | 推荐耗时 | 评测重点 |
 |------|------|----------|----------|
-| Q1 | Bugfix | 阅读既有代码、定位边界条件/生命周期/数据结构错误 | 20 分钟 |
-| Q2 | Implementation | 在约束下补齐算法或功能，处理复杂度和边界输入 | 30 分钟 |
-| Q3 | Refactor/Design | 在保持行为的前提下改善接口、职责划分或可测试性 | 40 分钟 |
+| Q1 `subscription-hub` | 组合 Bugfix | 50 分钟 | 所有权、回调重入、异常安全、32 位时钟回绕、并发批次语义 |
+| Q2 `coalescing-cache` | Implementation | 70 分钟 | 并发状态机、请求合并、TTL、失效竞态、LRU、递归加载 |
+| Q3 `routing-config` | Refactor/Design | 60 分钟 | 快照发布、兼容 API 生命周期、观察者隔离、原子 reload、最长前缀匹配 |
+
+这些题目通过多个相互影响的验收条件提高排查和实现深度，目标是让强模型也必须经历阅读、设计、实现和验证的多轮工作。不得宣称某个题目能保证所有当前或未来模型都无法单轮完成；模型能力需以实际 benchmark 结果验证。
 
 每题必须包含：
 
@@ -85,7 +93,7 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 | public checks | 可公开的验证建议、输入输出样例或测试思路 |
 | `ANSWER.md` 模板 | 让参评 Agent 填写修改说明、验证方式、风险 |
 
-题目设计约束：
+默认预设和自定义题目都必须满足：
 
 | 约束 | 要求 |
 |------|------|
@@ -95,10 +103,21 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 | 不依赖私有环境 | 题目不能要求特殊 SDK、业务仓库或外部服务 |
 | 可静态评分 | 即使不运行测试，也能通过源码和题面判断主要质量 |
 | 难点可解释 | 每题的预期拉分点要能在评分报告中说明 |
+| 组合复杂度 | Bugfix 题至少包含 3 个会相互影响的缺陷维度，覆盖所有权/生命周期、并发/重入、异常安全、边界算术或容器失效中的至少 3 类 |
+| 多层验收 | 公开检查只覆盖基础路径；题面必须列出可由源码与验证证据判定的组合语义，不能以未说明的谜题式隐藏条件评分 |
+| 可复验 | 每题提供 starter 和公开检查，并在题面记录 starter 的预期状态 |
 
 ### 3. 创建 benchmark 目录
 
 在 `benchmark/<run-id>/` 下创建本轮评测。`<run-id>` 使用日期时间和简短主题，例如 `20260619-1430-cpp-benchmark`。
+
+若未收到明确的自定义出题要求，按以下顺序创建题目，不能手写一个看似相同但内容漂移的副本：
+
+1. 将预设中的 `q01-subscription-hub`、`q02-coalescing-cache`、`q03-routing-config` **完整复制**到 `questions/`。
+2. 从刚生成的 `questions/` 完整复制每题到每个 `agents/<slug>/`，包括 `QUESTION.md`、`ANSWER.md`、`include/`、`src/`、`tests/` 与 `run_public_checks.sh`。
+3. 在本轮 `README.md` 和 `participants.md` 写明 `preset: cpp17-advanced-v1`、每题时间盒和 C++17 编译器版本。
+
+复制而非符号链接，保证每个作答目录可独立修改且题源在运行结束后可复现。复制后比较各 `agents/<slug>/qXX-*` 与 `questions/qXX-*` 的初始内容；任何差异都应视为生成失败并重新复制。严禁复制 `.claude/skills/agent-benchmark/scoring-reference/`、任何参考实现或私有验收材料到本轮目录；这些材料只在第 5 步创建 scorer 专用副本。
 
 目录结构：
 
@@ -130,6 +149,8 @@ benchmark/<run-id>/
     │   ├── README.md
     │   ├── P01/
     │   └── P02/
+    ├── scorer-reference/       # 作答结束后才创建，仅供 scorer
+    │   └── cpp17-advanced-v1.md
     ├── mapping.private.md
     ├── redaction-log.md
     └── scorer-report.md
@@ -145,9 +166,12 @@ benchmark/<run-id>/
 | `agents/<slug>/` | 给单个参评对象使用的独立作答目录 |
 | `submissions/<slug>/` | 用户可选的结果归档目录 |
 | `scoring/blind-package/` | 用户完成后由主 agent 创建，给 scorer subagent 盲评 |
+| `scoring/scorer-reference/` | 全部作答结束后才创建的私有参考解答副本；只允许匿名 scorer 读取，绝不分发给参评对象 |
 | `scoring/mapping.private.md` | 匿名 ID 到参评对象的映射，只给主 agent 使用，不给 scorer subagent |
 | `scoring/redaction-log.md` | 记录脱敏改动，只写脱敏位置和类型，不写参评身份 |
 | `scoring/scorer-report.md` | scorer subagent 输出的匿名评分报告 |
+
+本轮 `README.md` 还必须声明公开检查的初始状态：Q1、Q3 基础公开检查可通过但不代表修复完成；Q2 因 starter 未实现而预期失败。不得把该状态解释为对某个参评对象的预评分。
 
 每个 `agents/<slug>/README.md` 必须写清楚：
 
@@ -196,6 +220,9 @@ benchmark/<run-id>/
 - 每题公共 `questions/qXX-*/QUESTION.md`
 - 每个参评对象的 `agents/<slug>/qXX-*` 或 `submissions/<slug>/`
 - 每题 `ANSWER.md`、源码变更、测试或验证记录
+- 对应预设的 `.claude/skills/agent-benchmark/scoring-reference/<preset>.md`
+
+所有参评对象完成并确认停止作答后，主 agent 才可将私有评分参考解答复制到 `scoring/scorer-reference/<preset>.md`。复制前后记录文件 SHA-256 到 `scoring/reference-integrity.md`。该副本不得包含参评身份、评分结论或任何参评提交内容；若本轮不是预设题，主 agent 必须在生成阶段同步创建对应私有评分参考解答，否则不能声称评分依据完整。
 
 匿名包创建规则：
 
@@ -209,6 +236,7 @@ benchmark/<run-id>/
 | 记录脱敏 | 在 `scoring/redaction-log.md` 记录哪些文件做过身份脱敏 |
 | 保留证据 | 保留源码、测试、验证输出、ANSWER 的技术说明 |
 | 写评分说明 | 在 `scoring/blind-package/README.md` 写 rubric、扣分规则和输出模板，不写参评身份 |
+| 放入参考解答 | 仅在全部作答完成后，将不含身份的参考解答放入 `scoring/scorer-reference/`；不得放进 `blind-package/Pxx` 或任何参评目录 |
 
 若提交内容大量包含无法安全清理的身份信息，先记录为公平性风险，再尽量只向 scorer subagent 提供源码 diff、题面和必要验证记录。若代码风格本身可能暴露身份，只能在最终报告中列为残余风险，不要伪装成完全双盲。
 
@@ -217,13 +245,14 @@ benchmark/<run-id>/
 scorer subagent prompt 模板：
 
 ```text
-你是 C++ benchmark 的盲评评分员。你只能读取以下匿名评分包：
+你是 C++ benchmark 的盲评评分员。你只能读取以下两个目录：
 
 [scoring/blind-package 绝对路径]
+[scoring/scorer-reference 绝对路径]
 
-你不知道、也不需要知道 P01/P02 分别对应哪个 Agent 或模型。不要尝试推断身份，不要读取 blind-package 之外的 mapping、participants、agents、submissions 目录。
+你不知道、也不需要知道 P01/P02 分别对应哪个 Agent 或模型。不要尝试推断身份，不要读取上述两个目录之外的 mapping、participants、agents、submissions 目录。
 
-请按 blind-package/README.md 中的 rubric 对每个匿名参评对象逐题评分，输出匿名报告。评分必须引用题面要求、源码事实和验证证据。只使用 P01/P02 这类匿名 ID。
+私有参考解答用于校准公开语义和识别伪修复，不是唯一实现模板。请按 blind-package/README.md 中的 rubric 对每个匿名参评对象逐题评分，接受任何行为等价的实现。评分必须引用题面要求、源码事实和验证证据。只使用 P01/P02 这类匿名 ID。
 ```
 
 每题 100 分：
@@ -322,7 +351,7 @@ scorer subagent prompt 模板：
 |------|----------|
 | 用户还没给参评对象就开始出题 | 必须先询问 Agent + 模型组合 |
 | 不同 Agent 拿到不同题目 | 所有参评对象使用同一份题源复制出的目录 |
-| 把参考答案写进 benchmark | 生成阶段只写题面、starter code 和公开验收 |
+| 把参考答案写进题源或作答目录 | 生成阶段只写题面、starter code 和公开验收；私有参考解答只在全部作答结束后复制到 `scoring/scorer-reference/` |
 | 让所有 Agent 在同一目录答题 | 每个参评对象使用独立 `agents/<slug>/` |
 | 用户未完成就提前评分 | 等用户明确完成后再评分 |
 | 主 agent 直接评分 | 主 agent 只创建匿名包和解盲汇总，评分必须交给 scorer subagent |

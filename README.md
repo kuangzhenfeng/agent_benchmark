@@ -10,7 +10,7 @@
 
 - **同题同源**：所有参评对象拿到完全相同的 C++ 题目与公开验收点；
 - **目录隔离**：每个参评对象只在自己的 `agents/<slug>/` 下作答，互不可见；
-- **不泄答案**：生成阶段只写题面、starter code 和公开验收，不写参考答案；
+- **不泄答案**：生成与作答阶段只写题面、starter code 和公开验收；所有参评者结束后才向匿名 scorer 提供私有参考解答；
 - **匿名盲评**：评分交给独立 scorer subagent，只能看到匿名包里的 `P01/P02`，看不到 Agent 或模型名称；
 - **证据评分**：scorer 基于源码、题面、验证记录和统一 rubric 打分，不只看 `ANSWER.md` 自述；
 - **克制结论**：只对本轮题型和样本范围下结论，不外推到所有任务。
@@ -23,17 +23,29 @@
 /agent-benchmark
 ```
 
-第一步 skill 一定会询问本次参评的 **Agent + 模型组合**（例如 `claude code + qwen3.7 max`、`opencode + glm-5.2`）。也可以顺带提供题量、难度、时间盒；不提供则默认 **3 道 C++17 题**，每题 20~40 分钟，覆盖 bugfix / implementation / refactor-design 三类。
+第一步 skill 一定会询问本次参评的 **Agent + 模型组合**（例如 `claude code + qwen3.7 max`、`opencode + glm-5.2`）。也可以顺带提供题量、难度、时间盒；不提供则默认使用版本化预设 **`cpp17-advanced-v1`** 的 3 道 C++17 题，时间盒依次为 50 / 70 / 60 分钟。
+
+## 默认预设题库
+
+默认题目不再临时生成。skill 会完整复制 `.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/` 中的题目目录，保证各参评对象、不同轮次都使用可追溯的同一版本题面。
+
+| 题目 | 类型 | 评测重点 | 初始公开检查 |
+|------|------|----------|--------------|
+| Q1 `subscription-hub` | 组合 Bugfix | 所有权、回调重入、异常安全、时钟回绕、并发批次语义 | 通过基础路径；仍含组合缺陷 |
+| Q2 `coalescing-cache` | Implementation | 并发请求合并、TTL、失效竞态、LRU、递归加载 | starter 未实现，预期失败 |
+| Q3 `routing-config` | Refactor/Design | 快照发布、兼容 API 生命周期、观察者隔离、原子 reload | 通过基础路径；仍含并发/生命周期缺陷 |
+
+Bugfix 题要求至少三类相互作用的缺陷维度，避免只修复单一症状。题面把组合语义公开列为验收条件，评分不会依赖未说明的“隐藏谜题”。私有评分参考也明确禁止在 mutex 内复制、移动或销毁用户提供的 `std::function`，避免把回调重入风险误导为正确方案。这些设计提高了强模型一次完成的难度，但不能严谨地保证所有模型都必须多轮；实际能力结论以盲评结果为准。
 
 ## 完整流程
 
 | 阶段 | 主 agent 动作 | 是否交给用户 |
 |------|--------------|--------------|
 | 1. 确认参评对象 | 询问 Agent + 模型组合，整理参评表 | 是，等用户回复 |
-| 2. 设计试题 | 生成自包含、可静态评分的 C++17 题 | — |
+| 2. 选择试题 | 默认复制 `cpp17-advanced-v1`；仅在明确要求时自定义出题 | — |
 | 3. 创建 benchmark 目录 | 在 `benchmark/<run-id>/` 生成题源 + 各参评对象独立作答目录 | 生成后停止 |
 | 4. 等待作答 | 不替参评 Agent 作答、不提前评分 | 是，用户分别让各 Agent 在各自目录答题 |
-| 5. 匿名盲评 | 创建匿名评分包，调用 scorer subagent 按 rubric 盲评 | — |
+| 5. 匿名盲评 | 全部作答结束后创建匿名包与私有参考解答副本，调用 scorer subagent 按 rubric 盲评 | — |
 | 6. 解盲汇总 | 映射匿名 ID 回参评对象，写 `evaluation.md` 并对话摘要 | — |
 
 > 默认单 scorer 盲评；高敏感或分差很小的评测会起两个独立 scorer，差异超阈值才在匿名状态下复核。
@@ -76,6 +88,7 @@ benchmark/<run-id>/        # <run-id> 如 20260619-1430-cpp-benchmark
     ├── blind-package/         # 用户完成后由主 agent 创建，给 scorer 盲评
     │   ├── README.md          # rubric、扣分规则、输出模板（不含身份）
     │   └── P01/ P02/ …
+    ├── scorer-reference/      # 全部作答完成后创建，仅允许 scorer 读取
     ├── mapping.private.md     # 匿名 ID → 参评对象，只给主 agent，不给 scorer
     ├── redaction-log.md       # 记录脱敏位置与类型，不写参评身份
     └── scorer-report.md       # scorer subagent 输出的匿名评分报告
@@ -92,6 +105,7 @@ benchmark/<run-id>/        # <run-id> 如 20260619-1430-cpp-benchmark
 | 路径 | 说明 |
 |------|------|
 | [`.claude/skills/agent-benchmark/SKILL.md`](./.claude/skills/agent-benchmark/SKILL.md) | **核心**：完整流程、公平性控制、rubric、报告模板 |
+| [`.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/`](./.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/) | 默认预设题库、starter 与公开检查 |
 | [`.claude/skills/create-skill/SKILL.md`](./.claude/skills/create-skill/SKILL.md) | 创建新 skill 的辅助 skill |
 | [`CLAUDE.md`](./CLAUDE.md) → [`AGENTS.md`](./AGENTS.md) | 项目规范（AGENTS.md 为符号链接） |
 
