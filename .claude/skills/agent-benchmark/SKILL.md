@@ -98,12 +98,12 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 
 ### 3. 创建 benchmark 目录
 
-在 `benchmarks/agent-benchmark/<run-id>/` 下创建本轮评测，不要使用 `.scratch`。`<run-id>` 使用日期时间和简短主题，例如 `20260619-1430-cpp-benchmark`。
+在 `benchmark/<run-id>/` 下创建本轮评测。`<run-id>` 使用日期时间和简短主题，例如 `20260619-1430-cpp-benchmark`。
 
 目录结构：
 
 ```text
-benchmarks/agent-benchmark/<run-id>/
+benchmark/<run-id>/
 ├── README.md
 ├── participants.md
 ├── questions/
@@ -258,7 +258,7 @@ scorer subagent prompt 模板：
 - 记录公平性限制和 scorer subagent 的评分证据
 - 若发现 scorer subagent 明显读错题面或漏读提交，先用匿名 ID 要求 scorer subagent 修正，再解盲
 
-在 `benchmarks/agent-benchmark/<run-id>/evaluation.md` 写入最终报告，并在对话中摘要结论。
+在 `benchmark/<run-id>/evaluation.md` 写入最终报告，并在对话中摘要结论。
 
 最终报告模板：
 

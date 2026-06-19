@@ -31,7 +31,7 @@
 |------|--------------|--------------|
 | 1. 确认参评对象 | 询问 Agent + 模型组合，整理参评表 | 是，等用户回复 |
 | 2. 设计试题 | 生成自包含、可静态评分的 C++17 题 | — |
-| 3. 创建 benchmark 目录 | 在 `benchmarks/agent-benchmark/<run-id>/` 生成题源 + 各参评对象独立作答目录 | 生成后停止 |
+| 3. 创建 benchmark 目录 | 在 `benchmark/<run-id>/` 生成题源 + 各参评对象独立作答目录 | 生成后停止 |
 | 4. 等待作答 | 不替参评 Agent 作答、不提前评分 | 是，用户分别让各 Agent 在各自目录答题 |
 | 5. 匿名盲评 | 创建匿名评分包，调用 scorer subagent 按 rubric 盲评 | — |
 | 6. 解盲汇总 | 映射匿名 ID 回参评对象，写 `evaluation.md` 并对话摘要 | — |
@@ -61,7 +61,7 @@
 ## 目录约定
 
 ```text
-benchmarks/agent-benchmark/<run-id>/        # <run-id> 如 20260619-1430-cpp-benchmark
+benchmark/<run-id>/        # <run-id> 如 20260619-1430-cpp-benchmark
 ├── README.md                  # 本轮入口：如何分发、作答、完成后如何通知评分
 ├── participants.md            # 参评对象、题量、时间盒、固定变量
 ├── evaluation.md              # 最终解盲汇总报告
@@ -85,7 +85,7 @@ benchmarks/agent-benchmark/<run-id>/        # <run-id> 如 20260619-1430-cpp-ben
 
 - **参评对象原样保留**用户写法，如 `claude code + qwen3.7 max`；
 - **slug** 转成小写短横线目录名，如 `claude-code-qwen3-7-max`；
-- `benchmarks/` 与生成的 benchmark 目录均纳入 git；`.scratch` 不用于存放正式评测结果（`.gitignore` 中已忽略 `benchmark-run` 等临时产物）。
+- `benchmark/` 与生成的 benchmark 目录均纳入 git（`.gitignore` 中已忽略 `benchmark-run` 等临时产物）。
 
 ## 仓库内容
 
@@ -96,3 +96,14 @@ benchmarks/agent-benchmark/<run-id>/        # <run-id> 如 20260619-1430-cpp-ben
 | [`CLAUDE.md`](./CLAUDE.md) → [`AGENTS.md`](./AGENTS.md) | 项目规范（AGENTS.md 为符号链接） |
 
 > 若需调整流程、评分标准或目录结构，直接修改 [`SKILL.md`](./.claude/skills/agent-benchmark/SKILL.md)，并同步回本 README。
+
+## 维护边界
+
+本项目遵循「变更后同步更新 README.md」，但**单轮测评结果不写入本 README**：
+
+| 内容 | 是否更新 README |
+|------|-----------------|
+| 流程、评分标准、目录结构等结构性变更 | 是，同步回本 README |
+| 单轮测评结果（分数、排名、对比） | **否**，独立归档在 `benchmark/<run-id>/evaluation.md` |
+
+README 只作为项目入口与约定说明，**不承载任何一轮的测评数据**；每轮结果各自留在对应 `<run-id>` 下，便于留存与横向对比。
