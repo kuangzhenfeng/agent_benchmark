@@ -1,0 +1,1318 @@
+syntax = "proto3";
+
+package range.tc;
+
+import "definitions.proto";
+
+// action.proto 分区: 含本系统物模型结构。
+// 注意: 仅标注'是否实现绑定: 是'的结构参与迁移适配; 其余为上下文。
+// 适配契约字段值逐结构独立, 结构代号相近不代表字段相同。
+
+// 结构编号 A-004。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_1。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_1 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-009。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_v3。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_v3 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-013。
+// 是否实现绑定: 是。
+// 结构代号: thrust_report_legacy。
+// 所属子系统族: propulsion。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 402
+  //   小版本 schema_rev = 9
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 20  (arm=0 ignite=0 hold=1 safe=0 redundant=1 debug=0)
+  //   飞行阶段 phase = ascent=3
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [196, 774]
+message thrust_report_legacy {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-015。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_snapshot。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_snapshot {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-022。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_delta。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_delta {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-025。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_0。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_0 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-026。
+// 是否实现绑定: 是。
+// 结构代号: payload_frame_legacy。
+// 所属子系统族: payload。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 242
+  //   小版本 schema_rev = 5
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本箭
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 39  (arm=1 ignite=1 hold=1 safe=0 redundant=0 debug=1)
+  //   飞行阶段 phase = ready=1
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [202, 630]
+message payload_frame_legacy {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-035。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_snapshot。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_snapshot {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-041。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_1。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_1 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-042。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_history。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_history {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-048。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_patches。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_patches {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-050。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_patches。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_patches {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-057。
+// 是否实现绑定: 是。
+// 结构代号: thrust_reports。
+// 所属子系统族: propulsion。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 379
+  //   小版本 schema_rev = 7
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 本箭
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 8  (arm=0 ignite=0 hold=0 safe=1 redundant=0 debug=0)
+  //   飞行阶段 phase = coast=4
+  //   载荷分支 branch = 事件
+  //   合法区间 band = [185, 464]
+message thrust_reports {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-063。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_delta。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_delta {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-065。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_log。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_log {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-069。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_delta。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_delta {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-073。
+// 是否实现绑定: 是。
+// 结构代号: thrust_report_view。
+// 所属子系统族: propulsion。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 521
+  //   小版本 schema_rev = 8
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 33  (arm=1 ignite=0 hold=0 safe=0 redundant=0 debug=1)
+  //   飞行阶段 phase = idle=0
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [393, 1065]
+message thrust_report_view {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-080。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_patches。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_patches {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-084。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_1。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_1 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-085。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_ctx。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_ctx {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-091。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_history。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_history {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-104。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_summary。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_summary {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-112。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_0。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_0 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-113。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_snapshot。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_snapshot {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-118。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_record。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_record {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-121。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_0。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_0 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-125。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_records。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_records {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-128。
+// 是否实现绑定: 是。
+// 结构代号: payload_frame_patch。
+// 所属子系统族: payload。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 869
+  //   小版本 schema_rev = 2
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 33  (arm=1 ignite=0 hold=0 safe=0 redundant=0 debug=1)
+  //   飞行阶段 phase = ascent=3
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [384, 1040]
+message payload_frame_patch {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-129。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_snapshot。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_snapshot {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-138。
+// 是否实现绑定: 是。
+// 结构代号: thrust_report_v2。
+// 所属子系统族: propulsion。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 178
+  //   小版本 schema_rev = 2
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 本箭
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 51  (arm=1 ignite=1 hold=0 safe=0 redundant=1 debug=1)
+  //   飞行阶段 phase = insertion=5
+  //   载荷分支 branch = 遥测
+  //   合法区间 band = [68, 219]
+message thrust_report_v2 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-141。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_legacy2。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_legacy2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-143。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_0。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_0 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-144。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_views。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_views {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-147。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_history。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_history {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-149。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_1。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_1 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-152。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_records。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_records {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-162。
+// 是否实现绑定: 是。
+// 结构代号: payload_frame_view。
+// 所属子系统族: payload。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 662
+  //   小版本 schema_rev = 4
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本级
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 31  (arm=1 ignite=1 hold=1 safe=1 redundant=1 debug=0)
+  //   飞行阶段 phase = coast=4
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [143, 1140]
+message payload_frame_view {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-167。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_v3。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_v3 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-180。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_snapshot。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_snapshot {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-182。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_views。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_views {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-188。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_v3。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_v3 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-202。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_context。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_context {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-205。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_1。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_1 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-209。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_snapshot。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_snapshot {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-218。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_summary。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_summary {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-222。
+// 是否实现绑定: 是。
+// 结构代号: payload_frame_v2。
+// 所属子系统族: payload。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 925
+  //   小版本 schema_rev = 6
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 62  (arm=0 ignite=1 hold=1 safe=1 redundant=1 debug=1)
+  //   飞行阶段 phase = ascent=3
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [36, 463]
+message payload_frame_v2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-225。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_history。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_history {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-228。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_legacy2。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_legacy2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-230。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_legacy2。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_legacy2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-232。
+// 是否实现绑定: 是。
+// 结构代号: thrust_report_patch。
+// 所属子系统族: propulsion。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 164
+  //   小版本 schema_rev = 7
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 本箭
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 57  (arm=1 ignite=0 hold=0 safe=1 redundant=1 debug=1)
+  //   飞行阶段 phase = coast=4
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [333, 1120]
+message thrust_report_patch {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-234。
+// 是否实现绑定: 是。
+// 结构代号: thrust_report。
+// 所属子系统族: propulsion。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 160
+  //   小版本 schema_rev = 4
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 本箭
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 55  (arm=1 ignite=1 hold=1 safe=0 redundant=1 debug=1)
+  //   飞行阶段 phase = ready=1
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [12, 197]
+message thrust_report {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-240。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_history。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_history {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-242。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_summary。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_summary {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-246。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_records。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_records {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-248。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_delta。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_delta {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-250。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_0。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_0 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-259。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_records。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_records {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-262。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_ctx。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_ctx {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-264。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_v3。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_v3 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-265。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_history。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_history {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-267。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_views。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_views {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-269。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_context。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_context {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-277。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_history。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_history {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-284。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_patches。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_patches {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-287。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_ctx。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_ctx {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-288。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_history。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_history {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-291。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_patches。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_patches {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-293。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_summary。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_summary {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-297。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_history。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_history {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-298。
+// 是否实现绑定: 是。
+// 结构代号: payload_frame。
+// 所属子系统族: payload。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 222
+  //   小版本 schema_rev = 5
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本级
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 62  (arm=0 ignite=1 hold=1 safe=1 redundant=1 debug=1)
+  //   飞行阶段 phase = coast=4
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [187, 444]
+message payload_frame {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-304。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_delta。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_delta {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-308。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_summary。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_summary {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-314。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_views。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_views {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-315。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_history。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_history {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-327。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_record。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_record {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-328。
+// 是否实现绑定: 是。
+// 结构代号: payload_frames。
+// 所属子系统族: payload。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 952
+  //   小版本 schema_rev = 2
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 4  (arm=0 ignite=0 hold=1 safe=0 redundant=0 debug=0)
+  //   飞行阶段 phase = insertion=5
+  //   载荷分支 branch = 遥测
+  //   合法区间 band = [202, 747]
+message payload_frames {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+
+// 结构编号 A-338。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_v3。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_v3 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-339。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_log。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_log {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-342。
+// 是否实现绑定: 否。
+// 结构代号: thrust_report_views。
+// 所属子系统族: propulsion。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thrust_report_views {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+
+}
+
+// 结构编号 A-347。
+// 是否实现绑定: 否。
+// 结构代号: payload_frame_views。
+// 所属子系统族: payload。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message payload_frame_views {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+
+}
+

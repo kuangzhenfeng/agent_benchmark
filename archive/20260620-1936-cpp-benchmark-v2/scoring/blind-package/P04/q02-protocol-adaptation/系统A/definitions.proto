@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package range.tc;
+
+// 公共定义: 帧时间戳、应答、枚举与按位 flag。
+
+message Frame { int64 stamp = 1; }
+message Ack { bool ok = 1; int32 code = 2; }
+
+// 标识策略(不透明枚举)
+enum IdPolicy { STRICT = 0; KEEP_BLANK = 1; AUTO_GEN = 2; }
+
+// 回放域
+enum ReplayScope { NONE = 0; STAGE = 1; VEHICLE = 2; RANGE = 3; }
+
+// 飞行阶段(注意: 系统 A 与系统 B 的编号不同)
+enum Phase {
+  IDLE = 0;
+  READY = 1;
+  LIFTOFF = 2;
+  ASCENT = 3;
+  COAST = 4;
+  INSERTION = 5;
+}
+
+// 模式位(按位 bit0..bit5, 逐位独立语义)
+enum ModeBit {
+  MB_ARM = 1;  // bit0: 待发
+  MB_IGNITE = 2;  // bit1: 点火
+  MB_HOLD = 4;  // bit2: 保持
+  MB_SAFE = 8;  // bit3: 安控安全
+  MB_REDUNDANT = 16;  // bit4: 冗余
+  MB_DEBUG = 32;  // bit5: 调试
+}
+

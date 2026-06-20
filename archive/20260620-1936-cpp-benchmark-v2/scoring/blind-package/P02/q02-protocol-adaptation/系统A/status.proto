@@ -1,0 +1,1468 @@
+syntax = "proto3";
+
+package range.tc;
+
+import "definitions.proto";
+
+// status.proto 分区: 含本系统物模型结构。
+// 注意: 仅标注'是否实现绑定: 是'的结构参与迁移适配; 其余为上下文。
+// 适配契约字段值逐结构独立, 结构代号相近不代表字段相同。
+
+// 结构编号 A-001。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_log。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_log {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-008。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_records。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_records {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-016。
+// 是否实现绑定: 是。
+// 结构代号: fts_status_legacy。
+// 所属子系统族: rangesafety。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 190
+  //   小版本 schema_rev = 5
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 本级
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 31  (arm=1 ignite=1 hold=1 safe=1 redundant=1 debug=0)
+  //   飞行阶段 phase = insertion=5
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [367, 475]
+message fts_status_legacy {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-019。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_log。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_log {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-020。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_summary。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_summary {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-021。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_record。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_record {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-023。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_v3。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_v3 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-037。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_summary。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_summary {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-040。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_summary。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_summary {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-046。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_ctx。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_ctx {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-051。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_summary。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_summary {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-054。
+// 是否实现绑定: 是。
+// 结构代号: stage_state_view。
+// 所属子系统族: stage。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 251
+  //   小版本 schema_rev = 6
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 4  (arm=0 ignite=0 hold=1 safe=0 redundant=0 debug=0)
+  //   飞行阶段 phase = coast=4
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [147, 621]
+message stage_state_view {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-056。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_ctx。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_ctx {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-059。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_ctx。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_ctx {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-060。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_record。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_record {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-061。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_delta。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_delta {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-064。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_record。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_record {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-066。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_log。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_log {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-070。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_ctx。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_ctx {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-072。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_0。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_0 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-074。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_history。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_history {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-075。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_views。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_views {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-076。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_1。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_1 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-082。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_snapshot。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_snapshot {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-083。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_v3。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_v3 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-086。
+// 是否实现绑定: 是。
+// 结构代号: fts_status。
+// 所属子系统族: rangesafety。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 117
+  //   小版本 schema_rev = 5
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 本级
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 52  (arm=0 ignite=0 hold=1 safe=0 redundant=1 debug=1)
+  //   飞行阶段 phase = idle=0
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [22, 348]
+message fts_status {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-088。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_summary。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_summary {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-089。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_summary。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_summary {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-099。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_1。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_1 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-102。
+// 是否实现绑定: 否。
+// 结构代号: fts_statuss。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_statuss {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-108。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_log。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_log {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-109。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_history。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_history {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-115。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_delta。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_delta {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-117。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_0。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_0 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-124。
+// 是否实现绑定: 是。
+// 结构代号: fts_status_view。
+// 所属子系统族: rangesafety。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 404
+  //   小版本 schema_rev = 4
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本级
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 34  (arm=0 ignite=1 hold=0 safe=0 redundant=0 debug=1)
+  //   飞行阶段 phase = liftoff=2
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [200, 824]
+message fts_status_view {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-126。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_summary。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_summary {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-132。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_snapshot。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_snapshot {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-135。
+// 是否实现绑定: 是。
+// 结构代号: stage_state_legacy。
+// 所属子系统族: stage。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 112
+  //   小版本 schema_rev = 3
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 34  (arm=0 ignite=1 hold=0 safe=0 redundant=0 debug=1)
+  //   飞行阶段 phase = ready=1
+  //   载荷分支 branch = 事件
+  //   合法区间 band = [178, 790]
+message stage_state_legacy {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-139。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_context。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_context {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-153。
+// 是否实现绑定: 否。
+// 结构代号: fts_statuss。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_statuss {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-154。
+// 是否实现绑定: 是。
+// 结构代号: stage_state。
+// 所属子系统族: stage。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 201
+  //   小版本 schema_rev = 5
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 本级
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 44  (arm=0 ignite=0 hold=1 safe=1 redundant=0 debug=1)
+  //   飞行阶段 phase = idle=0
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [313, 925]
+message stage_state {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-155。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_history。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_history {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-157。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_v3。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_v3 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-158。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_context。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_context {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-160。
+// 是否实现绑定: 否。
+// 结构代号: fts_statuss。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_statuss {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-161。
+// 是否实现绑定: 是。
+// 结构代号: stage_states。
+// 所属子系统族: stage。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 695
+  //   小版本 schema_rev = 8
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 40  (arm=0 ignite=0 hold=0 safe=1 redundant=0 debug=1)
+  //   飞行阶段 phase = ascent=3
+  //   载荷分支 branch = 事件
+  //   合法区间 band = [148, 972]
+message stage_states {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-168。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_delta。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_delta {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-176。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_v3。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_v3 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-177。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_snapshot。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_snapshot {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-183。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_records。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_records {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-185。
+// 是否实现绑定: 是。
+// 结构代号: stage_state_v2。
+// 所属子系统族: stage。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 808
+  //   小版本 schema_rev = 3
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本箭
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 52  (arm=0 ignite=0 hold=1 safe=0 redundant=1 debug=1)
+  //   飞行阶段 phase = ready=1
+  //   载荷分支 branch = 事件
+  //   合法区间 band = [486, 1427]
+message stage_state_v2 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-187。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_patches。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_patches {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-192。
+// 是否实现绑定: 是。
+// 结构代号: fts_status_patch。
+// 所属子系统族: rangesafety。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 127
+  //   小版本 schema_rev = 4
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 20  (arm=0 ignite=0 hold=1 safe=0 redundant=1 debug=0)
+  //   飞行阶段 phase = idle=0
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [223, 425]
+message fts_status_patch {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-194。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_history。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_history {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-201。
+// 是否实现绑定: 是。
+// 结构代号: stage_state_patch。
+// 所属子系统族: stage。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 132
+  //   小版本 schema_rev = 2
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 56  (arm=0 ignite=0 hold=0 safe=1 redundant=1 debug=1)
+  //   飞行阶段 phase = idle=0
+  //   载荷分支 branch = 事件
+  //   合法区间 band = [248, 1006]
+message stage_state_patch {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-204。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_legacy2。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_legacy2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-210。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_history。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_history {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-214。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_1。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_1 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-216。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_ctx。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_ctx {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-219。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_records。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_records {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-221。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_0。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_0 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-223。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_v3。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_v3 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-233。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_patches。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_patches {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-236。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_ctx。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_ctx {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-251。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_history。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_history {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-255。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_records。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_records {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-256。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_0。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_0 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-258。
+// 是否实现绑定: 是。
+// 结构代号: fts_status_v2。
+// 所属子系统族: rangesafety。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 905
+  //   小版本 schema_rev = 5
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本箭
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 31  (arm=1 ignite=1 hold=1 safe=1 redundant=1 debug=0)
+  //   飞行阶段 phase = coast=4
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [147, 684]
+message fts_status_v2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-261。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_0。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_0 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-271。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_delta。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_delta {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-274。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_log。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_log {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-276。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_delta。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_delta {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-278。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_delta。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_delta {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-290。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_record。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_record {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-299。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_delta。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_delta {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-305。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_views。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_views {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-307。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_views。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_views {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-309。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_delta。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_delta {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-310。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_snapshot。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_snapshot {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-311。
+// 是否实现绑定: 是。
+// 结构代号: fts_statuses。
+// 所属子系统族: rangesafety。
+  // 适配契约元数据(本系统 A 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 534
+  //   小版本 schema_rev = 4
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 53  (arm=1 ignite=0 hold=1 safe=0 redundant=1 debug=1)
+  //   飞行阶段 phase = coast=4
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [328, 608]
+message fts_statuses {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-317。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_0。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_0 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-319。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_views。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_views {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-330。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_history。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_history {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-332。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_legacy2。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_legacy2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-333。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_log。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_log {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-335。
+// 是否实现绑定: 否。
+// 结构代号: fts_statuss。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_statuss {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-337。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_v3。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_v3 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-340。
+// 是否实现绑定: 否。
+// 结构代号: stage_state_views。
+// 所属子系统族: stage。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message stage_state_views {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+
+}
+
+// 结构编号 A-345。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_v3。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_v3 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+
+// 结构编号 A-348。
+// 是否实现绑定: 否。
+// 结构代号: fts_status_log。
+// 所属子系统族: rangesafety。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message fts_status_log {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+
+}
+

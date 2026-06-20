@@ -1,0 +1,5559 @@
+syntax = "proto3";
+
+package range.tc.v6;
+
+// v6 物模型。// 本文件为最新版本; 但部分字段注释指向 changelog/勘误表, 需结合 corpus 内其他文档交叉核对。
+
+message Frame { int64 stamp = 1; }
+enum IdPolicy { STRICT=0; KEEP_BLANK=1; AUTO_GEN=2; }
+enum ReplayScope { NONE=0; STAGE=1; VEHICLE=2; RANGE=3; }
+// 飞行阶段(v5 起重编号, 新增 RESERVED 占位)
+enum Phase { IDLE=0; STANDBY=1; BOOST=2; ASCENT=3; RESERVED=4; COAST=5; INSERTION=6; }
+enum ModeBit { MB_ARM=1; MB_IGNITE=2; MB_HOLD=4; MB_SAFE=8; MB_REDUNDANT=16; MB_DEBUG=32; }
+
+message thrust_report_context {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_v3 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_patches {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_log {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_patch {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 适配契约(v6):
+  //   route_code: 465
+  //   schema_rev: 4
+  //   id_policy: 保留空值
+  //   replay_scope: 本级
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: 15 (arm=1 ignite=1 hold=1 safe=1 redundant=0 debug=0)
+  //   phase_value: v5 枚举重编号(旧值 1), 以重编号后为准
+  //   phase_value: 3
+  //   branch: 指令
+  //   band: [459, 983]
+}
+
+message thermal_sample_tmp {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_enriched {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_enriched {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_mirror {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_history {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_legacy2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_patches {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_v2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   schema_rev: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   id_policy: 严格必填
+  //   replay_scope: 不回放
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: 32 (arm=0 ignite=0 hold=0 safe=0 redundant=0 debug=1)
+  //   phase_value: v5 枚举重编号(旧值 2), 以重编号后为准
+  //   phase_value: 5
+  //   branch: 遥测
+  //   band: [286, 669]
+}
+
+message fts_status_mirror {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_records {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_states {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 适配契约(v6):
+  //   route_code: 415
+  //   schema_rev: 2
+  //   id_policy: 保留空值
+  //   replay_scope: 不回放
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: v5 枚举重编号(旧值 45), 以重编号后为准
+  //   mode_flag: 15 (arm=1 ignite=1 hold=1 safe=1 redundant=0 debug=0)
+  //   phase_value: 1
+  //   branch: 事件
+  //   band: 本版本起变更, 详见 changelog/v5-to-v6.md
+}
+
+message nav_solution_patches {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_legacy2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_bak {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_1 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_v3 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_views {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_log {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_delta {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_log {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_record {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_summary {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_enriched {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_record {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_views {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_0 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_legacy2 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_v3 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_enriched {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_history {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_records {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_context {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_records {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_v3 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_2 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_snapshot {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 适配契约(v6):
+  //   route_code: 664
+  //   schema_rev: 9
+  //   id_policy: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   replay_scope: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: 57 (arm=1 ignite=0 hold=0 safe=1 redundant=1 debug=1)
+  //   phase_value: 5
+  //   branch: 配置
+  //   band: [158, 248]
+}
+
+message payload_frame_patches {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_patches {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_patches {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_enriched {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_records {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_legacy2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_history {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_tmp {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_snapshot {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 适配契约(v6):
+  //   route_code: 100
+  //   schema_rev: 6
+  //   id_policy: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   replay_scope: 本箭
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: v5 枚举重编号(旧值 61), 以重编号后为准
+  //   mode_flag: 18 (arm=0 ignite=1 hold=0 safe=0 redundant=1 debug=0)
+  //   phase_value: v5 枚举重编号(旧值 2), 以重编号后为准
+  //   phase_value: 5
+  //   branch: 配置
+  //   band: [495, 883]
+}
+
+message sep_event_delta {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_shadow {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_enriched {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_history {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_history {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_bak {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_views {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_views {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_summary {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_patches {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_raw {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_tmp {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_ctx {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_summary {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_1 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_samples {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 适配契约(v6):
+  //   route_code: 803
+  //   schema_rev: 6
+  //   id_policy: 空则生成
+  //   replay_scope: 本箭
+  //   stamp_required: false
+  //   ordinal_required: true
+  //   mode_flag: v5 枚举重编号(旧值 55), 以重编号后为准
+  //   mode_flag: 16 (arm=0 ignite=0 hold=0 safe=0 redundant=1 debug=0)
+  //   phase_value: 2
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: [133, 255]
+}
+
+message nav_solution_record {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_2 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_shadow {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_record {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_patches {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_context {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_context {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_views {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_records {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_record {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_legacy {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 适配契约(v6):
+  //   route_code: 782
+  //   schema_rev: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   id_policy: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   replay_scope: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: 55 (arm=1 ignite=1 hold=1 safe=0 redundant=1 debug=1)
+  //   phase_value: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: [185, 592]
+}
+
+message link_quality_0 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_delta {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_2 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_mirror {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_patches {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_legacy2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_0 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_delta {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_views {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_tmp {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_context {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_record {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_enriched {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_mirror {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_tmp {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_enriched {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_statuss {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_patches {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_qualities {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 适配契约(v6):
+  //   route_code: 761
+  //   schema_rev: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   id_policy: 严格必填
+  //   replay_scope: 本靶区
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: 51 (arm=1 ignite=1 hold=0 safe=0 redundant=1 debug=1)
+  //   phase_value: 5
+  //   branch: 配置
+  //   band: 本版本起变更, 详见 changelog/v4-to-v5.md
+}
+
+message thermal_sample_2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_2 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_bak {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_mirror {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_ctx {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_legacy2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_ctx {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_log {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_mirror {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_tmp {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_records {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_views {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_patch {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   schema_rev: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   id_policy: 严格必填
+  //   replay_scope: 本靶区
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: 38 (arm=0 ignite=1 hold=1 safe=0 redundant=0 debug=1)
+  //   phase_value: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   branch: 配置
+  //   band: [390, 865]
+}
+
+message thrust_report_enriched {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_shadow {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_view {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 适配契约(v6):
+  //   route_code: 209
+  //   schema_rev: 2
+  //   id_policy: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   replay_scope: 本箭
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: 20 (arm=0 ignite=0 hold=1 safe=0 redundant=1 debug=0)
+  //   phase_value: 1
+  //   branch: 指令
+  //   band: 单位自 v3 起变更, 见 changelog/v2-to-v3.md
+}
+
+message thrust_report_history {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_v3 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_records {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_mirror {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_legacy {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   schema_rev: 8
+  //   id_policy: 空则生成
+  //   replay_scope: 本靶区
+  //   stamp_required: false
+  //   ordinal_required: true
+  //   mode_flag: 8 (arm=0 ignite=0 hold=0 safe=1 redundant=0 debug=0)
+  //   phase_value: 1
+  //   branch: 指令
+  //   band: [333, 700]
+}
+
+message thrust_report_raw {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_legacy2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 适配契约(v6):
+  //   route_code: 973
+  //   schema_rev: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   id_policy: 严格必填
+  //   replay_scope: 本靶区
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: 6 (arm=0 ignite=1 hold=1 safe=0 redundant=0 debug=0)
+  //   phase_value: v5 枚举重编号(旧值 6), 以重编号后为准
+  //   phase_value: 5
+  //   branch: 指令
+  //   band: [23, 834]
+}
+
+message payload_frame_raw {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_shadow {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_bak {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_log {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_mirror {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_history {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 适配契约(v6):
+  //   route_code: 810
+  //   schema_rev: 7
+  //   id_policy: 保留空值
+  //   replay_scope: 本箭
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: v5 枚举重编号(旧值 55), 以重编号后为准
+  //   mode_flag: 51 (arm=1 ignite=1 hold=0 safe=0 redundant=1 debug=1)
+  //   phase_value: 5
+  //   branch: 遥测
+  //   band: [142, 766]
+}
+
+message fts_status_snapshot {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_history {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_0 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_tmp {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_ctx {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_raw {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_snapshot {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_views {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_context {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_tmp {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_0 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_history {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_views {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_delta {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_context {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_1 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_patches {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_records {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_summary {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_delta {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_enriched {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_log {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_delta {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_legacy2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_0 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_shadow {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_tmp {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_mirror {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_bak {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_view {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 适配契约(v6):
+  //   route_code: 517
+  //   schema_rev: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   id_policy: 严格必填
+  //   replay_scope: 本靶区
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: v5 枚举重编号(旧值 8), 以重编号后为准
+  //   mode_flag: 12 (arm=0 ignite=0 hold=1 safe=1 redundant=0 debug=0)
+  //   phase_value: 3
+  //   branch: 指令
+  //   band: [122, 533]
+}
+
+message link_quality_tmp {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_records {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_record {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_log {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_patches {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_delta {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_qualitys {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_snapshot {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_0 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_patch {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 适配契约(v6):
+  //   route_code: 329
+  //   schema_rev: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   id_policy: 严格必填
+  //   replay_scope: 不回放
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: v5 枚举重编号(旧值 36), 以重编号后为准
+  //   mode_flag: 42 (arm=0 ignite=1 hold=0 safe=1 redundant=0 debug=1)
+  //   phase_value: 1
+  //   branch: 配置
+  //   band: [489, 1488]
+}
+
+message link_quality_raw {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_log {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 适配契约(v6):
+  //   route_code: 635
+  //   schema_rev: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   id_policy: 严格必填
+  //   replay_scope: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: v5 枚举重编号(旧值 54), 以重编号后为准
+  //   mode_flag: 4 (arm=0 ignite=0 hold=1 safe=0 redundant=0 debug=0)
+  //   phase_value: 0
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: [110, 285]
+}
+
+message stage_state_bak {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_shadow {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_context {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_records {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_views {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_v3 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_record {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_tmp {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_0 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_1 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_history {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_record {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_mirror {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_history {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_mirror {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_0 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_enriched {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_patches {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_enriched {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_views {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_shadow {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_log {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_patches {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_v2 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 适配契约(v6):
+  //   route_code: 552
+  //   schema_rev: 1
+  //   id_policy: 严格必填
+  //   replay_scope: 本靶区
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: 31 (arm=1 ignite=1 hold=1 safe=1 redundant=1 debug=0)
+  //   phase_value: 3
+  //   branch: 配置
+  //   band: [42, 259]
+}
+
+message stage_state_enriched {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_qualitys {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_v3 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_enriched {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_legacy {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   schema_rev: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   id_policy: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   replay_scope: 本级
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: 44 (arm=0 ignite=0 hold=1 safe=1 redundant=0 debug=1)
+  //   phase_value: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   branch: 事件
+  //   band: [205, 1189]
+}
+
+message thermal_sample_2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_shadow {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_patch {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   schema_rev: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   id_policy: 空则生成
+  //   replay_scope: 本级
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: 39 (arm=1 ignite=1 hold=1 safe=0 redundant=0 debug=1)
+  //   phase_value: 0
+  //   branch: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   band: 本版本起变更, 详见 changelog/v4-to-v5.md
+}
+
+message thermal_sample_delta {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_delta {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_0 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_history {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_records {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_statuss {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_legacy2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_summary {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_tmp {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_records {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_bak {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_0 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_v3 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_snapshot {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_mirror {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_patches {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_enriched {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_records {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_0 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_records {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_summary {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_context {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_shadow {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_tmp {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_tmp {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_2 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_0 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_shadow {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_view {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 适配契约(v6):
+  //   route_code: 520
+  //   schema_rev: 1
+  //   id_policy: 严格必填
+  //   replay_scope: 本靶区
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: 8 (arm=0 ignite=0 hold=0 safe=1 redundant=0 debug=0)
+  //   phase_value: 2
+  //   branch: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   band: [406, 539]
+}
+
+message fts_status_history {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_bak {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_delta {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_2 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_0 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_summary {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_1 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solutions {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 适配契约(v6):
+  //   route_code: 522
+  //   schema_rev: 2
+  //   id_policy: 保留空值
+  //   replay_scope: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: v5 枚举重编号(旧值 8), 以重编号后为准
+  //   mode_flag: 14 (arm=0 ignite=1 hold=1 safe=1 redundant=0 debug=0)
+  //   phase_value: v5 枚举重编号(旧值 3), 以重编号后为准
+  //   phase_value: 6
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: 本版本起变更, 详见 changelog/v5-to-v6.md
+}
+
+message payload_frame_enriched {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_0 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_patch {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 适配契约(v6):
+  //   route_code: 825
+  //   schema_rev: 9
+  //   id_policy: 严格必填
+  //   replay_scope: 本级
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: 3 (arm=1 ignite=1 hold=0 safe=0 redundant=0 debug=0)
+  //   phase_value: v5 枚举重编号(旧值 5), 以重编号后为准
+  //   phase_value: 0
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: 单位自 v3 起变更, 见 changelog/v2-to-v3.md
+}
+
+message stage_state_history {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_raw {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_record {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_enriched {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_context {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_shadow {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_log {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_v2 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 适配契约(v6):
+  //   route_code: 756
+  //   schema_rev: 1
+  //   id_policy: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   replay_scope: 本级
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: 25 (arm=1 ignite=0 hold=0 safe=1 redundant=1 debug=0)
+  //   phase_value: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: 单位自 v3 起变更, 见 changelog/v2-to-v3.md
+}
+
+message thrust_reports {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 适配契约(v6):
+  //   route_code: 482
+  //   schema_rev: 8
+  //   id_policy: 空则生成
+  //   replay_scope: 本靶区
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: 47 (arm=1 ignite=1 hold=1 safe=1 redundant=0 debug=1)
+  //   phase_value: 1
+  //   branch: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   band: 单位自 v3 起变更, 见 changelog/v2-to-v3.md
+}
+
+message stage_state_raw {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_snapshot {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_bak {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_bak {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_statuses {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 适配契约(v6):
+  //   route_code: 856
+  //   schema_rev: 2
+  //   id_policy: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   replay_scope: 本级
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: 22 (arm=0 ignite=1 hold=1 safe=0 redundant=1 debug=0)
+  //   phase_value: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   branch: 遥测
+  //   band: [328, 549]
+}
+
+message thermal_sample_2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_log {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_tmp {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_views {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_history {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_mirror {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_mirror {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_summary {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_context {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 适配契约(v6):
+  //   route_code: 230
+  //   schema_rev: 5
+  //   id_policy: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   replay_scope: 不回放
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: 1 (arm=1 ignite=0 hold=0 safe=0 redundant=0 debug=0)
+  //   phase_value: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   branch: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   band: [191, 219]
+}
+
+message fts_status_0 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_log {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_records {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_records {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_context {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_raw {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_summary {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_raw {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_enriched {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_snapshot {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_record {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_legacy2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_0 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_ctx {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_v3 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_snapshot {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_patches {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_1 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_tmp {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_tmp {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_v3 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_history {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_records {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_legacy {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 适配契约(v6):
+  //   route_code: 224
+  //   schema_rev: 1
+  //   id_policy: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   replay_scope: 本级
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: 58 (arm=0 ignite=1 hold=0 safe=1 redundant=1 debug=1)
+  //   phase_value: 0
+  //   branch: 事件
+  //   band: 本版本起变更, 详见 changelog/v5-to-v6.md
+}
+
+message fts_status_1 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_legacy {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   schema_rev: 5
+  //   id_policy: 保留空值
+  //   replay_scope: 本靶区
+  //   stamp_required: false
+  //   ordinal_required: true
+  //   mode_flag: 52 (arm=0 ignite=0 hold=1 safe=0 redundant=1 debug=1)
+  //   phase_value: 2
+  //   branch: 配置
+  //   band: [466, 1209]
+}
+
+message thrust_report_summary {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_mirror {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_0 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_raw {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_tmp {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_record {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_summary {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_tmp {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_records {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_patches {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_legacy2 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_ctx {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_summary {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_patch {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 适配契约(v6):
+  //   route_code: 515
+  //   schema_rev: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   id_policy: 空则生成
+  //   replay_scope: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   stamp_required: false
+  //   ordinal_required: true
+  //   mode_flag: 59 (arm=1 ignite=1 hold=0 safe=1 redundant=1 debug=1)
+  //   phase_value: 0
+  //   branch: 指令
+  //   band: [135, 814]
+}
+
+message fts_status_snapshot {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_1 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_views {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_snapshot {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_v2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 适配契约(v6):
+  //   route_code: 591
+  //   schema_rev: 8
+  //   id_policy: 空则生成
+  //   replay_scope: 本箭
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: v5 枚举重编号(旧值 16), 以重编号后为准
+  //   mode_flag: 4 (arm=0 ignite=0 hold=1 safe=0 redundant=0 debug=0)
+  //   phase_value: 0
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: [186, 123]
+}
+
+message stage_state_views {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_v3 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_shadow {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_1 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_view {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 适配契约(v6):
+  //   route_code: 892
+  //   schema_rev: 5
+  //   id_policy: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   replay_scope: 本箭
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: v5 枚举重编号(旧值 8), 以重编号后为准
+  //   mode_flag: 54 (arm=0 ignite=1 hold=1 safe=0 redundant=1 debug=1)
+  //   phase_value: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: [181, 84]
+}
+
+message stage_state_ctx {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_legacy2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_2 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_tmp {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_records {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_bak {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_bak {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_v2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   schema_rev: 4
+  //   id_policy: 保留空值
+  //   replay_scope: 本箭
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: 31 (arm=1 ignite=1 hold=1 safe=1 redundant=1 debug=0)
+  //   phase_value: 1
+  //   branch: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   band: [300, 295]
+}
+
+message thrust_report_summary {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_2 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_records {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_v3 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_ctx {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_0 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_views {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_1 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_0 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_records {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_records {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_ctx {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_context {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_patches {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_history {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_summary {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_tmp {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_record {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_enriched {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_log {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_v3 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_patches {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_tmp {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_records {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_summary {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_views {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_ctx {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_mirror {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_ctx {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_patches {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_log {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_history {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_context {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_2 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_raw {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_legacy2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_summary {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_0 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_history {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_patches {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_1 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_bak {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_log {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_statuss {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_ctx {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_history {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_v3 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_delta {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_legacy {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 适配契约(v6):
+  //   route_code: 352
+  //   schema_rev: 8
+  //   id_policy: 空则生成
+  //   replay_scope: 不回放
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: 8 (arm=0 ignite=0 hold=0 safe=1 redundant=0 debug=0)
+  //   phase_value: v5 枚举重编号(旧值 1), 以重编号后为准
+  //   phase_value: 6
+  //   branch: 事件
+  //   band: [350, 545]
+}
+
+message thermal_sample_1 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_tmp {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_patches {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_record {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_records {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_summary {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_1 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_snapshot {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_bak {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_shadow {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_enriched {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_patch {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 适配契约(v6):
+  //   route_code: 459
+  //   schema_rev: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   id_policy: 空则生成
+  //   replay_scope: 本箭
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: v5 枚举重编号(旧值 35), 以重编号后为准
+  //   mode_flag: 17 (arm=1 ignite=0 hold=0 safe=0 redundant=1 debug=0)
+  //   phase_value: 0
+  //   branch: 遥测
+  //   band: [316, 463]
+}
+
+message thermal_sample_raw {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_1 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_mirror {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_0 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_ctx {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_log {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_patches {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_context {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frames {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   schema_rev: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   id_policy: 严格必填
+  //   replay_scope: 不回放
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: v5 枚举重编号(旧值 32), 以重编号后为准
+  //   mode_flag: 31 (arm=1 ignite=1 hold=1 safe=1 redundant=1 debug=0)
+  //   phase_value: 0
+  //   branch: 遥测
+  //   band: 单位自 v3 起变更, 见 changelog/v2-to-v3.md
+}
+
+message payload_frame_enriched {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_mirror {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_ctx {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_records {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_legacy2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_history {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_0 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_log {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_0 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_record {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_mirror {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_ctx {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_bak {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_tmp {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_legacy {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   schema_rev: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   id_policy: 保留空值
+  //   replay_scope: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   stamp_required: false
+  //   ordinal_required: true
+  //   mode_flag: 16 (arm=0 ignite=0 hold=0 safe=0 redundant=1 debug=0)
+  //   phase_value: v5 枚举重编号(旧值 0), 以重编号后为准
+  //   phase_value: 6
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: [414, 872]
+}
+
+message thrust_report_legacy2 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_context {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_patches {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_patches {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_ctx {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_delta {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_shadow {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_ctx {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_patches {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_patches {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_1 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_shadow {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_0 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_history {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_record {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_raw {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_mirror {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_records {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_log {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_v3 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_v2 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 适配契约(v6):
+  //   route_code: 821
+  //   schema_rev: 6
+  //   id_policy: 保留空值
+  //   replay_scope: 本级
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: 4 (arm=0 ignite=0 hold=1 safe=0 redundant=0 debug=0)
+  //   phase_value: 1
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: [116, 519]
+}
+
+message thermal_sample_delta {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_v3 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_record {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_summary {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_tmp {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_records {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_history {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_raw {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_mirror {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_v2 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 适配契约(v6):
+  //   route_code: 773
+  //   schema_rev: 7
+  //   id_policy: 保留空值
+  //   replay_scope: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: 57 (arm=1 ignite=0 hold=0 safe=1 redundant=1 debug=1)
+  //   phase_value: 1
+  //   branch: 事件
+  //   band: [27, 160]
+}
+
+message stage_state_views {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_legacy2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_bak {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_ctx {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_context {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_ctx {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_2 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_view {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 适配契约(v6):
+  //   route_code: 175
+  //   schema_rev: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   id_policy: 严格必填
+  //   replay_scope: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: 43 (arm=1 ignite=1 hold=0 safe=1 redundant=0 debug=1)
+  //   phase_value: 3
+  //   branch: 事件
+  //   band: [481, 1029]
+}
+
+message stage_state_enriched {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_ctx {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_v2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   schema_rev: 5
+  //   id_policy: 空则生成
+  //   replay_scope: 本靶区
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: 48 (arm=0 ignite=0 hold=0 safe=0 redundant=1 debug=1)
+  //   phase_value: 3
+  //   branch: 事件
+  //   band: [167, 454]
+}
+
+message stage_state_raw {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_0 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_record {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_record {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_log {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_legacy2 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_0 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_enriched {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_patches {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_log {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_tmp {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_tmp {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_2 {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_tmp {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_delta {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_record {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_legacy2 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_delta {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_view {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   schema_rev: 2
+  //   id_policy: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   replay_scope: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: 32 (arm=0 ignite=0 hold=0 safe=0 redundant=0 debug=1)
+  //   phase_value: v5 枚举重编号(旧值 1), 以重编号后为准
+  //   phase_value: 0
+  //   branch: 配置
+  //   band: [414, 339]
+}
+
+message nav_solution_0 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_patches {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_snapshot {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_v3 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_summary {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_mirror {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_v3 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_view {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 适配契约(v6):
+  //   route_code: 885
+  //   schema_rev: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   id_policy: 严格必填
+  //   replay_scope: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: 27 (arm=1 ignite=1 hold=0 safe=1 redundant=1 debug=0)
+  //   phase_value: 2
+  //   branch: 事件
+  //   band: [134, 409]
+}
+
+message thermal_sample_snapshot {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_legacy2 {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_snapshot {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_0 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_bak {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_records {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_context {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_legacy2 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_log {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_history {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_ctx {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_patches {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_ctx {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_view {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   schema_rev: 5
+  //   id_policy: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   replay_scope: 本级
+  //   stamp_required: true
+  //   ordinal_required: false
+  //   mode_flag: 53 (arm=1 ignite=0 hold=1 safe=0 redundant=1 debug=1)
+  //   phase_value: v5 枚举重编号(旧值 1), 以重编号后为准
+  //   phase_value: 5
+  //   branch: 事件
+  //   band: 单位自 v3 起变更, 见 changelog/v2-to-v3.md
+}
+
+message payload_frame_bak {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_patches {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_1 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_record {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_log {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_1 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_views {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_context {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution_context {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_delta {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_bak {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_shadow {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_shadow {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_records {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_2 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_0 {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_events {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 适配契约(v6):
+  //   route_code: 277
+  //   schema_rev: 1
+  //   id_policy: 空则生成
+  //   replay_scope: 本箭
+  //   stamp_required: true
+  //   ordinal_required: true
+  //   mode_flag: v5 枚举重编号(旧值 4), 以重编号后为准
+  //   mode_flag: 9 (arm=1 ignite=0 hold=0 safe=1 redundant=0 debug=0)
+  //   phase_value: v5 枚举重编号(旧值 0), 以重编号后为准
+  //   phase_value: 2
+  //   branch: 配置
+  //   band: [85, 931]
+}
+
+message thrust_report_context {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_snapshot {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_mirror {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_tmp {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_0 {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_bak {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_qualitys {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_legacy {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 适配契约(v6):
+  //   route_code: 122
+  //   schema_rev: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   id_policy: 空则生成
+  //   replay_scope: 本级
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: 38 (arm=0 ignite=1 hold=1 safe=0 redundant=0 debug=1)
+  //   phase_value: 1
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: 单位自 v3 起变更, 见 changelog/v2-to-v3.md
+}
+
+message thermal_sample_mirror {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message nav_solution {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+  // 适配契约(v6):
+  //   route_code: 342
+  //   schema_rev: 9
+  //   id_policy: 严格必填
+  //   replay_scope: 本级
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: v5 枚举重编号(旧值 55), 以重编号后为准
+  //   mode_flag: 59 (arm=1 ignite=1 hold=0 safe=1 redundant=1 debug=1)
+  //   phase_value: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   branch: 事件
+  //   band: 本版本起变更, 详见 changelog/v5-to-v6.md
+}
+
+message thermal_sample_patch {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 适配契约(v6):
+  //   route_code: 197
+  //   schema_rev: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   id_policy: 本版本起变更, 详见 changelog/v5-to-v6.md
+  //   replay_scope: 本箭
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: 6 (arm=0 ignite=1 hold=1 safe=0 redundant=0 debug=0)
+  //   phase_value: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   branch: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   band: 本版本起变更, 详见 changelog/v5-to-v6.md
+}
+
+message sep_event_ctx {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_mirror {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_v3 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_history {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thermal_sample_tmp {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_record {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_patches {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_ctx {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_shadow {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message payload_frame_views {
+  uint32 payload_id = 1;  // 载荷编号
+  uint32 frame_seq = 2;  // 帧序号
+  bytes raw = 3;  // 原始数据
+  bool valid = 4;  // 数据有效
+  double temperature_c = 5;  // 载荷温度
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_history {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message stage_state_log {
+  uint32 stage_no = 1;  // 级序号
+  uint32 stage_flag = 2;  // 级状态位
+  double burn_time_ms = 3;  // 已工作时间
+  double residual_propellant_kg = 4;  // 剩余推进剂
+  bool separated = 5;  // 是否已分离
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 适配契约(v6):
+  //   route_code: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   schema_rev: 6
+  //   id_policy: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   replay_scope: 本版本起变更, 详见 changelog/v4-to-v5.md
+  //   stamp_required: false
+  //   ordinal_required: false
+  //   mode_flag: v5 枚举重编号(旧值 55), 以重编号后为准
+  //   mode_flag: 9 (arm=1 ignite=0 hold=0 safe=1 redundant=0 debug=0)
+  //   phase_value: 5
+  //   branch: 指令
+  //   band: [98, 345]
+}
+
+message link_quality_1 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_enriched {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message fts_status_snapshot {
+  bool armed = 1;  // 安控解除保险
+  bool terminate_requested = 2;  // 终止请求
+  uint32 violation_mask = 3;  // 超限掩码
+  double margin = 4;  // 安全余量
+  bool link_alive = 5;  // 安控链路存活
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_summary {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message thrust_report_delta {
+  double actual_thrust_kn = 1;  // 实际推力
+  double chamber_pressure_mpa = 2;  // 燃烧室压强
+  uint32 engine_mask = 3;  // 发动机在位掩码
+  double isp_s = 4;  // 比冲
+  bool healthy = 5;  // 推进健康
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message sep_event_patches {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+
+message link_quality_views {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+  // 本结构为上下游业务上下文, 不参与实现绑定迁移。
+}
+

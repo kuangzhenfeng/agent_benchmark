@@ -1,0 +1,50 @@
+// machine-grade dump harness（主 agent 客观工具，不进 blind-package）
+// 遍历全部 48 个 Structure，dump rule_for 的 10 维真值 + 派生函数结果。
+// 输出每行: name|rc|sr|idp|rs|stamp|ord|mf|pv|br|bmin|bmax|accepts_nostamp|accepts_stamp|replayable|f0..f5|prank|within_lo|within_hi|within_mid
+#include "range_validator.hpp"
+#include <cstdio>
+#include <cstdint>
+
+static const char* kNames[] = {
+    "stage_state","stage_states","stage_state_view","stage_state_patch","stage_state_legacy","stage_state_v2",
+    "thrust_report","thrust_reports","thrust_report_view","thrust_report_patch","thrust_report_legacy","thrust_report_v2",
+    "nav_solution","nav_solutions","nav_solution_view","nav_solution_patch","nav_solution_legacy","nav_solution_v2",
+    "sep_event","sep_events","sep_event_view","sep_event_patch","sep_event_legacy","sep_event_v2",
+    "fts_status","fts_statuses","fts_status_view","fts_status_patch","fts_status_legacy","fts_status_v2",
+    "payload_frame","payload_frames","payload_frame_view","payload_frame_patch","payload_frame_legacy","payload_frame_v2",
+    "link_quality","link_qualities","link_quality_view","link_quality_patch","link_quality_legacy","link_quality_v2",
+    "thermal_sample","thermal_samples","thermal_sample_view","thermal_sample_patch","thermal_sample_legacy","thermal_sample_v2",
+};
+
+int main() {
+    for (int i = 0; i < 48; ++i) {
+        Structure s = static_cast<Structure>(i);
+        auto r = rule_for(s);
+        if (!r) { std::printf("%s|NONE\n", kNames[i]); continue; }
+        // accepts: strict 要求 stamp/ordinal，构造 incoming 测
+        Incoming in_stamp{"x", true, true, r->mode_flag, r->phase_value, r->band_min};
+        bool acc_stamp = accepts(s, in_stamp);
+        Incoming in_nostamp{"x", false, false, r->mode_flag, r->phase_value, r->band_min};
+        bool acc_nostamp = accepts(s, in_nostamp);
+        bool rep = replayable(s);
+        int f[6];
+        ModeBit bits[6] = {ModeBit::arm,ModeBit::ignite,ModeBit::hold,ModeBit::safe,ModeBit::redundant,ModeBit::debug};
+        for (int b=0;b<6;++b) f[b] = flag_active(s, bits[b]) ? 1 : 0;
+        int prank = phase_rank(s);
+        Branch br = branch_of(s);
+        bool wlo = within_band(s, r->band_min);
+        bool whi = within_band(s, r->band_max);
+        bool wmid = within_band(s, (r->band_min + r->band_max) / 2);
+        std::printf("%s|%u|%u|%d|%d|%d|%d|%u|%u|%d|%d|%d|%d|%d|%d|%d%d%d%d%d%d|%d|%d|%d|%d|%d\n",
+            kNames[i],
+            (unsigned)r->route_code, (unsigned)r->schema_rev,
+            (int)r->id_policy, (int)r->replay_scope,
+            r->stamp_required?1:0, r->ordinal_required?1:0,
+            (unsigned)r->mode_flag, (unsigned)r->phase_value,
+            (int)r->branch, r->band_min, r->band_max,
+            acc_nostamp?1:0, acc_stamp?1:0, rep?1:0,
+            f[0],f[1],f[2],f[3],f[4],f[5],
+            prank, (int)br, wlo?1:0, whi?1:0, wmid?1:0);
+    }
+    return 0;
+}

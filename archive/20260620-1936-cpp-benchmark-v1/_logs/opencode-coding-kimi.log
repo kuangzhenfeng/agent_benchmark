@@ -1,0 +1,2471 @@
+timestamp=2026-06-20T11:42:16.970Z level=INFO run=d64902a1 message="creating instance" directory=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi
+timestamp=2026-06-20T11:42:16.972Z level=INFO run=d64902a1 message=fromDirectory directory=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi
+timestamp=2026-06-20T11:42:17.080Z level=INFO run=d64902a1 message=bootstrapping directory=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi
+timestamp=2026-06-20T11:42:17.106Z level=INFO run=d64902a1 message=loading path=/home/steven/.config/opencode/config.json
+timestamp=2026-06-20T11:42:17.107Z level=INFO run=d64902a1 message=loading path=/home/steven/.config/opencode/opencode.json
+timestamp=2026-06-20T11:42:17.117Z level=INFO run=d64902a1 message=loading path=/home/steven/.config/opencode/opencode.jsonc
+timestamp=2026-06-20T11:42:17.231Z level=INFO run=d64902a1 message=loading path=/home/steven/.opencode/opencode.json
+timestamp=2026-06-20T11:42:17.233Z level=INFO run=d64902a1 message=loading path=/home/steven/.opencode/opencode.jsonc
+timestamp=2026-06-20T11:42:17.408Z level=INFO run=d64902a1 message="all LSPs are disabled"
+timestamp=2026-06-20T11:42:17.412Z level=INFO run=d64902a1 message="all formatters are disabled"
+timestamp=2026-06-20T11:42:17.413Z level=INFO run=d64902a1 message=init
+timestamp=2026-06-20T11:42:17.891Z level=INFO run=d64902a1 message=created id=ses_11b2946ddffeOut6MOvJFK7tDI slug=playful-squid version=1.17.8 projectID=42c8c4cb69cbd861e227d59594fd7d8eef1f0573 directory=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi path=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi workspaceID=undefined parentID=undefined title="New session - 2026-06-20T11:42:17.891Z" agent=undefined model=undefined metadata=undefined permission="[{\"permission\":\"question\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"plan_enter\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"plan_exit\",\"pattern\":\"*\",\"action\":\"deny\"}]" cost=0 tokens.input=0 tokens.output=0 tokens.reasoning=0 tokens.cache.read=0 tokens.cache.write=0 time.created=1781955737891 time.updated=1781955737891
+timestamp=2026-06-20T11:42:17.942Z level=INFO run=d64902a1 message="event connected"
+timestamp=2026-06-20T11:42:18.211Z level=INFO run=d64902a1 message="booting location services" directory=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi workspaceID=undefined
+timestamp=2026-06-20T11:42:18.543Z level=INFO run=d64902a1 message="watcher backend" directory=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi platform=linux backend=inotify
+timestamp=2026-06-20T11:42:21.111Z level=INFO run=d64902a1 message="project copy refresh started" projectID=42c8c4cb69cbd861e227d59594fd7d8eef1f0573
+timestamp=2026-06-20T11:42:21.236Z level=INFO run=d64902a1 message="project copy refresh done" projectID=42c8c4cb69cbd861e227d59594fd7d8eef1f0573 updated=[] removed=[]
+timestamp=2026-06-20T11:42:21.428Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=0
+[0m
+> build · coding-kimi
+[0m
+timestamp=2026-06-20T11:42:21.494Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=true agent=title mode=primary
+timestamp=2026-06-20T11:42:21.538Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:42:21.713Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:21.730Z level=INFO run=d64902a1 message="shell tool using shell" shell=/bin/zsh
+timestamp=2026-06-20T11:42:21.765Z level=WARN run=d64902a1 message="duplicate skill name" name=ask-matt existing=/home/steven/.claude/skills/ask-matt/SKILL.md duplicate=/home/steven/.agents/skills/ask-matt/SKILL.md
+timestamp=2026-06-20T11:42:21.768Z level=WARN run=d64902a1 message="duplicate skill name" name=grill-with-docs existing=/home/steven/.claude/skills/grill-with-docs/SKILL.md duplicate=/home/steven/.agents/skills/grill-with-docs/SKILL.md
+timestamp=2026-06-20T11:42:21.769Z level=WARN run=d64902a1 message="duplicate skill name" name=diagnose existing=/home/steven/.claude/skills/diagnose/SKILL.md duplicate=/home/steven/.agents/skills/diagnose/SKILL.md
+timestamp=2026-06-20T11:42:21.769Z level=WARN run=d64902a1 message="duplicate skill name" name=prototype existing=/home/steven/.claude/skills/prototype/SKILL.md duplicate=/home/steven/.agents/skills/prototype/SKILL.md
+timestamp=2026-06-20T11:42:21.769Z level=WARN run=d64902a1 message="duplicate skill name" name=handoff existing=/home/steven/.claude/skills/handoff/SKILL.md duplicate=/home/steven/.agents/skills/handoff/SKILL.md
+timestamp=2026-06-20T11:42:21.770Z level=WARN run=d64902a1 message="duplicate skill name" name=grill-me existing=/home/steven/.claude/skills/grill-me/SKILL.md duplicate=/home/steven/.agents/skills/grill-me/SKILL.md
+timestamp=2026-06-20T11:42:21.771Z level=WARN run=d64902a1 message="duplicate skill name" name=domain-modeling existing=/home/steven/.claude/skills/domain-modeling/SKILL.md duplicate=/home/steven/.agents/skills/domain-modeling/SKILL.md
+timestamp=2026-06-20T11:42:21.773Z level=WARN run=d64902a1 message="duplicate skill name" name=improve-codebase-architecture existing=/home/steven/.claude/skills/improve-codebase-architecture/SKILL.md duplicate=/home/steven/.agents/skills/improve-codebase-architecture/SKILL.md
+timestamp=2026-06-20T11:42:21.773Z level=WARN run=d64902a1 message="duplicate skill name" name=find-skills existing=/home/steven/.agents/skills/find-skills/SKILL.md duplicate=/home/steven/.claude/skills/find-skills/SKILL.md
+timestamp=2026-06-20T11:42:21.773Z level=WARN run=d64902a1 message="duplicate skill name" name=setup-matt-pocock-skills existing=/home/steven/.claude/skills/setup-matt-pocock-skills/SKILL.md duplicate=/home/steven/.agents/skills/setup-matt-pocock-skills/SKILL.md
+timestamp=2026-06-20T11:42:21.774Z level=WARN run=d64902a1 message="duplicate skill name" name=caveman existing=/home/steven/.claude/skills/caveman/SKILL.md duplicate=/home/steven/.agents/skills/caveman/SKILL.md
+timestamp=2026-06-20T11:42:21.774Z level=WARN run=d64902a1 message="duplicate skill name" name=writing-great-skills existing=/home/steven/.claude/skills/writing-great-skills/SKILL.md duplicate=/home/steven/.agents/skills/writing-great-skills/SKILL.md
+timestamp=2026-06-20T11:42:21.774Z level=WARN run=d64902a1 message="duplicate skill name" name=tdd existing=/home/steven/.claude/skills/tdd/SKILL.md duplicate=/home/steven/.agents/skills/tdd/SKILL.md
+timestamp=2026-06-20T11:42:21.774Z level=WARN run=d64902a1 message="duplicate skill name" name=diagnosing-bugs existing=/home/steven/.claude/skills/diagnosing-bugs/SKILL.md duplicate=/home/steven/.agents/skills/diagnosing-bugs/SKILL.md
+timestamp=2026-06-20T11:42:21.775Z level=WARN run=d64902a1 message="duplicate skill name" name=to-issues existing=/home/steven/.claude/skills/to-issues/SKILL.md duplicate=/home/steven/.agents/skills/to-issues/SKILL.md
+timestamp=2026-06-20T11:42:21.775Z level=WARN run=d64902a1 message="duplicate skill name" name=grilling existing=/home/steven/.claude/skills/grilling/SKILL.md duplicate=/home/steven/.agents/skills/grilling/SKILL.md
+timestamp=2026-06-20T11:42:21.775Z level=WARN run=d64902a1 message="duplicate skill name" name=zoom-out existing=/home/steven/.claude/skills/zoom-out/SKILL.md duplicate=/home/steven/.agents/skills/zoom-out/SKILL.md
+timestamp=2026-06-20T11:42:21.775Z level=WARN run=d64902a1 message="duplicate skill name" name=to-prd existing=/home/steven/.claude/skills/to-prd/SKILL.md duplicate=/home/steven/.agents/skills/to-prd/SKILL.md
+timestamp=2026-06-20T11:42:21.775Z level=WARN run=d64902a1 message="duplicate skill name" name=teach existing=/home/steven/.claude/skills/teach/SKILL.md duplicate=/home/steven/.agents/skills/teach/SKILL.md
+timestamp=2026-06-20T11:42:21.775Z level=WARN run=d64902a1 message="duplicate skill name" name=triage existing=/home/steven/.claude/skills/triage/SKILL.md duplicate=/home/steven/.agents/skills/triage/SKILL.md
+timestamp=2026-06-20T11:42:21.775Z level=WARN run=d64902a1 message="duplicate skill name" name=codebase-design existing=/home/steven/.claude/skills/codebase-design/SKILL.md duplicate=/home/steven/.agents/skills/codebase-design/SKILL.md
+timestamp=2026-06-20T11:42:21.776Z level=WARN run=d64902a1 message="duplicate skill name" name=create-skill existing=/home/steven/app/agent_benchmark/.claude/skills/create-skill/SKILL.md duplicate=/home/steven/app/agent_benchmark/.agents/skills/create-skill/SKILL.md
+timestamp=2026-06-20T11:42:21.776Z level=WARN run=d64902a1 message="duplicate skill name" name=agent-benchmark existing=/home/steven/app/agent_benchmark/.claude/skills/agent-benchmark/SKILL.md duplicate=/home/steven/app/agent_benchmark/.agents/skills/agent-benchmark/SKILL.md
+timestamp=2026-06-20T11:42:21.777Z level=INFO run=d64902a1 message=init count=26
+timestamp=2026-06-20T11:42:21.864Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d6c6fe001Lie54s45ZGA698
+timestamp=2026-06-20T11:42:21.866Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:42:21.894Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:42:24.467Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi action.permission=read action.pattern=* action.action=allow
+[0m→ [0mRead .
+timestamp=2026-06-20T11:42:25.471Z level=INFO run=d64902a1 message=evaluated permission=glob pattern=**/* action.permission=* action.action=allow action.pattern=*
+[0m✱ [0mGlob "**/*"[90m in . · 23 matches[0m
+好的，我来开始答题。首先让我了解一下当前目录的结构和题目内容。
+timestamp=2026-06-20T11:42:25.597Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:25.639Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=1
+timestamp=2026-06-20T11:42:25.676Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:25.708Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d6d769001t7fjk6vnQAS06v
+timestamp=2026-06-20T11:42:25.708Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:42:25.712Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:42:27.436Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/QUESTION.md action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:27.476Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/QUESTION.md
+[0m→ [0mRead q01-subscription-hub/QUESTION.md
+timestamp=2026-06-20T11:42:28.502Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/QUESTION.md action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:28.512Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/QUESTION.md
+[0m→ [0mRead q02-coalescing-cache/QUESTION.md
+timestamp=2026-06-20T11:42:29.516Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/QUESTION.md action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:29.551Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/QUESTION.md
+[0m→ [0mRead q03-routing-config/QUESTION.md
+timestamp=2026-06-20T11:42:29.635Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:29.676Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=2
+timestamp=2026-06-20T11:42:29.721Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:29.741Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d6e72e001nnX5hN6qEBwHKc
+timestamp=2026-06-20T11:42:29.742Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:42:29.760Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:42:32.004Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/include/subscription_hub.hpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:32.100Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/include/subscription_hub.hpp
+[0m→ [0mRead q01-subscription-hub/include/subscription_hub.hpp
+timestamp=2026-06-20T11:42:33.126Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:33.205Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp
+[0m→ [0mRead q01-subscription-hub/src/subscription_hub.cpp
+timestamp=2026-06-20T11:42:34.266Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/tests/public_checks.cpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:34.736Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/tests/public_checks.cpp
+[0m→ [0mRead q01-subscription-hub/tests/public_checks.cpp
+timestamp=2026-06-20T11:42:35.404Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/tests/callable_lifetime_checks.cpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:35.907Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/tests/callable_lifetime_checks.cpp
+[0m→ [0mRead q01-subscription-hub/tests/callable_lifetime_checks.cpp
+timestamp=2026-06-20T11:42:36.508Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/run_public_checks.sh action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:36.603Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/run_public_checks.sh
+[0m→ [0mRead q01-subscription-hub/run_public_checks.sh
+我来逐一读取所有题目文件，了解需要修复的内容。
+timestamp=2026-06-20T11:42:37.093Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:37.476Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=3
+timestamp=2026-06-20T11:42:37.922Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:38.140Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d705b2001ofn5Pc6ydYHnL6
+timestamp=2026-06-20T11:42:38.146Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:42:38.219Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:42:40.386Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/include/coalescing_cache.hpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:40.948Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/include/coalescing_cache.hpp
+[0m→ [0mRead q02-coalescing-cache/include/coalescing_cache.hpp
+timestamp=2026-06-20T11:42:41.397Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:41.540Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp
+[0m→ [0mRead q02-coalescing-cache/src/coalescing_cache.cpp
+timestamp=2026-06-20T11:42:42.456Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/tests/public_checks.cpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:42.813Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/tests/public_checks.cpp
+[0m→ [0mRead q02-coalescing-cache/tests/public_checks.cpp
+timestamp=2026-06-20T11:42:43.612Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/tests/clock_reentrancy_checks.cpp action.permission=read action.pattern=* action.action=allow
+[0m→ [0mRead q02-coalescing-cache/tests/clock_reentrancy_checks.cpp
+timestamp=2026-06-20T11:42:43.787Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/tests/clock_reentrancy_checks.cpp
+timestamp=2026-06-20T11:42:44.677Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/run_public_checks.sh action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:44.894Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/run_public_checks.sh
+[0m→ [0mRead q02-coalescing-cache/run_public_checks.sh
+timestamp=2026-06-20T11:42:45.233Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:45.577Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=4
+timestamp=2026-06-20T11:42:46.026Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:46.297Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d72557001PKNe8q4Cssa9iR
+timestamp=2026-06-20T11:42:46.305Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:42:46.383Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:42:48.396Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:48.523Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp
+[0m→ [0mRead q03-routing-config/include/routing_config.hpp
+timestamp=2026-06-20T11:42:49.429Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:49.462Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp
+[0m→ [0mRead q03-routing-config/src/routing_config.cpp
+timestamp=2026-06-20T11:42:50.532Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/tests/public_checks.cpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:50.719Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/tests/public_checks.cpp
+[0m→ [0mRead q03-routing-config/tests/public_checks.cpp
+timestamp=2026-06-20T11:42:51.706Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/tests/cross_instance_current_checks.cpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:52.091Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/tests/cross_instance_current_checks.cpp
+[0m→ [0mRead q03-routing-config/tests/cross_instance_current_checks.cpp
+timestamp=2026-06-20T11:42:52.942Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/tests/observer_copy_reentrancy_checks.cpp action.permission=read action.pattern=* action.action=allow
+[0m→ [0mRead q03-routing-config/tests/observer_copy_reentrancy_checks.cpp
+timestamp=2026-06-20T11:42:53.020Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/tests/observer_copy_reentrancy_checks.cpp
+timestamp=2026-06-20T11:42:53.988Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/run_public_checks.sh action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:42:54.103Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/run_public_checks.sh
+[0m→ [0mRead q03-routing-config/run_public_checks.sh
+timestamp=2026-06-20T11:42:54.339Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:54.642Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=5
+timestamp=2026-06-20T11:42:54.895Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:55.094Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d748c0001P1ozFm49ag65KN
+timestamp=2026-06-20T11:42:55.101Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:42:55.139Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:42:58.297Z level=INFO run=d64902a1 message=evaluated permission=todowrite pattern=* action.permission=* action.action=allow action.pattern=*
+[0m
+[0m# [0mTodos
+[•] Q1: 修复 SubscriptionHub 组合缺陷
+[ ] Q2: 实现 CoalescingCache
+[ ] Q3: 重构 RoutingConfig 安全发布
+[ ] 运行所有公开检查并验证
+[0m
+timestamp=2026-06-20T11:42:58.457Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:58.693Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=6
+timestamp=2026-06-20T11:42:58.853Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:42:58.984Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d7588c0016OHvze5vq3Rsmt
+timestamp=2026-06-20T11:42:58.987Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:42:59.012Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:43:09.500Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/include/subscription_hub.hpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:43:09.533Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/include/subscription_hub.hpp
+timestamp=2026-06-20T11:43:09.536Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/include/subscription_hub.hpp
+[0m← [0mWrite q01-subscription-hub/include/subscription_hub.hpp
+Wrote file successfully.
+[0m
+我来同时处理三道题。首先实现Q1的SubscriptionHub修复。
+timestamp=2026-06-20T11:43:09.917Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:43:10.138Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=7
+timestamp=2026-06-20T11:43:10.458Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:43:10.494Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d78543001LjnCs1htvmd8r7
+timestamp=2026-06-20T11:43:10.501Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:43:10.550Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:43:17.674Z level=INFO run=d64902a1 message=cleanup prune=7.days
+timestamp=2026-06-20T11:43:32.258Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:43:32.282Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp
+timestamp=2026-06-20T11:43:32.284Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp
+[0m← [0mWrite q01-subscription-hub/src/subscription_hub.cpp
+Wrote file successfully.
+[0m
+timestamp=2026-06-20T11:43:32.572Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:43:32.724Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=8
+timestamp=2026-06-20T11:43:33.096Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:43:33.328Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d7dd87001GOLtb9g8lrrBpv
+timestamp=2026-06-20T11:43:33.334Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:43:33.348Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:43:45.218Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/include/subscription_hub.hpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:43:45.232Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/include/subscription_hub.hpp
+timestamp=2026-06-20T11:43:45.233Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/include/subscription_hub.hpp
+[0m← [0mWrite q01-subscription-hub/include/subscription_hub.hpp
+Wrote file successfully.
+[0m
+我重新仔细分析了Q1的需求，发现之前的实现有很多问题。让我重写一个正确的版本。
+timestamp=2026-06-20T11:43:45.437Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:43:45.566Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=9
+timestamp=2026-06-20T11:43:45.740Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:43:45.911Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d80fa5001RQ7kpKCNhGM4uG
+timestamp=2026-06-20T11:43:45.913Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:43:45.950Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:44:08.279Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:44:08.283Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp
+timestamp=2026-06-20T11:44:08.287Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp
+[0m← [0mWrite q01-subscription-hub/src/subscription_hub.cpp
+Wrote file successfully.
+[0m
+timestamp=2026-06-20T11:44:08.804Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:44:09.107Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=10
+timestamp=2026-06-20T11:44:09.454Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:44:09.662Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d86b9e001xiwfZKYwOKuxGm
+timestamp=2026-06-20T11:44:09.669Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:44:09.688Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:44:12.786Z level=INFO run=d64902a1 message="resolved path" arg=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub
+timestamp=2026-06-20T11:44:12.790Z level=INFO run=d64902a1 message=evaluated permission=bash pattern="bash run_public_checks.sh" action.permission=* action.action=allow action.pattern=*
+[0m$ [0mcd /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub && bash run_public_checks.sh
+Running public_checks.cpp
+/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp: In member function ‘SubscriptionHub::DispatchStats SubscriptionHub::drain(uint32_t)’:
+/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp:45:21: error: cannot convert ‘std::deque<SubscriptionHub::QueuedEvent>’ to ‘std::vector<SubscriptionHub::QueuedEvent>&’
+   45 |         events.swap(pending_);
+      |                     ^~~~~~~~
+      |                     |
+      |                     std::deque<SubscriptionHub::QueuedEvent>
+In file included from /usr/include/c++/9/vector:67,
+                 from /usr/include/c++/9/functional:62,
+                 from /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/include/subscription_hub.hpp:6,
+                 from /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp:1:
+/usr/include/c++/9/bits/stl_vector.h:1477:20: note:   initializing argument 1 of ‘void std::vector<_Tp, _Alloc>::swap(std::vector<_Tp, _Alloc>&) [with _Tp = SubscriptionHub::QueuedEvent; _Alloc = std::allocator<SubscriptionHub::QueuedEvent>]’
+ 1477 |       swap(vector& __x) _GLIBCXX_NOEXCEPT
+      |            ~~~~~~~~^~~
+[0m
+timestamp=2026-06-20T11:44:16.471Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:44:16.720Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=11
+timestamp=2026-06-20T11:44:17.044Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:44:17.079Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d8895a001IHipuRphxdEV9G
+timestamp=2026-06-20T11:44:17.084Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:44:17.095Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:44:22.934Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:44:22.950Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp
+timestamp=2026-06-20T11:44:22.969Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp
+[0m← [0mEdit q01-subscription-hub/src/subscription_hub.cpp
+Index: /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp
+===================================================================
+--- /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp
++++ /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/src/subscription_hub.cpp
+@@ -37,9 +37,9 @@
+ }
+ 
+ SubscriptionHub::DispatchStats SubscriptionHub::drain(std::uint32_t now_tick) {
+     // 1. 在锁内截取当前批次的事件和订阅者快照
+-    std::vector<QueuedEvent> events;
++    std::deque<QueuedEvent> events;
+     std::vector<Subscription> subscriptions;
+     {
+         std::lock_guard<std::mutex> lock(mutex_);
+         events.swap(pending_);
+
+[0m
+timestamp=2026-06-20T11:44:23.188Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:44:23.443Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=12
+timestamp=2026-06-20T11:44:24.039Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:44:24.270Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d8a3a3001hsYG4vknkRnF2U
+timestamp=2026-06-20T11:44:24.276Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:44:24.328Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:44:26.703Z level=INFO run=d64902a1 message="resolved path" arg=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub
+timestamp=2026-06-20T11:44:26.706Z level=INFO run=d64902a1 message=evaluated permission=bash pattern="bash run_public_checks.sh" action.permission=* action.action=allow action.pattern=*
+[0m$ [0mcd /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub && bash run_public_checks.sh
+Running public_checks.cpp
+Running callable_lifetime_checks.cpp
+[0m
+timestamp=2026-06-20T11:44:39.975Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:44:40.376Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=13
+timestamp=2026-06-20T11:44:40.834Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:44:40.864Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d8e5cc001xyX6l0qBGRaBRt
+timestamp=2026-06-20T11:44:40.867Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:44:40.884Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:45:17.951Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:45:17.954Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp
+timestamp=2026-06-20T11:45:17.956Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp
+[0m← [0mWrite q02-coalescing-cache/src/coalescing_cache.cpp
+Wrote file successfully.
+[0m
+Q1通过了公开检查。现在继续实现Q2。
+timestamp=2026-06-20T11:45:18.461Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:45:18.834Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=14
+timestamp=2026-06-20T11:45:19.268Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:45:19.551Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d97c13001KZLxs1DC425f9v
+timestamp=2026-06-20T11:45:19.559Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:45:19.602Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:45:22.148Z level=INFO run=d64902a1 message="resolved path" arg=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache
+timestamp=2026-06-20T11:45:22.151Z level=INFO run=d64902a1 message=evaluated permission=bash pattern="bash run_public_checks.sh" action.permission=* action.action=allow action.pattern=*
+[0m$ [0mcd /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache && bash run_public_checks.sh
+Running public_checks.cpp
+/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp: In member function ‘LoadResult CoalescingCache::get_or_load(const string&, uint64_t, const Loader&)’:
+/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp:137:21: error: ‘CacheEntry’ was not declared in this scope
+  137 |                     CacheEntry{key, result.value, current_time + ttl});
+      |                     ^~~~~~~~~~
+/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp:135:31: warning: unused variable ‘current_time’ [-Wunused-variable]
+  135 |                 std::uint64_t current_time = state_->now();
+      |                               ^~~~~~~~~~~~
+[0m
+timestamp=2026-06-20T11:45:26.356Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:45:26.503Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=15
+timestamp=2026-06-20T11:45:26.713Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:45:26.844Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d999f1001ERTG8AvXpLKKDh
+timestamp=2026-06-20T11:45:26.848Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:45:26.911Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:45:28.985Z level=INFO run=d64902a1 message=evaluated permission=read pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp action.permission=read action.pattern=* action.action=allow
+timestamp=2026-06-20T11:45:29.064Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp
+[0m→ [0mRead q02-coalescing-cache/src/coalescing_cache.cpp
+timestamp=2026-06-20T11:45:29.196Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:45:29.392Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=16
+timestamp=2026-06-20T11:45:29.632Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:45:29.861Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d9a537001p1nqF4eIwghJhd
+timestamp=2026-06-20T11:45:29.862Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:45:29.873Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:45:33.422Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:45:33.424Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp
+timestamp=2026-06-20T11:45:33.440Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp
+[0m
+[0m← [0mEdit q02-coalescing-cache/src/coalescing_cache.cpp
+Index: /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp
+===================================================================
+--- /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp
++++ /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/src/coalescing_cache.cpp
+@@ -133,9 +133,9 @@
+ }
+ 
+ std::uint64_t current_time = state_->now();
+ state_->lru_list.push_front(
+-    CacheEntry{key, result.value, current_time + ttl});
++    typename State::CacheEntry{key, result.value, current_time + ttl});
+ state_->lru_map[key] = state_->lru_list.begin();
+ 
+ // LRU 淘汰
+ while (state_->lru_list.size() > state_->capacity) {
+
+[0m
+timestamp=2026-06-20T11:45:33.583Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:45:33.840Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=17
+timestamp=2026-06-20T11:45:34.047Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:45:34.223Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d9b69b0017H28Le40QTd0TN
+timestamp=2026-06-20T11:45:34.226Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:45:34.261Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:45:36.682Z level=INFO run=d64902a1 message="resolved path" arg=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache
+timestamp=2026-06-20T11:45:36.686Z level=INFO run=d64902a1 message=evaluated permission=bash pattern="bash run_public_checks.sh" action.permission=* action.action=allow action.pattern=*
+[0m$ [0mcd /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache && bash run_public_checks.sh
+Running public_checks.cpp
+Running clock_reentrancy_checks.cpp
+[0m
+timestamp=2026-06-20T11:45:52.171Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:45:52.461Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=18
+timestamp=2026-06-20T11:45:52.769Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:45:53.016Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4d9ff5b001BSv2AJALMuHIRz
+timestamp=2026-06-20T11:45:53.019Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:45:53.061Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:46:02.838Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:46:02.896Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp
+timestamp=2026-06-20T11:46:02.902Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp
+[0m← [0mWrite q03-routing-config/include/routing_config.hpp
+Wrote file successfully.
+[0m
+Q2也通过了。现在处理Q3。
+timestamp=2026-06-20T11:46:03.186Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:46:03.373Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=19
+timestamp=2026-06-20T11:46:03.566Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:46:03.744Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4da29fb0013dlJIeOEcWEqfd
+timestamp=2026-06-20T11:46:03.753Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:46:03.802Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:46:21.138Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:46:21.141Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp
+timestamp=2026-06-20T11:46:21.144Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp
+[0m← [0mWrite q03-routing-config/src/routing_config.cpp
+Wrote file successfully.
+[0m
+timestamp=2026-06-20T11:46:21.449Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:46:21.537Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=20
+timestamp=2026-06-20T11:46:21.724Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:46:21.924Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4da70ed001vIaay8qW2tGCe7
+timestamp=2026-06-20T11:46:21.928Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:46:21.965Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:46:24.408Z level=INFO run=d64902a1 message="resolved path" arg=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config
+timestamp=2026-06-20T11:46:24.411Z level=INFO run=d64902a1 message=evaluated permission=bash pattern="bash run_public_checks.sh" action.permission=* action.action=allow action.pattern=*
+[0m$ [0mcd /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config && bash run_public_checks.sh
+Running public_checks.cpp
+Running cross_instance_current_checks.cpp with AddressSanitizer
+=================================================================
+==1144834==ERROR: AddressSanitizer: heap-use-after-free on address 0x604000000020 at pc 0x5d518d8a7ae7 bp 0x7ffc07699df0 sp 0x7ffc07699de0
+READ of size 8 at 0x604000000020 thread T0
+    #0 0x5d518d8a7ae6 in main (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xfae6)
+    #1 0x76be0fec3082 in __libc_start_main ../csu/libc-start.c:308
+    #2 0x5d518d89b82d in _start (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0x382d)
+
+0x604000000020 is located 16 bytes inside of 48-byte region [0x604000000010,0x604000000040)
+freed by thread T0 here:
+    #0 0x76be1051051f in operator delete(void*) ../../../../src/libsanitizer/asan/asan_new_delete.cc:165
+    #1 0x5d518d8a5fed in __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> >::deallocate(std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2>*, unsigned long) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xdfed)
+    #2 0x5d518d8a5c5a in std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> > >::deallocate(std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> >&, std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2>*, unsigned long) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xdc5a)
+    #3 0x5d518d8a5513 in std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> > >::~__allocated_ptr() (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xd513)
+    #4 0x5d518d8a707e in std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2>::_M_destroy() (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xf07e)
+    #5 0x5d518d89f01b in std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release() (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0x701b)
+    #6 0x5d518d89dd0f in std::__shared_count<(__gnu_cxx::_Lock_policy)2>::~__shared_count() (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0x5d0f)
+    #7 0x5d518d89d715 in std::__shared_ptr<Config const, (__gnu_cxx::_Lock_policy)2>::~__shared_ptr() (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0x5715)
+    #8 0x5d518d89d735 in std::shared_ptr<Config const>::~shared_ptr() (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0x5735)
+    #9 0x5d518d89c553 in RoutingConfig::reload(Config) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0x4553)
+    #10 0x5d518d8a79c8 in main (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xf9c8)
+    #11 0x76be0fec3082 in __libc_start_main ../csu/libc-start.c:308
+
+previously allocated by thread T0 here:
+    #0 0x76be1050f587 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cc:104
+    #1 0x5d518d8a5fb3 in __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xdfb3)
+    #2 0x5d518d8a5ba8 in std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xdba8)
+    #3 0x5d518d8a5475 in std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> >&) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xd475)
+    #4 0x5d518d8a4cd3 in std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<Config const, std::allocator<Config>, Config>(Config const*&, std::_Sp_alloc_shared_tag<std::allocator<Config> >, Config&&) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xccd3)
+    #5 0x5d518d8a320b in std::__shared_ptr<Config const, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<Config>, Config>(std::_Sp_alloc_shared_tag<std::allocator<Config> >, Config&&) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xb20b)
+    #6 0x5d518d8a0a06 in std::shared_ptr<Config const>::shared_ptr<std::allocator<Config>, Config>(std::_Sp_alloc_shared_tag<std::allocator<Config> >, Config&&) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0x8a06)
+    #7 0x5d518d89ef12 in std::shared_ptr<Config const> std::allocate_shared<Config const, std::allocator<Config>, Config>(std::allocator<Config> const&, Config&&) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0x6f12)
+    #8 0x5d518d89dc37 in std::shared_ptr<Config const> std::make_shared<Config const, Config>(Config&&) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0x5c37)
+    #9 0x5d518d89b980 in RoutingConfig::RoutingConfig(Config) (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0x3980)
+    #10 0x5d518d8a7437 in main (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xf437)
+    #11 0x76be0fec3082 in __libc_start_main ../csu/libc-start.c:308
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/tmp/routing-config-cross_instance_current_checks.cpp-1144394+0xfae6) in main
+Shadow bytes around the buggy address:
+  0x0c087fff7fb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c087fff7fc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c087fff7fd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c087fff7fe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c087fff7ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0c087fff8000: fa fa fd fd[fd]fd fd fd fa fa 00 00 00 00 00 00
+  0x0c087fff8010: fa fa 00 00 00 00 00 00 fa fa fa fa fa fa fa fa
+  0x0c087fff8020: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c087fff8030: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c087fff8040: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c087fff8050: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==1144834==ABORTING
+[0m
+timestamp=2026-06-20T11:46:31.469Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:46:31.728Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=21
+timestamp=2026-06-20T11:46:31.983Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:46:32.087Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4da98ba0012J6U9GALbtHiv4
+timestamp=2026-06-20T11:46:32.102Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:46:32.150Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:46:52.512Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:46:52.551Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp
+timestamp=2026-06-20T11:46:52.554Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp
+[0m← [0mWrite q03-routing-config/src/routing_config.cpp
+Wrote file successfully.
+[0m
+Q3的`current()`返回引用在reload后会悬空。我需要使用TLS来保持引用有效。
+timestamp=2026-06-20T11:46:52.747Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:46:52.948Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=22
+timestamp=2026-06-20T11:46:53.064Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:46:53.247Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4daeb9d001YhU1G6qUjros82
+timestamp=2026-06-20T11:46:53.251Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:46:53.301Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:46:55.639Z level=INFO run=d64902a1 message="resolved path" arg=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config
+timestamp=2026-06-20T11:46:55.642Z level=INFO run=d64902a1 message=evaluated permission=bash pattern="bash run_public_checks.sh" action.permission=* action.action=allow action.pattern=*
+[0m$ [0mcd /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config && bash run_public_checks.sh
+...output truncated...
+
+Full output saved to: /home/steven/.local/share/opencode/tool-output/tool_ee4db144e001WWcrOv4WHAwMv1
+
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+AddressSanitizer:DEADLYSIGNAL
+[0m
+timestamp=2026-06-20T11:47:08.460Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:47:08.674Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=23
+timestamp=2026-06-20T11:47:08.982Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:47:09.089Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4db2911001ZaZ1mm0H3CqASd
+timestamp=2026-06-20T11:47:09.094Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:47:09.155Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:47:20.334Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:47:20.369Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp
+timestamp=2026-06-20T11:47:20.371Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp
+[0m← [0mWrite q03-routing-config/include/routing_config.hpp
+Wrote file successfully.
+[0m
+Q3的TLS方案有死锁问题。我需要重新设计，使用每个实例的TLS pin槽。
+timestamp=2026-06-20T11:47:20.631Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:47:20.865Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=24
+timestamp=2026-06-20T11:47:21.093Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:47:21.321Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4db58aa001cssKHqizA4We72
+timestamp=2026-06-20T11:47:21.327Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:47:21.386Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:47:40.345Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:47:40.388Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp
+timestamp=2026-06-20T11:47:40.403Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp
+[0m← [0mWrite q03-routing-config/src/routing_config.cpp
+Wrote file successfully.
+[0m
+timestamp=2026-06-20T11:47:40.775Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:47:41.071Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=25
+timestamp=2026-06-20T11:47:41.364Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:47:41.508Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4dba7a8001igO2crXgN5y6Cg
+timestamp=2026-06-20T11:47:41.513Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:47:41.536Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:47:44.085Z level=INFO run=d64902a1 message="resolved path" arg=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config
+timestamp=2026-06-20T11:47:44.086Z level=INFO run=d64902a1 message=evaluated permission=bash pattern="bash run_public_checks.sh" action.permission=* action.action=allow action.pattern=*
+[0m$ [0mcd /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config && bash run_public_checks.sh
+Running public_checks.cpp
+Running cross_instance_current_checks.cpp with AddressSanitizer
+=================================================================
+==1149406==ERROR: AddressSanitizer: heap-use-after-free on address 0x604000000020 at pc 0x64ecc933fdf6 bp 0x7ffdc456ce80 sp 0x7ffdc456ce70
+READ of size 8 at 0x604000000020 thread T0
+    #0 0x64ecc933fdf5 in main (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x10df5)
+    #1 0x75fe56701082 in __libc_start_main ../csu/libc-start.c:308
+    #2 0x64ecc933286d in _start (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x386d)
+
+0x604000000020 is located 16 bytes inside of 48-byte region [0x604000000010,0x604000000040)
+freed by thread T0 here:
+    #0 0x75fe56d1051f in operator delete(void*) ../../../../src/libsanitizer/asan/asan_new_delete.cc:165
+    #1 0x64ecc933debb in __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> >::deallocate(std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2>*, unsigned long) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0xeebb)
+    #2 0x64ecc933d990 in std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> > >::deallocate(std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> >&, std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2>*, unsigned long) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0xe990)
+    #3 0x64ecc933ce79 in std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> > >::~__allocated_ptr() (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0xde79)
+    #4 0x64ecc933f306 in std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2>::_M_destroy() (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x10306)
+    #5 0x64ecc93362d1 in std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release() (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x72d1)
+    #6 0x64ecc93351ea in std::__shared_count<(__gnu_cxx::_Lock_policy)2>::operator=(std::__shared_count<(__gnu_cxx::_Lock_policy)2> const&) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x61ea)
+    #7 0x64ecc9334a88 in std::__shared_ptr<Config const, (__gnu_cxx::_Lock_policy)2>::operator=(std::__shared_ptr<Config const, (__gnu_cxx::_Lock_policy)2> const&) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x5a88)
+    #8 0x64ecc9334ab6 in std::shared_ptr<Config const>::operator=(std::shared_ptr<Config const> const&) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x5ab6)
+    #9 0x64ecc9333355 in RoutingConfig::reload(Config) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x4355)
+    #10 0x64ecc933fcd7 in main (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x10cd7)
+    #11 0x75fe56701082 in __libc_start_main ../csu/libc-start.c:308
+
+previously allocated by thread T0 here:
+    #0 0x75fe56d0f587 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cc:104
+    #1 0x64ecc933de81 in __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0xee81)
+    #2 0x64ecc933d8de in std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0xe8de)
+    #3 0x64ecc933cddb in std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<Config const, std::allocator<Config>, (__gnu_cxx::_Lock_policy)2> >&) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0xdddb)
+    #4 0x64ecc933c31f in std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<Config const, std::allocator<Config>, Config>(Config const*&, std::_Sp_alloc_shared_tag<std::allocator<Config> >, Config&&) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0xd31f)
+    #5 0x64ecc933a769 in std::__shared_ptr<Config const, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<Config>, Config>(std::_Sp_alloc_shared_tag<std::allocator<Config> >, Config&&) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0xb769)
+    #6 0x64ecc9337e3c in std::shared_ptr<Config const>::shared_ptr<std::allocator<Config>, Config>(std::_Sp_alloc_shared_tag<std::allocator<Config> >, Config&&) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x8e3c)
+    #7 0x64ecc9336360 in std::shared_ptr<Config const> std::allocate_shared<Config const, std::allocator<Config>, Config>(std::allocator<Config> const&, Config&&) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x7360)
+    #8 0x64ecc9334e14 in std::shared_ptr<Config const> std::make_shared<Config const, Config>(Config&&) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x5e14)
+    #9 0x64ecc93329c1 in RoutingConfig::RoutingConfig(Config) (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x39c1)
+    #10 0x64ecc933f745 in main (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x10745)
+    #11 0x75fe56701082 in __libc_start_main ../csu/libc-start.c:308
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/tmp/routing-config-cross_instance_current_checks.cpp-1148968+0x10df5) in main
+Shadow bytes around the buggy address:
+  0x0c087fff7fb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c087fff7fc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c087fff7fd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c087fff7fe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c087fff7ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0c087fff8000: fa fa fd fd[fd]fd fd fd fa fa 00 00 00 00 00 00
+  0x0c087fff8010: fa fa 00 00 00 00 00 00 fa fa fa fa fa fa fa fa
+  0x0c087fff8020: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c087fff8030: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c087fff8040: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c087fff8050: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==1149406==ABORTING
+[0m
+timestamp=2026-06-20T11:47:52.285Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:47:52.522Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=26
+timestamp=2026-06-20T11:47:52.746Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:47:52.962Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4dbd45a001Db5wg5EcjFs7ME
+timestamp=2026-06-20T11:47:52.965Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:47:52.997Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:48:12.986Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:48:13.030Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp
+timestamp=2026-06-20T11:48:13.034Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/src/routing_config.cpp
+[0m← [0mWrite q03-routing-config/src/routing_config.cpp
+Wrote file successfully.
+[0m
+问题仍然是TLS被第二个实例覆盖。我需要为每个实例维护独立的TLS槽位。
+timestamp=2026-06-20T11:48:13.381Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:48:13.581Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=27
+timestamp=2026-06-20T11:48:13.916Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:48:14.069Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4dc26a3001cHBsc7HYdizp1d
+timestamp=2026-06-20T11:48:14.073Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:48:14.132Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:48:16.797Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:48:16.842Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp
+timestamp=2026-06-20T11:48:16.854Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp
+[0m← [0mEdit q03-routing-config/include/routing_config.hpp
+Index: /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp
+===================================================================
+--- /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp
++++ /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/include/routing_config.hpp
+@@ -24,8 +24,9 @@
+ using ObserverId = std::uint64_t;
+ using Observer = std::function<void(std::shared_ptr<const Config>)>;
+ 
+ explicit RoutingConfig(Config initial);
++~RoutingConfig();
+ const Config& current() const;
+ std::shared_ptr<const Config> snapshot() const;
+ bool reload(Config candidate);
+ ObserverId subscribe(Observer observer);
+
+[0m
+timestamp=2026-06-20T11:48:17.172Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:48:17.373Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=28
+timestamp=2026-06-20T11:48:17.597Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:48:17.811Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4dc356b0011iURfqJ6AaKO54
+timestamp=2026-06-20T11:48:17.816Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:48:17.864Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:48:20.333Z level=INFO run=d64902a1 message="resolved path" arg=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config
+timestamp=2026-06-20T11:48:20.335Z level=INFO run=d64902a1 message=evaluated permission=bash pattern="bash run_public_checks.sh" action.permission=* action.action=allow action.pattern=*
+[0m$ [0mcd /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config && bash run_public_checks.sh
+Running public_checks.cpp
+Running cross_instance_current_checks.cpp with AddressSanitizer
+Running observer_copy_reentrancy_checks.cpp
+[0m
+timestamp=2026-06-20T11:48:37.986Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:48:38.241Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=29
+timestamp=2026-06-20T11:48:38.451Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:48:38.612Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4dc86ef001d6St03PspTkGof
+timestamp=2026-06-20T11:48:38.614Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:48:38.644Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:48:42.340Z level=INFO run=d64902a1 message=evaluated permission=todowrite pattern=* action.permission=* action.action=allow action.pattern=*
+[0m# [0mTodos
+[✓] Q1: 修复 SubscriptionHub 组合缺陷
+[✓] Q2: 实现 CoalescingCache
+[✓] Q3: 重构 RoutingConfig 安全发布
+[•] 运行所有公开检查并验证
+[0m
+Q3也通过了！现在让我运行所有测试确认一下。
+timestamp=2026-06-20T11:48:42.672Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:48:42.979Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=30
+timestamp=2026-06-20T11:48:43.321Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:48:43.352Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4dc9986001ldFjnsLS83XAND
+timestamp=2026-06-20T11:48:43.355Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:48:43.367Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:48:46.117Z level=INFO run=d64902a1 message="resolved path" arg=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub
+timestamp=2026-06-20T11:48:46.119Z level=INFO run=d64902a1 message="resolved path" arg=../q02-coalescing-cache resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/q02-coalescing-cache
+timestamp=2026-06-20T11:48:46.127Z level=INFO run=d64902a1 message="resolved path" arg=../q03-routing-config resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/q03-routing-config
+timestamp=2026-06-20T11:48:46.132Z level=INFO run=d64902a1 message=evaluated permission=bash pattern="bash run_public_checks.sh" action.permission=* action.action=allow action.pattern=*
+[0m$ [0mcd /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub && bash run_public_checks.sh && cd ../q02-coalescing-cache && bash run_public_checks.sh && cd ../q03-routing-config && bash run_public_checks.sh
+Running public_checks.cpp
+Running callable_lifetime_checks.cpp
+[0m
+timestamp=2026-06-20T11:48:58.253Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:48:58.388Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=31
+timestamp=2026-06-20T11:48:58.617Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:48:58.830Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4dcd59d0014YJ8ufnWhGokbj
+timestamp=2026-06-20T11:48:58.837Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:48:58.872Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:49:02.305Z level=INFO run=d64902a1 message="resolved path" arg=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache
+timestamp=2026-06-20T11:49:02.307Z level=INFO run=d64902a1 message=evaluated permission=bash pattern="bash run_public_checks.sh" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:49:03.640Z level=INFO run=d64902a1 message="resolved path" arg=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config resolved=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config
+timestamp=2026-06-20T11:49:03.641Z level=INFO run=d64902a1 message=evaluated permission=bash pattern="bash run_public_checks.sh" action.permission=* action.action=allow action.pattern=*
+[0m$ [0mcd /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache && bash run_public_checks.sh
+Running public_checks.cpp
+Running clock_reentrancy_checks.cpp
+[0m
+[0m$ [0mcd /home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config && bash run_public_checks.sh
+Running public_checks.cpp
+Running cross_instance_current_checks.cpp with AddressSanitizer
+Running observer_copy_reentrancy_checks.cpp
+[0m
+timestamp=2026-06-20T11:49:22.375Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:49:22.574Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=32
+timestamp=2026-06-20T11:49:22.889Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:49:23.076Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4dd341d001ANU3zHLnrjOLat
+timestamp=2026-06-20T11:49:23.085Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:49:23.122Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:49:33.096Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/ANSWER.md action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:49:33.099Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/ANSWER.md
+timestamp=2026-06-20T11:49:33.101Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q01-subscription-hub/ANSWER.md
+[0m← [0mWrite q01-subscription-hub/ANSWER.md
+Wrote file successfully.
+[0m
+timestamp=2026-06-20T11:49:42.960Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/ANSWER.md action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:49:42.990Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/ANSWER.md
+timestamp=2026-06-20T11:49:42.994Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q02-coalescing-cache/ANSWER.md
+[0m← [0mWrite q02-coalescing-cache/ANSWER.md
+Wrote file successfully.
+[0m
+timestamp=2026-06-20T11:49:52.111Z level=INFO run=d64902a1 message=evaluated permission=edit pattern=benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/ANSWER.md action.permission=* action.action=allow action.pattern=*
+timestamp=2026-06-20T11:49:52.115Z level=INFO run=d64902a1 message=formatting file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/ANSWER.md
+timestamp=2026-06-20T11:49:52.118Z level=INFO run=d64902a1 message="touching file" file=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi/q03-routing-config/ANSWER.md
+[0m← [0mWrite q03-routing-config/ANSWER.md
+Wrote file successfully.
+[0m
+所有三道题的公开检查都已通过！现在更新ANSWER.md文件。
+timestamp=2026-06-20T11:49:52.512Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:49:52.776Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=33
+timestamp=2026-06-20T11:49:52.954Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:49:53.050Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4ddaa16001YksROh9TcYbbiM
+timestamp=2026-06-20T11:49:53.053Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:49:53.070Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+timestamp=2026-06-20T11:49:56.766Z level=INFO run=d64902a1 message=evaluated permission=todowrite pattern=* action.permission=* action.action=allow action.pattern=*
+[0m# [0mTodos
+[✓] Q1: 修复 SubscriptionHub 组合缺陷
+[✓] Q2: 实现 CoalescingCache
+[✓] Q3: 重构 RoutingConfig 安全发布
+[✓] 运行所有公开检查并验证
+[0m
+timestamp=2026-06-20T11:49:57.201Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:49:57.415Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=34
+timestamp=2026-06-20T11:49:57.594Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:49:57.864Z level=INFO run=d64902a1 message=process session.id=ses_11b2946ddffeOut6MOvJFK7tDI messageID=msg_ee4ddbc35001vdr9yBuZxtpa7e
+timestamp=2026-06-20T11:49:57.866Z level=INFO run=d64902a1 message=stream providerID=xag modelID=coding-kimi session.id=ses_11b2946ddffeOut6MOvJFK7tDI small=false agent=build mode=primary
+timestamp=2026-06-20T11:49:57.901Z level=INFO run=d64902a1 message="llm runtime selected" llm.runtime=ai-sdk llm.provider=xag llm.model=coding-kimi
+三道题已全部完成，所有公开检查均已通过。以下是完成情况总结：
+
+## 完成总结
+
+### Q1: SubscriptionHub 组合缺陷修复 ✅
+- **修复内容**：
+  - 将 `string_view` 改为 `string` 存储，避免临时字符串失效
+  - `drain()` 在锁外执行回调，避免死锁
+  - 事件批次快照，只处理调用开始时已在队列中的事件
+  - 异常处理：单个回调抛异常不影响其他回调
+  - 正确处理 32 位模运算的 TTL 过期判断
+
+### Q2: CoalescingCache 并发请求合并缓存 ✅
+- **实现内容**：
+  - 同一 key 的并发请求合并，只执行一次 loader
+  - 使用 `std::shared_ptr<Flight>` + `condition_variable` 实现等待者同步
+  - LRU 淘汰策略，支持容量限制
+  - `invalidate` 正确处理在途加载和 ready cache
+  - `Clock` 和 `loader` 在锁外执行，避免死锁
+
+### Q3: RoutingConfig 安全发布重构 ✅
+- **重构内容**：
+  - `reload()` 原子发布新配置，校验失败不影响当前状态
+  - 使用 `shared_ptr<const Config>` 实现不可变快照
+  - `current()` 通过 TLS map（按实例地址索引）保活引用，跨实例互不干扰
+  - 观察者在锁外通知，异常不影响其他观察者
+  - `find_target` 基于一致快照查询
+
+所有三道题的公开检查（含 AddressSanitizer 检查）均已通过。
+timestamp=2026-06-20T11:50:06.380Z level=INFO run=d64902a1 message=tracking hash=0757f7d7dee5acfcd1fa57de3ddf6304269092a0 cwd=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi git=/home/steven/.local/share/opencode/snapshot/42c8c4cb69cbd861e227d59594fd7d8eef1f0573/e98f79f1e4d255a1afa22f0c93262b06b9dad4a8
+timestamp=2026-06-20T11:50:06.559Z level=INFO run=d64902a1 message=loop session.id=ses_11b2946ddffeOut6MOvJFK7tDI step=35
+timestamp=2026-06-20T11:50:06.570Z level=INFO run=d64902a1 message="exiting loop" session.id=ses_11b2946ddffeOut6MOvJFK7tDI
+timestamp=2026-06-20T11:50:06.620Z level=INFO run=d64902a1 message="disposing instance" directory=/home/steven/app/agent_benchmark/benchmark/20260620-1936-cpp-benchmark-v1/agents/opencode-coding-kimi
+EXIT=0 SLUG=opencode-coding-kimi ts=2026-06-20T11:50:08Z

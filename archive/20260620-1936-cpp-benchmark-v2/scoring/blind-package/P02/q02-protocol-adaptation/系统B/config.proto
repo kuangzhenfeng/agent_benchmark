@@ -1,0 +1,1453 @@
+syntax = "proto3";
+
+package orbit.tc;
+
+import "definitions.proto";
+
+// config.proto 分区: 含本系统物模型结构。
+// 注意: 仅标注'是否实现绑定: 是'的结构参与迁移适配; 其余为上下文。
+// 适配契约字段值逐结构独立, 结构代号相近不代表字段相同。
+
+// 结构编号 B-005。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_delta。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_delta {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-006。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_ctx。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_ctx {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-010。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_1。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_1 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-012。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_v3。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_v3 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-018。
+// 是否实现绑定: 否。
+// 结构代号: link_qualitys。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_qualitys {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-024。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_snapshot。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_snapshot {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-027。
+// 是否实现绑定: 是。
+// 结构代号: nav_solution_patch。
+// 所属子系统族: guidance。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 838
+  //   小版本 schema_rev = 2
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 3  (arm=1 ignite=1 hold=0 safe=0 redundant=0 debug=0)
+  //   飞行阶段 phase = coast=5
+  //   载荷分支 branch = 事件
+  //   合法区间 band = [419, 805]
+message nav_solution_patch {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-028。
+// 是否实现绑定: 是。
+// 结构代号: link_quality。
+// 所属子系统族: groundlink。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 239
+  //   小版本 schema_rev = 7
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 40  (arm=0 ignite=0 hold=0 safe=1 redundant=0 debug=1)
+  //   飞行阶段 phase = standby=1
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [125, 249]
+message link_quality {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-029。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_v3。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_v3 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-033。
+// 是否实现绑定: 是。
+// 结构代号: link_quality_view。
+// 所属子系统族: groundlink。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 509
+  //   小版本 schema_rev = 9
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 3  (arm=1 ignite=1 hold=0 safe=0 redundant=0 debug=0)
+  //   飞行阶段 phase = idle=0
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [136, 428]
+message link_quality_view {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-034。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_delta。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_delta {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-036。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_record。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_record {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-037。
+// 是否实现绑定: 是。
+// 结构代号: nav_solution。
+// 所属子系统族: guidance。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 700
+  //   小版本 schema_rev = 2
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 16  (arm=0 ignite=0 hold=0 safe=0 redundant=1 debug=0)
+  //   飞行阶段 phase = standby=1
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [115, 1083]
+message nav_solution {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-043。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_patches。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_patches {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-044。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_views。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_views {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-047。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_snapshot。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_snapshot {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-054。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_delta。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_delta {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-057。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_patches。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_patches {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-059。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_history。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_history {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-062。
+// 是否实现绑定: 否。
+// 结构代号: link_qualitys。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_qualitys {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-066。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_legacy2。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_legacy2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-067。
+// 是否实现绑定: 是。
+// 结构代号: link_quality_legacy。
+// 所属子系统族: groundlink。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 424
+  //   小版本 schema_rev = 8
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本箭
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 61  (arm=1 ignite=0 hold=1 safe=1 redundant=1 debug=1)
+  //   飞行阶段 phase = coast=5
+  //   载荷分支 branch = 遥测
+  //   合法区间 band = [277, 1022]
+message link_quality_legacy {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-069。
+// 是否实现绑定: 是。
+// 结构代号: link_qualities。
+// 所属子系统族: groundlink。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 683
+  //   小版本 schema_rev = 6
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本箭
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 1  (arm=1 ignite=0 hold=0 safe=0 redundant=0 debug=0)
+  //   飞行阶段 phase = boost=2
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [471, 791]
+message link_qualities {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-077。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_records。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_records {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-080。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_records。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_records {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-081。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_snapshot。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_snapshot {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-083。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_ctx。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_ctx {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-085。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_ctx。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_ctx {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-094。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_delta。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_delta {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-096。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_ctx。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_ctx {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-106。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_records。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_records {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-110。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_record。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_record {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-111。
+// 是否实现绑定: 是。
+// 结构代号: link_quality_v2。
+// 所属子系统族: groundlink。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 923
+  //   小版本 schema_rev = 1
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 本级
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 59  (arm=1 ignite=1 hold=0 safe=1 redundant=1 debug=1)
+  //   飞行阶段 phase = idle=0
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [303, 1110]
+message link_quality_v2 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-114。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_v3。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_v3 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-123。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_v3。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_v3 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-124。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_legacy2。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_legacy2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-128。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_views。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_views {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-129。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_log。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_log {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-130。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_history。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_history {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-131。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_records。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_records {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-132。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_legacy2。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_legacy2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-142。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_legacy2。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_legacy2 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-147。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_record。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_record {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-149。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_log。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_log {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-151。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_log。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_log {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-153。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_views。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_views {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-155。
+// 是否实现绑定: 是。
+// 结构代号: nav_solution_legacy。
+// 所属子系统族: guidance。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 617
+  //   小版本 schema_rev = 2
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 54  (arm=0 ignite=1 hold=1 safe=0 redundant=1 debug=1)
+  //   飞行阶段 phase = standby=1
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [241, 796]
+message nav_solution_legacy {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-159。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_log。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_log {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-169。
+// 是否实现绑定: 是。
+// 结构代号: nav_solutions。
+// 所属子系统族: guidance。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 583
+  //   小版本 schema_rev = 5
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 10  (arm=0 ignite=1 hold=0 safe=1 redundant=0 debug=0)
+  //   飞行阶段 phase = idle=0
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [158, 406]
+message nav_solutions {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-170。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_log。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_log {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-175。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_0。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_0 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-176。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_delta。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_delta {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-181。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_ctx。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_ctx {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-183。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_0。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_0 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-184。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_1。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_1 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-186。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_ctx。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_ctx {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-192。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_records。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_records {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-194。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_0。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_0 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-198。
+// 是否实现绑定: 否。
+// 结构代号: link_qualitys。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_qualitys {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-205。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_history。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_history {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-209。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_ctx。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_ctx {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-219。
+// 是否实现绑定: 是。
+// 结构代号: link_quality_patch。
+// 所属子系统族: groundlink。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 386
+  //   小版本 schema_rev = 8
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 46  (arm=0 ignite=1 hold=1 safe=1 redundant=0 debug=1)
+  //   飞行阶段 phase = boost=2
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [220, 302]
+message link_quality_patch {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-227。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_views。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_views {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-235。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_delta。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_delta {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-236。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_1。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_1 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-238。
+// 是否实现绑定: 是。
+// 结构代号: nav_solution_v2。
+// 所属子系统族: guidance。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 701
+  //   小版本 schema_rev = 8
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 11  (arm=1 ignite=1 hold=0 safe=1 redundant=0 debug=0)
+  //   飞行阶段 phase = idle=0
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [237, 785]
+message nav_solution_v2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-242。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_views。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_views {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-245。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_summary。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_summary {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-250。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_patches。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_patches {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-253。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_legacy2。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_legacy2 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-255。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_snapshot。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_snapshot {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-258。
+// 是否实现绑定: 是。
+// 结构代号: nav_solution_view。
+// 所属子系统族: guidance。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 147
+  //   小版本 schema_rev = 8
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 6  (arm=0 ignite=1 hold=1 safe=0 redundant=0 debug=0)
+  //   飞行阶段 phase = standby=1
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [67, 738]
+message nav_solution_view {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-259。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_1。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_1 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-260。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_records。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_records {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-264。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_ctx。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_ctx {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-268。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_delta。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_delta {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-274。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_log。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_log {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-278。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_views。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_views {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-291。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_delta。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_delta {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-307。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_snapshot。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_snapshot {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-308。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_views。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_views {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-310。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_0。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_0 {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-311。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_patches。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_patches {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-313。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_snapshot。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_snapshot {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-317。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_summary。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_summary {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-322。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_0。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_0 {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-328。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_record。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_record {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
+// 结构编号 B-333。
+// 是否实现绑定: 否。
+// 结构代号: link_quality_patches。
+// 所属子系统族: groundlink。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message link_quality_patches {
+  double rssi_dbm = 1;  // 信号强度
+  double ber = 2;  // 误码率
+  uint32 snr_db = 3;  // 信噪比
+  uint32 retransmit_count = 4;  // 重传计数
+  bool locked = 5;  // 载波锁定
+
+}
+
+// 结构编号 B-345。
+// 是否实现绑定: 否。
+// 结构代号: nav_solution_views。
+// 所属子系统族: guidance。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message nav_solution_views {
+  double longitude = 1;  // 经度
+  double latitude = 2;  // 纬度
+  double altitude_m = 3;  // 海拔
+  double velocity_ms = 4;  // 速度
+  double gamma_deg = 5;  // 弹道倾角
+
+}
+
