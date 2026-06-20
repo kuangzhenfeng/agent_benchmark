@@ -1,0 +1,722 @@
+{
+  "stage_state": {
+    "route_code": 576,
+    "schema_rev": 2,
+    "id_policy": "auto_gen",
+    "replay_scope": "vehicle",
+    "stamp_required": false,
+    "ordinal_required": true,
+    "mode_flag": 1,
+    "phase_value": 2,
+    "branch": "command",
+    "band": [
+      191,
+      219
+    ]
+  },
+  "stage_states": {
+    "route_code": 415,
+    "schema_rev": 2,
+    "id_policy": "strict",
+    "replay_scope": "none",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 15,
+    "phase_value": 1,
+    "branch": "event",
+    "band": [
+      85,
+      201
+    ]
+  },
+  "stage_state_view": {
+    "route_code": 670,
+    "schema_rev": 5,
+    "id_policy": "keep_blank",
+    "replay_scope": "stage",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 53,
+    "phase_value": 5,
+    "branch": "command",
+    "band": [
+      353,
+      784
+    ]
+  },
+  "stage_state_patch": {
+    "route_code": 329,
+    "schema_rev": 5,
+    "id_policy": "keep_blank",
+    "replay_scope": "none",
+    "stamp_required": true,
+    "ordinal_required": true,
+    "mode_flag": 42,
+    "phase_value": 1,
+    "branch": "config",
+    "band": [
+      489,
+      1488
+    ]
+  },
+  "stage_state_legacy": {
+    "route_code": 482,
+    "schema_rev": 9,
+    "id_policy": "auto_gen",
+    "replay_scope": "range",
+    "stamp_required": true,
+    "ordinal_required": true,
+    "mode_flag": 44,
+    "phase_value": 2,
+    "branch": "event",
+    "band": [
+      205,
+      1189
+    ]
+  },
+  "stage_state_v2": {
+    "route_code": 756,
+    "schema_rev": 7,
+    "id_policy": "auto_gen",
+    "replay_scope": "range",
+    "stamp_required": false,
+    "ordinal_required": true,
+    "mode_flag": 25,
+    "phase_value": 2,
+    "branch": "event",
+    "band": [
+      75,
+      622
+    ]
+  },
+  "thrust_report": {
+    "route_code": 385,
+    "schema_rev": 2,
+    "id_policy": "strict",
+    "replay_scope": "range",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 6,
+    "phase_value": 5,
+    "branch": "command",
+    "band": [
+      23,
+      834
+    ]
+  },
+  "thrust_reports": {
+    "route_code": 482,
+    "schema_rev": 2,
+    "id_policy": "keep_blank",
+    "replay_scope": "stage",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 47,
+    "phase_value": 1,
+    "branch": "telemetry",
+    "band": [
+      449,
+      916
+    ]
+  },
+  "thrust_report_view": {
+    "route_code": 885,
+    "schema_rev": 9,
+    "id_policy": "strict",
+    "replay_scope": "none",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 27,
+    "phase_value": 2,
+    "branch": "event",
+    "band": [
+      71,
+      559
+    ]
+  },
+  "thrust_report_patch": {
+    "route_code": 465,
+    "schema_rev": 4,
+    "id_policy": "keep_blank",
+    "replay_scope": "stage",
+    "stamp_required": true,
+    "ordinal_required": true,
+    "mode_flag": 15,
+    "phase_value": 3,
+    "branch": "command",
+    "band": [
+      459,
+      983
+    ]
+  },
+  "thrust_report_legacy": {
+    "route_code": 352,
+    "schema_rev": 8,
+    "id_policy": "auto_gen",
+    "replay_scope": "none",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 8,
+    "phase_value": 6,
+    "branch": "event",
+    "band": [
+      350,
+      545
+    ]
+  },
+  "thrust_report_v2": {
+    "route_code": 986,
+    "schema_rev": 7,
+    "id_policy": "keep_blank",
+    "replay_scope": "vehicle",
+    "stamp_required": true,
+    "ordinal_required": true,
+    "mode_flag": 4,
+    "phase_value": 1,
+    "branch": "telemetry",
+    "band": [
+      116,
+      519
+    ]
+  },
+  "nav_solution": {
+    "route_code": 342,
+    "schema_rev": 4,
+    "id_policy": "strict",
+    "replay_scope": "none",
+    "stamp_required": false,
+    "ordinal_required": true,
+    "mode_flag": 59,
+    "phase_value": 6,
+    "branch": "event",
+    "band": [
+      290,
+      612
+    ]
+  },
+  "nav_solutions": {
+    "route_code": 522,
+    "schema_rev": 8,
+    "id_policy": "strict",
+    "replay_scope": "range",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 14,
+    "phase_value": 6,
+    "branch": "event",
+    "band": [
+      408,
+      794
+    ]
+  },
+  "nav_solution_view": {
+    "route_code": 892,
+    "schema_rev": 5,
+    "id_policy": "keep_blank",
+    "replay_scope": "stage",
+    "stamp_required": false,
+    "ordinal_required": true,
+    "mode_flag": 54,
+    "phase_value": 1,
+    "branch": "telemetry",
+    "band": [
+      220,
+      728
+    ]
+  },
+  "nav_solution_patch": {
+    "route_code": 798,
+    "schema_rev": 3,
+    "id_policy": "auto_gen",
+    "replay_scope": "stage",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 39,
+    "phase_value": 0,
+    "branch": "command",
+    "band": [
+      98,
+      1018
+    ]
+  },
+  "nav_solution_legacy": {
+    "route_code": 565,
+    "schema_rev": 8,
+    "id_policy": "keep_blank",
+    "replay_scope": "range",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 16,
+    "phase_value": 6,
+    "branch": "event",
+    "band": [
+      414,
+      872
+    ]
+  },
+  "nav_solution_v2": {
+    "route_code": 591,
+    "schema_rev": 2,
+    "id_policy": "keep_blank",
+    "replay_scope": "vehicle",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 4,
+    "phase_value": 0,
+    "branch": "event",
+    "band": [
+      351,
+      716
+    ]
+  },
+  "sep_event": {
+    "route_code": 869,
+    "schema_rev": 6,
+    "id_policy": "strict",
+    "replay_scope": "stage",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 9,
+    "phase_value": 5,
+    "branch": "config",
+    "band": [
+      464,
+      557
+    ]
+  },
+  "sep_events": {
+    "route_code": 277,
+    "schema_rev": 8,
+    "id_policy": "keep_blank",
+    "replay_scope": "range",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 9,
+    "phase_value": 2,
+    "branch": "event",
+    "band": [
+      85,
+      931
+    ]
+  },
+  "sep_event_view": {
+    "route_code": 981,
+    "schema_rev": 9,
+    "id_policy": "auto_gen",
+    "replay_scope": "vehicle",
+    "stamp_required": false,
+    "ordinal_required": true,
+    "mode_flag": 32,
+    "phase_value": 0,
+    "branch": "config",
+    "band": [
+      341,
+      1082
+    ]
+  },
+  "sep_event_patch": {
+    "route_code": 515,
+    "schema_rev": 4,
+    "id_policy": "auto_gen",
+    "replay_scope": "none",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 59,
+    "phase_value": 0,
+    "branch": "config",
+    "band": [
+      135,
+      814
+    ]
+  },
+  "sep_event_legacy": {
+    "route_code": 224,
+    "schema_rev": 4,
+    "id_policy": "keep_blank",
+    "replay_scope": "range",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 58,
+    "phase_value": 0,
+    "branch": "event",
+    "band": [
+      136,
+      432
+    ]
+  },
+  "sep_event_v2": {
+    "route_code": 552,
+    "schema_rev": 6,
+    "id_policy": "strict",
+    "replay_scope": "vehicle",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 31,
+    "phase_value": 3,
+    "branch": "telemetry",
+    "band": [
+      42,
+      259
+    ]
+  },
+  "fts_status": {
+    "route_code": 635,
+    "schema_rev": 6,
+    "id_policy": "strict",
+    "replay_scope": "none",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 4,
+    "phase_value": 0,
+    "branch": "event",
+    "band": [
+      308,
+      432
+    ]
+  },
+  "fts_statuses": {
+    "route_code": 856,
+    "schema_rev": 3,
+    "id_policy": "strict",
+    "replay_scope": "vehicle",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 22,
+    "phase_value": 3,
+    "branch": "telemetry",
+    "band": [
+      328,
+      549
+    ]
+  },
+  "fts_status_view": {
+    "route_code": 209,
+    "schema_rev": 2,
+    "id_policy": "keep_blank",
+    "replay_scope": "vehicle",
+    "stamp_required": false,
+    "ordinal_required": true,
+    "mode_flag": 20,
+    "phase_value": 1,
+    "branch": "telemetry",
+    "band": [
+      445,
+      721
+    ]
+  },
+  "fts_status_patch": {
+    "route_code": 825,
+    "schema_rev": 9,
+    "id_policy": "auto_gen",
+    "replay_scope": "none",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 3,
+    "phase_value": 0,
+    "branch": "event",
+    "band": [
+      2,
+      390
+    ]
+  },
+  "fts_status_legacy": {
+    "route_code": 122,
+    "schema_rev": 6,
+    "id_policy": "auto_gen",
+    "replay_scope": "stage",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 38,
+    "phase_value": 1,
+    "branch": "event",
+    "band": [
+      209,
+      233
+    ]
+  },
+  "fts_status_v2": {
+    "route_code": 110,
+    "schema_rev": 5,
+    "id_policy": "auto_gen",
+    "replay_scope": "stage",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 48,
+    "phase_value": 3,
+    "branch": "event",
+    "band": [
+      167,
+      454
+    ]
+  },
+  "payload_frame": {
+    "route_code": 810,
+    "schema_rev": 7,
+    "id_policy": "keep_blank",
+    "replay_scope": "vehicle",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 51,
+    "phase_value": 5,
+    "branch": "telemetry",
+    "band": [
+      142,
+      766
+    ]
+  },
+  "payload_frames": {
+    "route_code": 425,
+    "schema_rev": 4,
+    "id_policy": "strict",
+    "replay_scope": "range",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 31,
+    "phase_value": 0,
+    "branch": "telemetry",
+    "band": [
+      277,
+      1162
+    ]
+  },
+  "payload_frame_view": {
+    "route_code": 972,
+    "schema_rev": 9,
+    "id_policy": "keep_blank",
+    "replay_scope": "range",
+    "stamp_required": true,
+    "ordinal_required": true,
+    "mode_flag": 43,
+    "phase_value": 3,
+    "branch": "event",
+    "band": [
+      481,
+      1029
+    ]
+  },
+  "payload_frame_patch": {
+    "route_code": 667,
+    "schema_rev": 7,
+    "id_policy": "auto_gen",
+    "replay_scope": "range",
+    "stamp_required": false,
+    "ordinal_required": true,
+    "mode_flag": 17,
+    "phase_value": 0,
+    "branch": "command",
+    "band": [
+      484,
+      812
+    ]
+  },
+  "payload_frame_legacy": {
+    "route_code": 458,
+    "schema_rev": 1,
+    "id_policy": "strict",
+    "replay_scope": "range",
+    "stamp_required": true,
+    "ordinal_required": true,
+    "mode_flag": 8,
+    "phase_value": 1,
+    "branch": "event",
+    "band": [
+      333,
+      700
+    ]
+  },
+  "payload_frame_v2": {
+    "route_code": 803,
+    "schema_rev": 6,
+    "id_policy": "keep_blank",
+    "replay_scope": "stage",
+    "stamp_required": false,
+    "ordinal_required": true,
+    "mode_flag": 31,
+    "phase_value": 1,
+    "branch": "telemetry",
+    "band": [
+      413,
+      705
+    ]
+  },
+  "link_quality": {
+    "route_code": 412,
+    "schema_rev": 9,
+    "id_policy": "strict",
+    "replay_scope": "range",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 57,
+    "phase_value": 5,
+    "branch": "telemetry",
+    "band": [
+      158,
+      248
+    ]
+  },
+  "link_qualities": {
+    "route_code": 761,
+    "schema_rev": 9,
+    "id_policy": "keep_blank",
+    "replay_scope": "range",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 51,
+    "phase_value": 5,
+    "branch": "command",
+    "band": [
+      81,
+      926
+    ]
+  },
+  "link_quality_view": {
+    "route_code": 517,
+    "schema_rev": 9,
+    "id_policy": "auto_gen",
+    "replay_scope": "none",
+    "stamp_required": true,
+    "ordinal_required": true,
+    "mode_flag": 12,
+    "phase_value": 3,
+    "branch": "command",
+    "band": [
+      122,
+      533
+    ]
+  },
+  "link_quality_patch": {
+    "route_code": 713,
+    "schema_rev": 1,
+    "id_policy": "keep_blank",
+    "replay_scope": "range",
+    "stamp_required": false,
+    "ordinal_required": false,
+    "mode_flag": 38,
+    "phase_value": 5,
+    "branch": "config",
+    "band": [
+      390,
+      865
+    ]
+  },
+  "link_quality_legacy": {
+    "route_code": 782,
+    "schema_rev": 2,
+    "id_policy": "keep_blank",
+    "replay_scope": "none",
+    "stamp_required": false,
+    "ordinal_required": true,
+    "mode_flag": 55,
+    "phase_value": 5,
+    "branch": "command",
+    "band": [
+      185,
+      592
+    ]
+  },
+  "link_quality_v2": {
+    "route_code": 773,
+    "schema_rev": 4,
+    "id_policy": "strict",
+    "replay_scope": "range",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 57,
+    "phase_value": 1,
+    "branch": "event",
+    "band": [
+      374,
+      931
+    ]
+  },
+  "thermal_sample": {
+    "route_code": 100,
+    "schema_rev": 7,
+    "id_policy": "keep_blank",
+    "replay_scope": "vehicle",
+    "stamp_required": true,
+    "ordinal_required": true,
+    "mode_flag": 18,
+    "phase_value": 5,
+    "branch": "event",
+    "band": [
+      495,
+      883
+    ]
+  },
+  "thermal_samples": {
+    "route_code": 978,
+    "schema_rev": 6,
+    "id_policy": "auto_gen",
+    "replay_scope": "stage",
+    "stamp_required": true,
+    "ordinal_required": true,
+    "mode_flag": 16,
+    "phase_value": 2,
+    "branch": "telemetry",
+    "band": [
+      133,
+      255
+    ]
+  },
+  "thermal_sample_view": {
+    "route_code": 520,
+    "schema_rev": 9,
+    "id_policy": "keep_blank",
+    "replay_scope": "none",
+    "stamp_required": false,
+    "ordinal_required": true,
+    "mode_flag": 8,
+    "phase_value": 2,
+    "branch": "event",
+    "band": [
+      406,
+      539
+    ]
+  },
+  "thermal_sample_patch": {
+    "route_code": 197,
+    "schema_rev": 5,
+    "id_policy": "strict",
+    "replay_scope": "vehicle",
+    "stamp_required": true,
+    "ordinal_required": true,
+    "mode_flag": 6,
+    "phase_value": 0,
+    "branch": "command",
+    "band": [
+      324,
+      475
+    ]
+  },
+  "thermal_sample_legacy": {
+    "route_code": 130,
+    "schema_rev": 9,
+    "id_policy": "keep_blank",
+    "replay_scope": "range",
+    "stamp_required": false,
+    "ordinal_required": true,
+    "mode_flag": 52,
+    "phase_value": 2,
+    "branch": "config",
+    "band": [
+      466,
+      1209
+    ]
+  },
+  "thermal_sample_v2": {
+    "route_code": 819,
+    "schema_rev": 1,
+    "id_policy": "strict",
+    "replay_scope": "none",
+    "stamp_required": true,
+    "ordinal_required": false,
+    "mode_flag": 32,
+    "phase_value": 5,
+    "branch": "config",
+    "band": [
+      286,
+      669
+    ]
+  }
+}

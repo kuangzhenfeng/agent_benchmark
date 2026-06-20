@@ -86,11 +86,10 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 
 | 题号 | 类型 | 推荐耗时 | 评测重点 |
 |------|------|----------|----------|
-| Q1 `settlement-journal` | 组合缺陷修复 | 65 分钟 | 1,000 行 C++ 结构体业务协议、优先级、作用域幂等、文本所有权、审计重入 |
-| Q2 `benefit-allocation` | 实现 | 90 分钟 | 3,000 行 JSON 业务协议、单条/批次回放、临时账本、原子提交、回调隔离 |
-| Q3 `protocol-adaptation` | 协议适配 | 210 分钟 | 协议一 Protobuf 与协议二 JSON 各 5,000 行、近似结构逐字段迁移、范围控制 |
+| Q1 `long-context-protocol` | 长上下文实现 | 300 分钟 | ~0.8M token 航天测控协议演进语料、纵向版本长程记忆、跨距离交叉引用、文档优先级取舍、幻觉抵抗 |
+| Q2 `protocol-adaptation` | 协议适配 | 300 分钟 | 两套 proto 物模型（各 ~348 结构）、横向相似系统逐字段迁移、近似命名辨别、enum 重编号、bit flag、范围控制 |
 
-`cpp17-advanced-v2` 专门评测长篇业务协议下的闭世界实现和协议适配能力。业务协议本体使用 C++ 结构体、JSON、Protobuf，不使用标记文本文档协议附录；所有组合边界必须公开，不能用未说明的私人“隐藏坑”评分。它提高了按经验臆测业务规则或机械复制近似结构的风险，但不能保证任何特定模型一定失败或通过；结论必须来自本轮盲评。
+`cpp17-advanced-v2` 专门评测长上下文下的跨距离交叉引用与协议适配能力。协议为全新虚构的航空航天测控物模型（`range.tc` / `orbit.tc`，proto3，仿物模型工程组织但内容与企业协议无关）。Q1 是 1M 上下文模型的长程记忆压力题：v6 正确值散落在 ~0.8M 语料的多份文档中，须按只在 ADR 出现一次的优先级规则取舍，并抵抗勘误推翻、词典滞后、单位漂移、枚举重编号、历史代码 bug 等幻觉陷阱；Q2 是横向结构迁移题。语料与评分参考由确定性生成器产出，所有真值点均可从公开语料推导。所有组合边界必须公开，不能用未说明的私人"隐藏坑"评分。它提高了仅读单一来源或机械复制近似结构的风险，但不能保证任何特定模型一定失败或通过；结论必须来自本轮盲评。
 
 这些题目通过多个相互影响的验收条件提高排查和实现深度，目标是让强模型也必须经历阅读、设计、实现和验证的多轮工作。不得宣称某个题目能保证所有当前或未来模型都无法单轮完成；模型能力需以实际 benchmark 结果验证。
 
@@ -123,8 +122,8 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 
 若使用预设（默认 v1 或用户明确指定的预设），按以下顺序创建题目，不能手写一个看似相同但内容漂移的副本：
 
-1. 将所选预设的全部 qXX 题目目录 **完整复制**到 `questions/`。v1 是三个目录；v2 是 `q01-settlement-journal`、`q02-benefit-allocation`、`q03-protocol-adaptation`。
-2. 从刚生成的 `questions/` 完整复制每题到每个 `agents/<slug>/`，包括 `QUESTION.md`、`ANSWER.md`、`include/`、`src/`、`tests/` 与 `run_public_checks.sh`。
+1. 将所选预设的全部 qXX 题目目录 **完整复制**到 `questions/`。v1 是三个目录；v2 是 `q01-long-context-protocol`、`q02-protocol-adaptation`（注意：v2 仅两题）。v2 复制时**不得**带上 `_generator/` 与各题 `_private/` 目录——这些是私有生成器与 ground truth，严禁进入题源或作答目录。
+2. 从刚生成的 `questions/` 完整复制每题到每个 `agents/<slug>/`，包括 `QUESTION.md`、`ANSWER.md`、`corpus/`（仅 v2 Q1）、`include/`、`src/`、`tests/` 与 `run_public_checks.sh`。
 3. 在本轮 `README.md` 和 `participants.md` 写明实际 `preset: <name>`、每题时间盒和 C++17 编译器版本。
 
 复制而非符号链接，保证每个作答目录可独立修改且题源在运行结束后可复现。复制后比较各 `agents/<slug>/qXX-*` 与 `questions/qXX-*` 的初始内容；任何差异都应视为生成失败并重新复制。严禁复制 `.claude/skills/agent-benchmark/scoring-reference/`、任何参考实现或私有验收材料到本轮目录；这些材料只在第 5 步创建 scorer 专用副本。
@@ -181,7 +180,7 @@ benchmark/<run-id>/
 | `scoring/redaction-log.md` | 记录脱敏改动，只写脱敏位置和类型，不写参评身份 |
 | `scoring/scorer-report.md` | scorer subagent 输出的匿名评分报告 |
 
-本轮 `README.md` 还必须按所选预设声明公开检查的初始状态。v1：Q1、Q3 的基础路径可通过，但完整公开套件含已文档化的边界检查而预期失败；Q2 因 starter 未实现而预期失败。v2：Q1 可编译但因公开业务协议边界缺陷失败；Q2 未实现；Q3 的规则表仍是协议适配前值。不得把该状态解释为对某个参评对象的预评分。
+本轮 `README.md` 还必须按所选预设声明公开检查的初始状态。v1：Q1、Q3 的基础路径可通过，但完整公开套件含已文档化的边界检查而预期失败；Q2 因 starter 未实现而预期失败。v2：Q1 starter 填的是未读全语料的错误直觉值，公开检查预期失败；Q2 starter 是系统 A 迁移前值，公开检查预期失败。不得把该状态解释为对某个参评对象的预评分。
 
 每个 `agents/<slug>/README.md` 必须写清楚：
 
@@ -231,8 +230,9 @@ benchmark/<run-id>/
 - 每个参评对象的 `agents/<slug>/qXX-*` 或 `submissions/<slug>/`
 - 每题 `ANSWER.md`、源码变更、测试或验证记录
 - 对应预设的 `.claude/skills/agent-benchmark/scoring-reference/<preset>.md`
+- 预设的私有 ground truth（v2 为各题 `_private/*_truth.json`）
 
-所有参评对象完成并确认停止作答后，主 agent 才可将私有评分参考解答复制到 `scoring/scorer-reference/<preset>.md`。复制前后记录文件 SHA-256 到 `scoring/reference-integrity.md`。该副本不得包含参评身份、评分结论或任何参评提交内容；若本轮不是预设题，主 agent 必须在生成阶段同步创建对应私有评分参考解答，否则不能声称评分依据完整。
+所有参评对象完成并确认停止作答后，主 agent 才可将私有评分参考解答复制到 `scoring/scorer-reference/<preset>.md`，并将对应私有 ground truth JSON 一并复制到 `scoring/scorer-reference/`。复制前后记录文件 SHA-256 到 `scoring/reference-integrity.md`。该副本不得包含参评身份、评分结论或任何参评提交内容；若本轮不是预设题，主 agent 必须在生成阶段同步创建对应私有评分参考解答，否则不能声称评分依据完整。
 
 匿名包创建规则：
 
