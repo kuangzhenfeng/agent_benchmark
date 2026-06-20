@@ -111,6 +111,7 @@ scorer 报告和最终 `evaluation.md`，避免向原始提交回写评分过程
 | [`.claude/skills/agent-benchmark/SKILL.md`](./.claude/skills/agent-benchmark/SKILL.md) | **核心**：完整流程、公平性控制、rubric、报告模板 |
 | [`.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/`](./.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/) | 默认预设题库、starter 与公开检查 |
 | [`.claude/skills/create-skill/SKILL.md`](./.claude/skills/create-skill/SKILL.md) | 创建新 skill 的辅助 skill |
+| [`evaluation-agents.md`](./evaluation-agents.md) | 可参评的 Agent + 模型组合与自动化评测启动指令 |
 | [`CLAUDE.md`](./CLAUDE.md) → [`AGENTS.md`](./AGENTS.md) | 项目规范（AGENTS.md 为符号链接） |
 
 > 若需调整流程、评分标准或目录结构，直接修改 [`SKILL.md`](./.claude/skills/agent-benchmark/SKILL.md)，并同步回本 README。
