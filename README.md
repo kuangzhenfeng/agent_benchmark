@@ -100,6 +100,10 @@ benchmark/<run-id>/        # <run-id> 如 20260619-1430-cpp-benchmark
 - **slug** 转成小写短横线目录名，如 `claude-code-qwen3-7-max`；
 - `benchmark/` 与生成的 benchmark 目录均纳入 git（`.gitignore` 中已忽略 `benchmark-run` 等临时产物）。
 
+已有题目与作答目录需要保留不变时，评测产物可以放在
+`archive/<run-id>-by-<evaluator>/`。该目录只包含匿名评分包、私有参考副本、
+scorer 报告和最终 `evaluation.md`，避免向原始提交回写评分过程中的文件。
+
 ## 仓库内容
 
 | 路径 | 说明 |
