@@ -2,10 +2,20 @@
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-binary="${TMPDIR:-/tmp}/subscription-hub-public-checks-$$"
-trap 'rm -f "$binary"' EXIT
+binaries=()
+trap 'rm -f "${binaries[@]}"' EXIT
 
-g++ -std=c++17 -Wall -Wextra -Wpedantic -pthread \
-  -I"$root/include" "$root/src/subscription_hub.cpp" \
-  "$root/tests/public_checks.cpp" -o "$binary"
-"$binary"
+run_check() {
+  local source="$1"
+  local binary="${TMPDIR:-/tmp}/subscription-hub-${source##*/}-$$"
+  binaries+=("$binary")
+
+  printf 'Running %s\n' "$source"
+  g++ -std=c++17 -Wall -Wextra -Wpedantic -pthread \
+    -I"$root/include" "$root/src/subscription_hub.cpp" \
+    "$root/tests/$source" -o "$binary"
+  timeout 5s "$binary"
+}
+
+run_check public_checks.cpp
+run_check callable_lifetime_checks.cpp
