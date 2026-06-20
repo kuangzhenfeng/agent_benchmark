@@ -29,8 +29,7 @@ int main() {
     config.subscribe(ReenterOnCopy{&config, &armed});
     armed = true;
 
-    // Copying the stored Observer under the config mutex deadlocks here.
-    // Copying a wrapper pointer under the mutex and invoking the observer only
-    // after unlock passes.
+    // 在 config mutex 下复制已存储的 Observer 会在这里死锁。
+    // 改为在锁下只复制 wrapper 指针、解锁后再调用 observer 才能通过。
     assert(config.reload(Config{0, {{"/", "blue"}}}));
 }

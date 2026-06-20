@@ -23,11 +23,11 @@
 /agent-benchmark
 ```
 
-第一步 skill 一定会询问本次参评的 **Agent + 模型组合**（例如 `claude code + qwen3.7 max`、`opencode + glm-5.2`）。也可以顺带提供题量、难度、时间盒；不提供则默认使用版本化预设 **`cpp17-advanced-v1`** 的 3 道 C++17 题，时间盒依次为 50 / 70 / 60 分钟。
+第一步 skill 一定会询问本次参评的 **Agent + 模型组合**（例如 `claude code + qwen3.7 max`、`opencode + glm-5.2`）。也可以顺带提供预设名、题量、难度、时间盒；不提供则默认使用版本化预设 **`cpp17-advanced-v1`** 的 3 道 C++17 题，时间盒依次为 50 / 70 / 60 分钟。若要评测长篇业务协议下的闭世界实现能力，明确指定 **`cpp17-advanced-v2`**。
 
-## 默认预设题库
+## 版本化预设题库
 
-默认题目不再临时生成。skill 会完整复制 `.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/` 中的题目目录，保证各参评对象、不同轮次都使用可追溯的同一版本题面。
+默认题目不再临时生成。skill 会完整复制所选预设中的题目目录，保证各参评对象、不同轮次都使用可追溯的同一版本题面。未指定时仍使用 v1。
 
 | 题目 | 类型 | 评测重点 | 初始公开检查 |
 |------|------|----------|--------------|
@@ -35,14 +35,22 @@
 | Q2 `coalescing-cache` | Implementation | 并发请求合并、TTL、失效竞态、LRU、递归加载 | starter 未实现，预期失败 |
 | Q3 `routing-config` | Refactor/Design | 快照发布、兼容 API 生命周期、观察者隔离、原子 reload | 基础路径通过；完整公开套件因生命周期/重入缺陷失败 |
 
-Bugfix 题要求至少三类相互作用的缺陷维度，避免只修复单一症状。题面把组合语义公开列为验收条件，评分不会依赖未说明的“隐藏谜题”。当前预设已把 callable 生命周期、Clock 重入、flight 完成顺序、跨实例 `current()` 生命周期和 observer callable 生命周期写入公开题面，并提供对应公开检查。这些设计提高了强模型一次完成的难度，但不能严谨地保证所有模型都必须多轮；实际能力结论以盲评结果为准。
+`cpp17-advanced-v2`（需明确指定）采用结构化长文本业务协议：Q1 是 1,000 行 C++ 结构体协议，Q2 是 3,000 行 JSON 协议，Q3 是协议一 Protobuf 与协议二 JSON 各 5,000 行的适配任务。业务协议本体不使用标记文本文档。
+
+| 题目 | 类型 | 评测重点 | 初始公开检查 |
+|------|------|----------|--------------|
+| Q1 `settlement-journal` | 组合缺陷修复 | 结算协议优先级、商户作用域幂等、状态机、文本所有权、审计重入 | 可编译；完整公开套件因所有权、作用域与锁边界缺陷失败 |
+| Q2 `benefit-allocation` | 实现 | 单条/批次回放差异、临时账本、原子提交、额度优先级 | 起始实现未完成，预期失败 |
+| Q3 `protocol-adaptation` | 协议适配 | 将协议一已完成变更逐字段适配到近似的协议二结构 | 可编译；规则表仍为适配前值，预期失败 |
+
+v1 面向高级工程实践；v2 面向长篇业务协议下的闭世界实现和协议适配。v2 的组合边界均公开写入题面及 C++ 结构体、JSON、Protobuf 业务协议，评分不会依赖未说明的“隐藏谜题”。它专门检验是否按业务协议读取作用域、优先级和逐结构字段，而不是按常见业务惯例脑补或对近似名称机械复制。它不能保证任何模型一定失败或通过；实际能力结论以匿名盲评结果为准。
 
 ## 完整流程
 
 | 阶段 | 主 agent 动作 | 是否交给用户 |
 |------|--------------|--------------|
 | 1. 确认参评对象 | 询问 Agent + 模型组合，整理参评表 | 是，等用户回复 |
-| 2. 选择试题 | 默认复制 `cpp17-advanced-v1`；仅在明确要求时自定义出题 | — |
+| 2. 选择试题 | 默认复制 `cpp17-advanced-v1`；明确指定时复制 `cpp17-advanced-v2`；仅在预设外要求时自定义出题 | — |
 | 3. 创建 benchmark 目录 | 在 `benchmark/<run-id>/` 生成题源 + 各参评对象独立作答目录 | 生成后停止 |
 | 4. 等待作答 | 不替参评 Agent 作答、不提前评分 | 是，用户分别让各 Agent 在各自目录答题 |
 | 5. 匿名盲评 | 全部作答结束后创建匿名包与私有参考解答副本，调用 scorer subagent 按 rubric 盲评 | — |
@@ -110,6 +118,7 @@ scorer 报告和最终 `evaluation.md`，避免向原始提交回写评分过程
 |------|------|
 | [`.claude/skills/agent-benchmark/SKILL.md`](./.claude/skills/agent-benchmark/SKILL.md) | **核心**：完整流程、公平性控制、rubric、报告模板 |
 | [`.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/`](./.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/) | 默认预设题库、starter 与公开检查 |
+| [`.claude/skills/agent-benchmark/presets/cpp17-advanced-v2/`](./.claude/skills/agent-benchmark/presets/cpp17-advanced-v2/) | 长文本业务协议预设题库、起始代码与公开检查 |
 | [`.claude/skills/create-skill/SKILL.md`](./.claude/skills/create-skill/SKILL.md) | 创建新 skill 的辅助 skill |
 | [`evaluation-agents.md`](./evaluation-agents.md) | 可参评的 Agent + 模型组合与自动化评测启动指令 |
 | [`CLAUDE.md`](./CLAUDE.md) → [`AGENTS.md`](./AGENTS.md) | 项目规范（AGENTS.md 为符号链接） |

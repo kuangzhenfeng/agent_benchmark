@@ -72,7 +72,7 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 .claude/skills/agent-benchmark/presets/cpp17-advanced-v1/
 ```
 
-不要在默认流程中临时改题、替换单题或根据参评对象调整题面。预设冻结后，同一轮的所有参评对象必须从同一份预设副本作答。只有用户明确要求自定义题量、题型、领域或难度时，才设计新题；此时要在本轮 `README.md` 记录偏离的原因，不能仍标为该预设版本。
+不要在默认流程中临时改题、替换单题或根据参评对象调整题面。预设冻结后，同一轮的所有参评对象必须从同一份预设副本作答。用户明确指定预设名（例如 `cpp17-advanced-v2`）时，使用该预设目录与对应私有评分参考；这不是自定义出题。只有用户明确要求预设之外的题量、题型、领域或难度时，才设计新题；此时要在本轮 `README.md` 记录偏离的原因，不能仍标为该预设版本。
 
 `cpp17-advanced-v1` 固定组合：
 
@@ -81,6 +81,16 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 | Q1 `subscription-hub` | 组合 Bugfix | 50 分钟 | 所有权、回调重入、异常安全、32 位时钟回绕、并发批次语义 |
 | Q2 `coalescing-cache` | Implementation | 70 分钟 | 并发状态机、请求合并、TTL、失效竞态、LRU、递归加载 |
 | Q3 `routing-config` | Refactor/Design | 60 分钟 | 快照发布、兼容 API 生命周期、观察者隔离、原子 reload、最长前缀匹配 |
+
+可选预设 `cpp17-advanced-v2` 固定组合：
+
+| 题号 | 类型 | 推荐耗时 | 评测重点 |
+|------|------|----------|----------|
+| Q1 `settlement-journal` | 组合缺陷修复 | 65 分钟 | 1,000 行 C++ 结构体业务协议、优先级、作用域幂等、文本所有权、审计重入 |
+| Q2 `benefit-allocation` | 实现 | 90 分钟 | 3,000 行 JSON 业务协议、单条/批次回放、临时账本、原子提交、回调隔离 |
+| Q3 `protocol-adaptation` | 协议适配 | 210 分钟 | 协议一 Protobuf 与协议二 JSON 各 5,000 行、近似结构逐字段迁移、范围控制 |
+
+`cpp17-advanced-v2` 专门评测长篇业务协议下的闭世界实现和协议适配能力。业务协议本体使用 C++ 结构体、JSON、Protobuf，不使用标记文本文档协议附录；所有组合边界必须公开，不能用未说明的私人“隐藏坑”评分。它提高了按经验臆测业务规则或机械复制近似结构的风险，但不能保证任何特定模型一定失败或通过；结论必须来自本轮盲评。
 
 这些题目通过多个相互影响的验收条件提高排查和实现深度，目标是让强模型也必须经历阅读、设计、实现和验证的多轮工作。不得宣称某个题目能保证所有当前或未来模型都无法单轮完成；模型能力需以实际 benchmark 结果验证。
 
@@ -111,11 +121,11 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 
 在 `benchmark/<run-id>/` 下创建本轮评测。`<run-id>` 使用日期时间和简短主题，例如 `20260619-1430-cpp-benchmark`。
 
-若未收到明确的自定义出题要求，按以下顺序创建题目，不能手写一个看似相同但内容漂移的副本：
+若使用预设（默认 v1 或用户明确指定的预设），按以下顺序创建题目，不能手写一个看似相同但内容漂移的副本：
 
-1. 将预设中的 `q01-subscription-hub`、`q02-coalescing-cache`、`q03-routing-config` **完整复制**到 `questions/`。
+1. 将所选预设的全部 qXX 题目目录 **完整复制**到 `questions/`。v1 是三个目录；v2 是 `q01-settlement-journal`、`q02-benefit-allocation`、`q03-protocol-adaptation`。
 2. 从刚生成的 `questions/` 完整复制每题到每个 `agents/<slug>/`，包括 `QUESTION.md`、`ANSWER.md`、`include/`、`src/`、`tests/` 与 `run_public_checks.sh`。
-3. 在本轮 `README.md` 和 `participants.md` 写明 `preset: cpp17-advanced-v1`、每题时间盒和 C++17 编译器版本。
+3. 在本轮 `README.md` 和 `participants.md` 写明实际 `preset: <name>`、每题时间盒和 C++17 编译器版本。
 
 复制而非符号链接，保证每个作答目录可独立修改且题源在运行结束后可复现。复制后比较各 `agents/<slug>/qXX-*` 与 `questions/qXX-*` 的初始内容；任何差异都应视为生成失败并重新复制。严禁复制 `.claude/skills/agent-benchmark/scoring-reference/`、任何参考实现或私有验收材料到本轮目录；这些材料只在第 5 步创建 scorer 专用副本。
 
@@ -171,12 +181,12 @@ benchmark/<run-id>/
 | `scoring/redaction-log.md` | 记录脱敏改动，只写脱敏位置和类型，不写参评身份 |
 | `scoring/scorer-report.md` | scorer subagent 输出的匿名评分报告 |
 
-本轮 `README.md` 还必须声明公开检查的初始状态：Q1、Q3 的基础路径可通过，但完整公开套件含已文档化的边界检查而预期失败；Q2 因 starter 未实现而预期失败。不得把该状态解释为对某个参评对象的预评分。
+本轮 `README.md` 还必须按所选预设声明公开检查的初始状态。v1：Q1、Q3 的基础路径可通过，但完整公开套件含已文档化的边界检查而预期失败；Q2 因 starter 未实现而预期失败。v2：Q1 可编译但因公开业务协议边界缺陷失败；Q2 未实现；Q3 的规则表仍是协议适配前值。不得把该状态解释为对某个参评对象的预评分。
 
 每个 `agents/<slug>/README.md` 必须写清楚：
 
 ```markdown
-# Agent Benchmark Instructions
+# Agent Benchmark 作答说明
 
 你只允许在当前目录内答题。
 
@@ -292,7 +302,7 @@ scorer subagent prompt 模板：
 最终报告模板：
 
 ```markdown
-# Agent Benchmark Evaluation
+# Agent Benchmark 评测报告
 
 ## 总结
 

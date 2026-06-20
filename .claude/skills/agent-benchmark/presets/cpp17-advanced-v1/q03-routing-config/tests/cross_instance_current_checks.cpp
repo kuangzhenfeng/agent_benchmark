@@ -10,13 +10,13 @@ int main() {
     assert(first_snapshot.version == 0);
     assert(first_snapshot.routes.front().target == "first");
 
-    // This must not replace the lifetime pin for the first instance.
+    // 这一调用不得替换第一个实例的生命周期 pin。
     static_cast<void>(second.current());
     assert(first.reload(Config{0, {{"/", "updated"}}}));
 
-    // AddressSanitizer turns a single shared TLS slot into a deterministic
-    // use-after-free failure.  A correct implementation also preserves the
-    // old immutable snapshot rather than mutating it in place.
+    // AddressSanitizer 会把单一共享 TLS 槽位转化为确定性的
+    // use-after-free 失败。正确的实现也应保留旧的不可变快照，
+    // 而不是就地修改它。
     assert(first_snapshot.version == 0);
     assert(first_snapshot.routes.front().target == "first");
 }

@@ -28,12 +28,12 @@ int main() {
     SubscriptionHub hub;
     Control control{&hub};
 
-    // The full expression completes before arming, so only destruction of the
-    // hub-owned callback is relevant below.
+    // 完整表达式在 arming 前结束，因此下面只需考察 hub 持有的
+    // callback 的析构。
     control.id = hub.subscribe("orders", ReenterOnDestroy{&control}, 0);
     control.armed.store(true, std::memory_order_relaxed);
 
-    // A correct implementation releases the final callback owner after
-    // unlocking.  Re-entering unsubscribe then observes an already-removed ID.
+    // 正确的实现会在解锁后再释放最后一个 callback 所有者。
+    // 此后重入 unsubscribe 时观察到的是一个已被移除的 ID。
     hub.unsubscribe(control.id);
 }

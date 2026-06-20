@@ -8,8 +8,8 @@ int main() {
     std::uint64_t tick = 100;
     CoalescingCache cache(2, [&] {
         assert(cache_ptr != nullptr);
-        // Clock invocation must not happen under a cache mutex: invalidate
-        // needs that mutex and is a permitted public re-entry.
+        // Clock 的调用不能发生在 cache mutex 之下：invalidate 需要
+        // 这把 mutex，而它是允许的公开重入操作。
         cache_ptr->invalidate("unrelated");
         return tick++;
     });
