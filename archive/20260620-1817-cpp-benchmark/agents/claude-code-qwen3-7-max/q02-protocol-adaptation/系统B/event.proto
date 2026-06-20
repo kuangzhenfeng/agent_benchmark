@@ -1,0 +1,1408 @@
+syntax = "proto3";
+
+package orbit.tc;
+
+import "definitions.proto";
+
+// event.proto 分区: 含本系统物模型结构。
+// 注意: 仅标注'是否实现绑定: 是'的结构参与迁移适配; 其余为上下文。
+// 适配契约字段值逐结构独立, 结构代号相近不代表字段相同。
+
+// 结构编号 B-002。
+// 是否实现绑定: 是。
+// 结构代号: thermal_sample_v2。
+// 所属子系统族: thermal。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 316
+  //   小版本 schema_rev = 3
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 本级
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 2  (arm=0 ignite=1 hold=0 safe=0 redundant=0 debug=0)
+  //   飞行阶段 phase = boost=2
+  //   载荷分支 branch = 事件
+  //   合法区间 band = [121, 234]
+message thermal_sample_v2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-004。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_log。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_log {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-008。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_summary。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_summary {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-009。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_records。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_records {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-013。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_delta。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_delta {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-017。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_views。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_views {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-020。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_log。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_log {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-023。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_records。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_records {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-031。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_patches。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_patches {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-032。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_legacy2。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_legacy2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-035。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_0。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_0 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-038。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_0。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_0 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-039。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_log。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_log {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-041。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_snapshot。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_snapshot {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-046。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_patches。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_patches {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-051。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_patches。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_patches {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-071。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_patches。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_patches {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-074。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_legacy2。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_legacy2 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-086。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_patches。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_patches {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-088。
+// 是否实现绑定: 是。
+// 结构代号: sep_events。
+// 所属子系统族: separation。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 625
+  //   小版本 schema_rev = 8
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 59  (arm=1 ignite=1 hold=0 safe=1 redundant=1 debug=1)
+  //   飞行阶段 phase = standby=1
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [194, 1044]
+message sep_events {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-089。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_ctx。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_ctx {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-091。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_1。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_1 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-095。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_ctx。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_ctx {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-098。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_legacy2。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_legacy2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-099。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_ctx。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_ctx {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-100。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_history。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_history {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-101。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_legacy2。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_legacy2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-117。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_history。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_history {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-126。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_record。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_record {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-127。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_snapshot。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_snapshot {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-135。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_context。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_context {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-136。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_summary。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_summary {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-137。
+// 是否实现绑定: 是。
+// 结构代号: sep_event。
+// 所属子系统族: separation。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 786
+  //   小版本 schema_rev = 5
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 26  (arm=0 ignite=1 hold=0 safe=1 redundant=1 debug=0)
+  //   飞行阶段 phase = insertion=6
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [321, 610]
+message sep_event {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-139。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_views。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_views {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-141。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_context。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_context {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-144。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_context。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_context {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-146。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_delta。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_delta {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-150。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_v3。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_v3 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-160。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_ctx。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_ctx {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-162。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_1。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_1 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-163。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_snapshot。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_snapshot {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-171。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_summary。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_summary {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-172。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_summary。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_summary {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-174。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_record。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_record {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-178。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_log。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_log {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-182。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_legacy2。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_legacy2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-185。
+// 是否实现绑定: 是。
+// 结构代号: thermal_sample_patch。
+// 所属子系统族: thermal。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 821
+  //   小版本 schema_rev = 7
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 2  (arm=0 ignite=1 hold=0 safe=0 redundant=0 debug=0)
+  //   飞行阶段 phase = ascent=3
+  //   载荷分支 branch = 遥测
+  //   合法区间 band = [447, 1033]
+message thermal_sample_patch {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-187。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_records。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_records {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-188。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_summary。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_summary {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-197。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_record。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_record {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-204。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_v3。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_v3 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-212。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_v3。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_v3 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-221。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_legacy2。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_legacy2 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-224。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_ctx。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_ctx {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-226。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_delta。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_delta {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-229。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_delta。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_delta {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-232。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_v3。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_v3 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-234。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_context。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_context {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-246。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_history。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_history {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-247。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_log。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_log {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-248。
+// 是否实现绑定: 是。
+// 结构代号: thermal_sample。
+// 所属子系统族: thermal。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 454
+  //   小版本 schema_rev = 2
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 23  (arm=1 ignite=1 hold=1 safe=0 redundant=1 debug=0)
+  //   飞行阶段 phase = standby=1
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [302, 608]
+message thermal_sample {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-251。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_history。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_history {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-252。
+// 是否实现绑定: 是。
+// 结构代号: sep_event_v2。
+// 所属子系统族: separation。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 644
+  //   小版本 schema_rev = 6
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 本级
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 43  (arm=1 ignite=1 hold=0 safe=1 redundant=0 debug=1)
+  //   飞行阶段 phase = standby=1
+  //   载荷分支 branch = 事件
+  //   合法区间 band = [482, 1430]
+message sep_event_v2 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-254。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_legacy2。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_legacy2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-256。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_delta。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_delta {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-257。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_0。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_0 {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-261。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_delta。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_delta {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-270。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_views。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_views {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-279。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_context。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_context {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-282。
+// 是否实现绑定: 是。
+// 结构代号: sep_event_patch。
+// 所属子系统族: separation。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 601
+  //   小版本 schema_rev = 5
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = true
+  //   模式位 mode_flag = 30  (arm=0 ignite=1 hold=1 safe=1 redundant=1 debug=0)
+  //   飞行阶段 phase = boost=2
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [31, 311]
+message sep_event_patch {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-284。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_v3。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_v3 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-287。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_views。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_views {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-289。
+// 是否实现绑定: 是。
+// 结构代号: thermal_sample_legacy。
+// 所属子系统族: thermal。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 749
+  //   小版本 schema_rev = 4
+  //   标识策略 id_policy = 严格必填
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 26  (arm=0 ignite=1 hold=0 safe=1 redundant=1 debug=0)
+  //   飞行阶段 phase = ascent=3
+  //   载荷分支 branch = 事件
+  //   合法区间 band = [494, 908]
+message thermal_sample_legacy {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-292。
+// 是否实现绑定: 是。
+// 结构代号: thermal_sample_view。
+// 所属子系统族: thermal。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 716
+  //   小版本 schema_rev = 3
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 本靶区
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 59  (arm=1 ignite=1 hold=0 safe=1 redundant=1 debug=1)
+  //   飞行阶段 phase = idle=0
+  //   载荷分支 branch = 配置
+  //   合法区间 band = [330, 629]
+message thermal_sample_view {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-293。
+// 是否实现绑定: 是。
+// 结构代号: thermal_samples。
+// 所属子系统族: thermal。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 127
+  //   小版本 schema_rev = 5
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本箭
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 60  (arm=0 ignite=0 hold=1 safe=1 redundant=1 debug=1)
+  //   飞行阶段 phase = coast=5
+  //   载荷分支 branch = 遥测
+  //   合法区间 band = [214, 613]
+message thermal_samples {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-295。
+// 是否实现绑定: 是。
+// 结构代号: sep_event_view。
+// 所属子系统族: separation。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 867
+  //   小版本 schema_rev = 6
+  //   标识策略 id_policy = 空则生成
+  //   回放域 replay_scope = 不回放
+  //   需要时间戳 stamp_required = true
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 61  (arm=1 ignite=0 hold=1 safe=1 redundant=1 debug=1)
+  //   飞行阶段 phase = boost=2
+  //   载荷分支 branch = 指令
+  //   合法区间 band = [253, 1129]
+message sep_event_view {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-306。
+// 是否实现绑定: 是。
+// 结构代号: sep_event_legacy。
+// 所属子系统族: separation。
+  // 适配契约元数据(本系统 B 的真值, 逐字段独立, 不从名称推断):
+  //   路由码 route_code = 427
+  //   小版本 schema_rev = 4
+  //   标识策略 id_policy = 保留空
+  //   回放域 replay_scope = 本箭
+  //   需要时间戳 stamp_required = false
+  //   需要序号 ordinal_required = false
+  //   模式位 mode_flag = 35  (arm=1 ignite=1 hold=0 safe=0 redundant=0 debug=1)
+  //   飞行阶段 phase = ascent=3
+  //   载荷分支 branch = 遥测
+  //   合法区间 band = [381, 1049]
+message sep_event_legacy {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-315。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_ctx。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_ctx {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-319。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_snapshot。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_snapshot {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-323。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_legacy2。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_legacy2 {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-326。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_context。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_context {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-331。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_patches。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_patches {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-334。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_snapshot。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_snapshot {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+
+// 结构编号 B-338。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_log。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_log {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-340。
+// 是否实现绑定: 否。
+// 结构代号: sep_event_patches。
+// 所属子系统族: separation。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message sep_event_patches {
+  uint32 sep_index = 1;  // 分离序
+  double sep_velocity_ms = 2;  // 分离速度
+  bool latched = 3;  // 锁紧状态
+  double clearance_m = 4;  // 分离间距
+  uint32 sep_event_id = 5;  // 分离事件编号
+
+}
+
+// 结构编号 B-343。
+// 是否实现绑定: 否。
+// 结构代号: thermal_sample_records。
+// 所属子系统族: thermal。
+  // 本结构仅为上下游业务上下文, 不参与实现绑定迁移。
+  // 不得据名称、相邻位置或所属子系统为本结构新增 C++ 规则项。
+message thermal_sample_records {
+  double skin_temp_c = 1;  // 蒙皮温度
+  double bay_temp_c = 2;  // 舱内温度
+  uint32 heater_mask = 3;  // 加热器掩码
+  double gradient = 4;  // 温度梯度
+  bool overtemp = 5;  // 过温
+
+}
+

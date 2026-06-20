@@ -1,0 +1,19 @@
+两道题已全部完成，现通知你。
+
+## 完成通知
+
+### Q1 `q01-long-context-protocol`（range.tc v6 规则表校正）
+- 仅修改 `src/range_validator.cpp` 的 `kRules` 数组（48 结构 × 10 维），按 **ADR-009 优先级**（errata > changelog > v6.proto > 字段词典 > 历史代码）逐字段校正。
+- 派生函数一字未动。
+- **`./run_public_checks.sh` 退出码 0**（8 个结构锚点 + `flag_active` 抽样 + `within_band` 边界全过，零编译警告）。
+- `ANSWER.md` 含文档优先级、8 类陷阱处理、48×10 真值表（附来源层）、验证记录。
+
+### Q2 `q02-protocol-adaptation`（系统 A → 系统 B 适配）
+- 仅修改 `src/protocol_adapter.cpp` 的 `kRules` 数组，把起始的系统 A 值整体替换为**逐字段取自系统 B 契约元数据块**的真值。
+- **规避了硬上限**：飞行阶段一律用系统 B 枚举编号（coast=5、insertion=6，B 的 4 号位是 reserved 占位），未用系统 A 编号；未复制系统 A 值；未为非绑定结构新增规则项。
+- 派生函数一字未动；未改公开头文件/测试/系统 A/系统 B/变更映射。
+- **`./run_public_checks.sh` 退出码 0**（8 锚点 + stage_state 的 `flag_active` 逐位断言，零警告）。
+- `ANSWER.md` 含适配方法、阶段编号陷阱表、48×10 真值表（phase 括注系统 B 阶段名）、验证记录。
+
+### 约束遵守
+全程未联网、未读写其他 `agents/` 目录或 `questions/` 公共题源；仅在我自己的答案目录内工作。`README.md` 已按要求同步更新作答记录。

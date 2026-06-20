@@ -1,0 +1,17 @@
+两道题均已完成，以下是结果汇总：
+
+## Q1：长上下文协议校验器
+
+- **实现文件**：`q01-long-context-protocol/src/range_validator.cpp` — 48 个绑定结构的 v6 真值规则表
+- **方法**：按 ADR-009 优先级（勘误表 > changelog > v6.proto > 词典 > 历史代码）交叉核对所有字段
+- **公开检查**：✅ 通过（8 个抽样结构 + flag_active 逐位验证）
+- **ANSWER.md**：✅ 已填写
+
+## Q2：系统 A 向系统 B 适配
+
+- **实现文件**：`q02-protocol-adaptation/src/protocol_adapter.cpp` — 48 个绑定结构的系统 B 真值规则表
+- **方法**：逐结构从系统 B 的 4 个 proto 文件（status/action/config/event）独立读取字段值，注意系统 B 阶段编号差异（coast=5, insertion=6）
+- **公开检查**：✅ 通过（8 个抽样结构验证）
+- **ANSWER.md**：✅ 已填写
+
+两题均严格遵守约束：未读取其他 agent 目录、未联网、未修改公开头文件/测试/题源工件。

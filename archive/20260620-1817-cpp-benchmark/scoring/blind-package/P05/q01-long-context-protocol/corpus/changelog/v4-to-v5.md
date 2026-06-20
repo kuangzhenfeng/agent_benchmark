@@ -1,0 +1,162 @@
+# 变更日志：v4 → v5
+
+本日志记录从 v4 到 v5 的结构契约变更。每项给出变更后的最终值。
+
+## 变更条目
+
+- **stage_state.phase_value**：v4 值为 2；v5 起变更为 **2**。
+- **stage_states.replay_scope**：v4 值为 本靶区；v5 起变更为 **不回放**。
+- **stage_states.mode_flag**：v4 值为 45 (arm=1 ignite=0 hold=1 safe=1 redundant=0 debug=1)；v5 起变更为 **15 (arm=1 ignite=1 hold=1 safe=1 redundant=0 debug=0)**。
+- **stage_state_view.route_code**：v4 值为 670；v5 起变更为 **670**。
+- **stage_state_view.id_policy**：v4 值为 保留空值；v5 起变更为 **保留空值**。
+- **stage_state_view.phase_value**：v4 值为 1；v5 起变更为 **5**。
+- **stage_state_patch.schema_rev**：v4 值为 5；v5 起变更为 **5**。
+- **stage_state_patch.mode_flag**：v4 值为 36 (arm=0 ignite=0 hold=1 safe=0 redundant=0 debug=1)；v5 起变更为 **42 (arm=0 ignite=1 hold=0 safe=1 redundant=0 debug=1)**。
+- **stage_state_legacy.schema_rev**：v4 值为 9；v5 起变更为 **9**。
+- **stage_state_legacy.id_policy**：v4 值为 空则生成；v5 起变更为 **空则生成**。
+- **stage_state_legacy.phase_value**：v4 值为 2；v5 起变更为 **2**。
+- **stage_state_v2.id_policy**：v4 值为 空则生成；v5 起变更为 **空则生成**。
+- **stage_state_v2.phase_value**：v4 值为 2；v5 起变更为 **2**。
+- **stage_state_v2.branch**：v4 值为 事件；v5 起变更为 **事件**。
+- **thrust_report.replay_scope**：v4 值为 本箭；v5 起变更为 **本靶区**。
+- **thrust_report.phase_value**：v4 值为 6；v5 起变更为 **5**。
+- **thrust_report_view.schema_rev**：v4 值为 9；v5 起变更为 **9**。
+- **thrust_report_view.id_policy**：v4 值为 保留空值；v5 起变更为 **严格必填**。
+- **thrust_report_view.branch**：v4 值为 遥测；v5 起变更为 **事件**。
+- **thrust_report_patch.id_policy**：v4 值为 空则生成；v5 起变更为 **保留空值**。
+- **thrust_report_patch.phase_value**：v4 值为 1；v5 起变更为 **3**。
+- **thrust_report_patch.branch**：v4 值为 事件；v5 起变更为 **指令**。
+- **thrust_report_legacy.phase_value**：v4 值为 1；v5 起变更为 **6**。
+- **thrust_report_v2.branch**：v4 值为 遥测；v5 起变更为 **遥测**。
+- **nav_solution.id_policy**：v4 值为 保留空值；v5 起变更为 **严格必填**。
+- **nav_solution.mode_flag**：v4 值为 55 (arm=1 ignite=1 hold=1 safe=0 redundant=1 debug=1)；v5 起变更为 **59 (arm=1 ignite=1 hold=0 safe=1 redundant=1 debug=1)**。
+- **nav_solutions.replay_scope**：v4 值为 本靶区；v5 起变更为 **本靶区**。
+- **nav_solutions.mode_flag**：v4 值为 8 (arm=0 ignite=0 hold=0 safe=1 redundant=0 debug=0)；v5 起变更为 **14 (arm=0 ignite=1 hold=1 safe=1 redundant=0 debug=0)**。
+- **nav_solutions.phase_value**：v4 值为 3；v5 起变更为 **6**。
+- **nav_solutions.branch**：v4 值为 事件；v5 起变更为 **事件**。
+- **nav_solution_view.id_policy**：v4 值为 保留空值；v5 起变更为 **保留空值**。
+- **nav_solution_view.mode_flag**：v4 值为 8 (arm=0 ignite=0 hold=0 safe=1 redundant=0 debug=0)；v5 起变更为 **54 (arm=0 ignite=1 hold=1 safe=0 redundant=1 debug=1)**。
+- **nav_solution_view.branch**：v4 值为 遥测；v5 起变更为 **遥测**。
+- **nav_solution_patch.route_code**：v4 值为 798；v5 起变更为 **798**。
+- **nav_solution_patch.replay_scope**：v4 值为 不回放；v5 起变更为 **本级**。
+- **nav_solution_patch.band**：v4 值为 [98, 1018]；v5 起变更为 **[98, 1018]**。
+- **nav_solution_legacy.schema_rev**：v4 值为 8；v5 起变更为 **8**。
+- **nav_solution_legacy.id_policy**：v4 值为 空则生成；v5 起变更为 **保留空值**。
+- **nav_solution_legacy.replay_scope**：v4 值为 本靶区；v5 起变更为 **本靶区**。
+- **nav_solution_legacy.phase_value**：v4 值为 0；v5 起变更为 **6**。
+- **nav_solution_legacy.branch**：v4 值为 事件；v5 起变更为 **事件**。
+- **nav_solution_v2.mode_flag**：v4 值为 16 (arm=0 ignite=0 hold=0 safe=0 redundant=1 debug=0)；v5 起变更为 **4 (arm=0 ignite=0 hold=1 safe=0 redundant=0 debug=0)**。
+- **nav_solution_v2.branch**：v4 值为 事件；v5 起变更为 **事件**。
+- **sep_event.route_code**：v4 值为 869；v5 起变更为 **869**。
+- **sep_event.id_policy**：v4 值为 严格必填；v5 起变更为 **严格必填**。
+- **sep_event.replay_scope**：v4 值为 本级；v5 起变更为 **本级**。
+- **sep_event.mode_flag**：v4 值为 55 (arm=1 ignite=1 hold=1 safe=0 redundant=1 debug=1)；v5 起变更为 **9 (arm=1 ignite=0 hold=0 safe=1 redundant=0 debug=0)**。
+- **sep_events.mode_flag**：v4 值为 4 (arm=0 ignite=0 hold=1 safe=0 redundant=0 debug=0)；v5 起变更为 **9 (arm=1 ignite=0 hold=0 safe=1 redundant=0 debug=0)**。
+- **sep_events.phase_value**：v4 值为 0；v5 起变更为 **2**。
+- **sep_event_view.route_code**：v4 值为 981；v5 起变更为 **981**。
+- **sep_event_view.id_policy**：v4 值为 空则生成；v5 起变更为 **空则生成**。
+- **sep_event_view.replay_scope**：v4 值为 本箭；v5 起变更为 **本箭**。
+- **sep_event_view.phase_value**：v4 值为 1；v5 起变更为 **0**。
+- **sep_event_view.branch**：v4 值为 遥测；v5 起变更为 **配置**。
+- **sep_event_patch.replay_scope**：v4 值为 不回放；v5 起变更为 **不回放**。
+- **sep_event_legacy.branch**：v4 值为 遥测；v5 起变更为 **事件**。
+- **sep_event_v2.id_policy**：v4 值为 空则生成；v5 起变更为 **严格必填**。
+- **fts_status.id_policy**：v4 值为 空则生成；v5 起变更为 **严格必填**。
+- **fts_status.replay_scope**：v4 值为 不回放；v5 起变更为 **不回放**。
+- **fts_status.mode_flag**：v4 值为 54 (arm=0 ignite=1 hold=1 safe=0 redundant=1 debug=1)；v5 起变更为 **4 (arm=0 ignite=0 hold=1 safe=0 redundant=0 debug=0)**。
+- **fts_status.branch**：v4 值为 事件；v5 起变更为 **事件**。
+- **fts_statuses.id_policy**：v4 值为 严格必填；v5 起变更为 **严格必填**。
+- **fts_statuses.phase_value**：v4 值为 3；v5 起变更为 **3**。
+- **fts_status_view.id_policy**：v4 值为 保留空值；v5 起变更为 **保留空值**。
+- **fts_status_patch.phase_value**：v4 值为 5；v5 起变更为 **0**。
+- **fts_status_patch.branch**：v4 值为 事件；v5 起变更为 **事件**。
+- **fts_status_legacy.id_policy**：v4 值为 严格必填；v5 起变更为 **空则生成**。
+- **fts_status_legacy.branch**：v4 值为 事件；v5 起变更为 **事件**。
+- **fts_status_v2.branch**：v4 值为 配置；v5 起变更为 **事件**。
+- **payload_frame.mode_flag**：v4 值为 55 (arm=1 ignite=1 hold=1 safe=0 redundant=1 debug=1)；v5 起变更为 **51 (arm=1 ignite=1 hold=0 safe=0 redundant=1 debug=1)**。
+- **payload_frames.schema_rev**：v4 值为 4；v5 起变更为 **4**。
+- **payload_frames.id_policy**：v4 值为 保留空值；v5 起变更为 **严格必填**。
+- **payload_frames.mode_flag**：v4 值为 32 (arm=0 ignite=0 hold=0 safe=0 redundant=0 debug=1)；v5 起变更为 **31 (arm=1 ignite=1 hold=1 safe=1 redundant=1 debug=0)**。
+- **payload_frame_view.schema_rev**：v4 值为 9；v5 起变更为 **9**。
+- **payload_frame_patch.schema_rev**：v4 值为 7；v5 起变更为 **7**。
+- **payload_frame_patch.mode_flag**：v4 值为 35 (arm=1 ignite=1 hold=0 safe=0 redundant=0 debug=1)；v5 起变更为 **17 (arm=1 ignite=0 hold=0 safe=0 redundant=1 debug=0)**。
+- **payload_frame_legacy.replay_scope**：v4 值为 本级；v5 起变更为 **本靶区**。
+- **payload_frame_v2.route_code**：v4 值为 803；v5 起变更为 **803**。
+- **link_quality.replay_scope**：v4 值为 本靶区；v5 起变更为 **本靶区**。
+- **link_qualities.schema_rev**：v4 值为 9；v5 起变更为 **9**。
+- **link_qualities.replay_scope**：v4 值为 不回放；v5 起变更为 **本靶区**。
+- **link_qualities.band**：v4 值为 [81, 926]；v5 起变更为 **[81, 926]**。
+- **link_quality_view.mode_flag**：v4 值为 8 (arm=0 ignite=0 hold=0 safe=1 redundant=0 debug=0)；v5 起变更为 **12 (arm=0 ignite=0 hold=1 safe=1 redundant=0 debug=0)**。
+- **link_quality_view.branch**：v4 值为 遥测；v5 起变更为 **指令**。
+- **link_quality_patch.schema_rev**：v4 值为 1；v5 起变更为 **1**。
+- **link_quality_legacy.phase_value**：v4 值为 5；v5 起变更为 **5**。
+- **link_quality_legacy.branch**：v4 值为 指令；v5 起变更为 **指令**。
+- **thermal_sample.id_policy**：v4 值为 保留空值；v5 起变更为 **保留空值**。
+- **thermal_sample.mode_flag**：v4 值为 61 (arm=1 ignite=0 hold=1 safe=1 redundant=1 debug=1)；v5 起变更为 **18 (arm=0 ignite=1 hold=0 safe=0 redundant=1 debug=0)**。
+- **thermal_sample.phase_value**：v4 值为 2；v5 起变更为 **5**。
+- **thermal_samples.mode_flag**：v4 值为 55 (arm=1 ignite=1 hold=1 safe=0 redundant=1 debug=1)；v5 起变更为 **16 (arm=0 ignite=0 hold=0 safe=0 redundant=1 debug=0)**。
+- **thermal_samples.branch**：v4 值为 遥测；v5 起变更为 **遥测**。
+- **thermal_sample_patch.replay_scope**：v4 值为 本靶区；v5 起变更为 **本箭**。
+- **thermal_sample_patch.phase_value**：v4 值为 0；v5 起变更为 **0**。
+- **thermal_sample_patch.branch**：v4 值为 指令；v5 起变更为 **指令**。
+- **thermal_sample_legacy.id_policy**：v4 值为 空则生成；v5 起变更为 **保留空值**。
+- **thermal_sample_legacy.branch**：v4 值为 指令；v5 起变更为 **配置**。
+- **thermal_sample_v2.route_code**：v4 值为 819；v5 起变更为 **819**。
+- **thermal_sample_v2.phase_value**：v4 值为 2；v5 起变更为 **5**。
+
+## 其他结构变更说明
+
+- stage_state 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- stage_state 的告警阈值在 v5 调整, 由固定值改为按级序号查表。
+- stage_state 的上下文字段 f3 含义在 v5 细化为含方向分量。
+- stage_state 的告警阈值在 v5 调整, 由固定值改为按级序号查表。
+- stage_states 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- stage_state_view 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- stage_state_view 的字段编号重新分配以预留扩展位, 契约语义不变。
+- stage_state_patch 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- stage_state_patch 的帧序号回绕处理在 v5 修复, 不再影响校验结论。
+- stage_state_legacy 的告警阈值在 v5 调整, 由固定值改为按级序号查表。
+- stage_state_legacy 的上下文字段 f3 含义在 v5 细化为含方向分量。
+- stage_state_legacy 的字段编号重新分配以预留扩展位, 契约语义不变。
+- stage_state_legacy 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- stage_state_v2 的告警阈值在 v5 调整, 由固定值改为按级序号查表。
+- stage_state_v2 的上下文字段 f2 含义在 v5 细化为含方向分量。
+- thrust_report 的上下文字段 f3 含义在 v5 细化为含方向分量。
+- thrust_reports 的上下文字段 f1 含义在 v5 细化为含方向分量。
+- thrust_reports 的帧序号回绕处理在 v5 修复, 不再影响校验结论。
+- thrust_reports 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- thrust_report_view 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- thrust_report_view 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- thrust_report_view 的告警阈值在 v5 调整, 由固定值改为按级序号查表。
+- thrust_report_view 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- thrust_report_patch 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- thrust_report_patch 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- thrust_report_patch 的字段编号重新分配以预留扩展位, 契约语义不变。
+- thrust_report_patch 的字段编号重新分配以预留扩展位, 契约语义不变。
+- thrust_report_legacy 的告警阈值在 v5 调整, 由固定值改为按级序号查表。
+- thrust_report_v2 的帧序号回绕处理在 v5 修复, 不再影响校验结论。
+- thrust_report_v2 的字段编号重新分配以预留扩展位, 契约语义不变。
+- thrust_report_v2 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- nav_solution 的帧序号回绕处理在 v5 修复, 不再影响校验结论。
+- nav_solution 的上下文字段 f1 含义在 v5 细化为含方向分量。
+- nav_solutions 的上下文字段 f5 含义在 v5 细化为含方向分量。
+- nav_solution_view 的上下文字段 f5 含义在 v5 细化为含方向分量。
+- nav_solution_patch 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- nav_solution_patch 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- nav_solution_patch 的告警阈值在 v5 调整, 由固定值改为按级序号查表。
+- nav_solution_legacy 的上下文字段 f2 含义在 v5 细化为含方向分量。
+- nav_solution_legacy 的字段编号重新分配以预留扩展位, 契约语义不变。
+- nav_solution_v2 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- sep_event 的告警阈值在 v5 调整, 由固定值改为按级序号查表。
+- sep_events 的告警阈值在 v5 调整, 由固定值改为按级序号查表。
+- sep_events 的告警阈值在 v5 调整, 由固定值改为按级序号查表。
+- sep_events 的上下文字段 f3 含义在 v5 细化为含方向分量。
+- sep_events 的字段编号重新分配以预留扩展位, 契约语义不变。
+- sep_event_view 的上下文字段 f1 含义在 v5 细化为含方向分量。
+- sep_event_patch 的帧序号回绕处理在 v5 修复, 不再影响校验结论。
+- sep_event_patch 的帧序号回绕处理在 v5 修复, 不再影响校验结论。
+- sep_event_patch 在 v5 新增冗余链路统计字段, 不参与适配契约。
+- sep_event_patch 的上下文字段 f5 含义在 v5 细化为含方向分量。
+- sep_event_legacy 的字段编号重新分配以预留扩展位, 契约语义不变。
+- sep_event_legacy 的帧序号回绕处理在 v5 修复, 不再影响校验结论。
+- sep_event_v2 的字段编号重新分配以预留扩展位, 契约语义不变。
