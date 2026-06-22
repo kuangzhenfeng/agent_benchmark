@@ -120,6 +120,7 @@ scorer 报告和最终 `evaluation.md`，避免向原始提交回写评分过程
 | [`.claude/skills/agent-benchmark/presets/cpp17-advanced-v2/`](./.claude/skills/agent-benchmark/presets/cpp17-advanced-v2/) | 长文本业务协议预设题库、起始代码与公开检查 |
 | [`.claude/skills/create-skill/SKILL.md`](./.claude/skills/create-skill/SKILL.md) | 创建新 skill 的辅助 skill |
 | [`evaluation-agents.md`](./evaluation-agents.md) | 可参评的 Agent + 模型组合与自动化评测启动指令 |
+| [`score.md`](./score.md) | 各轮 archive 评测结果的简洁积分汇总（排名/总分/结论） |
 | [`CLAUDE.md`](./CLAUDE.md) → [`AGENTS.md`](./AGENTS.md) | 项目规范（AGENTS.md 为符号链接） |
 
 > 若需调整流程、评分标准或目录结构，直接修改 [`SKILL.md`](./.claude/skills/agent-benchmark/SKILL.md)，并同步回本 README。
@@ -131,6 +132,6 @@ scorer 报告和最终 `evaluation.md`，避免向原始提交回写评分过程
 | 内容 | 是否更新 README |
 |------|-----------------|
 | 流程、评分标准、目录结构等结构性变更 | 是，同步回本 README |
-| 单轮测评结果（分数、排名、对比） | **否**，独立归档在 `benchmark/<run-id>/evaluation.md` |
+| 单轮测评结果（分数、排名、对比） | **否**，独立归档在 `archive/<run-id>/evaluation.md`，并同步简洁汇总到 [`score.md`](./score.md) |
 
 README 只作为项目入口与约定说明，**不承载任何一轮的测评数据**；每轮结果各自留在对应 `<run-id>` 下，便于留存与横向对比。

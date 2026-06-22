@@ -4,6 +4,7 @@
 
 - 注释用中文
 - 变更后请同步更新 README.md
+- archive中各评测结果需要同步到score.md中，要求简洁
 
 ## Agent 规则
 

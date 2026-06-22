@@ -1,0 +1,99 @@
+# 变更日志：v5 → v6
+
+本日志记录从 v5 到 v6 的结构契约变更。每项给出变更后的最终值。
+
+## 变更条目
+
+- **stage_state.id_policy**：v5 值为 空则生成；v6 起变更为 **空则生成**。
+- **stage_state.branch**：v5 值为 指令；v6 起变更为 **指令**。
+- **stage_states.band**：v5 值为 [85, 201]；v6 起变更为 **[85, 201]**。
+- **stage_state_legacy.route_code**：v5 值为 482；v6 起变更为 **482**。
+- **thrust_report.schema_rev**：v5 值为 2；v6 起变更为 **2**。
+- **thrust_reports.branch**：v5 值为 遥测；v6 起变更为 **遥测**。
+- **thrust_report_view.replay_scope**：v5 值为 不回放；v6 起变更为 **不回放**。
+- **nav_solution.phase_value**：v5 值为 6；v6 起变更为 **6**。
+- **nav_solution.band**：v5 值为 [290, 612]；v6 起变更为 **[290, 612]**。
+- **nav_solutions.band**：v5 值为 [408, 794]；v6 起变更为 **[408, 794]**。
+- **nav_solution_view.phase_value**：v5 值为 1；v6 起变更为 **1**。
+- **nav_solution_patch.schema_rev**：v5 值为 3；v6 起变更为 **3**。
+- **nav_solution_patch.branch**：v5 值为 指令；v6 起变更为 **指令**。
+- **nav_solution_legacy.route_code**：v5 值为 565；v6 起变更为 **565**。
+- **sep_event_patch.schema_rev**：v5 值为 4；v6 起变更为 **4**。
+- **sep_event_legacy.id_policy**：v5 值为 保留空值；v6 起变更为 **保留空值**。
+- **sep_event_legacy.band**：v5 值为 [136, 432]；v6 起变更为 **[136, 432]**。
+- **fts_status.schema_rev**：v5 值为 6；v6 起变更为 **6**。
+- **fts_status_legacy.schema_rev**：v5 值为 6；v6 起变更为 **6**。
+- **fts_status_v2.route_code**：v5 值为 110；v6 起变更为 **110**。
+- **payload_frames.route_code**：v5 值为 425；v6 起变更为 **425**。
+- **payload_frame_view.replay_scope**：v5 值为 本靶区；v6 起变更为 **本靶区**。
+- **payload_frame_legacy.route_code**：v5 值为 458；v6 起变更为 **458**。
+- **payload_frame_v2.branch**：v5 值为 遥测；v6 起变更为 **遥测**。
+- **link_quality.id_policy**：v5 值为 严格必填；v6 起变更为 **严格必填**。
+- **link_quality_view.schema_rev**：v5 值为 9；v6 起变更为 **9**。
+- **link_quality_patch.route_code**：v5 值为 713；v6 起变更为 **713**。
+- **link_quality_patch.phase_value**：v5 值为 5；v6 起变更为 **5**。
+- **link_quality_legacy.schema_rev**：v5 值为 2；v6 起变更为 **2**。
+- **link_quality_legacy.id_policy**：v5 值为 保留空值；v6 起变更为 **保留空值**。
+- **link_quality_legacy.replay_scope**：v5 值为 不回放；v6 起变更为 **不回放**。
+- **link_quality_v2.replay_scope**：v5 值为 本靶区；v6 起变更为 **本靶区**。
+- **thermal_sample_view.branch**：v5 值为 事件；v6 起变更为 **事件**。
+- **thermal_sample_patch.schema_rev**：v5 值为 5；v6 起变更为 **5**。
+- **thermal_sample_patch.id_policy**：v5 值为 严格必填；v6 起变更为 **严格必填**。
+- **thermal_sample_patch.band**：v5 值为 [324, 475]；v6 起变更为 **[324, 475]**。
+- **thermal_sample_legacy.route_code**：v5 值为 130；v6 起变更为 **130**。
+- **thermal_sample_v2.schema_rev**：v5 值为 1；v6 起变更为 **1**。
+
+## 其他结构变更说明
+
+- stage_state 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- stage_state 的帧序号回绕处理在 v6 修复, 不再影响校验结论。
+- stage_state 的字段编号重新分配以预留扩展位, 契约语义不变。
+- stage_states 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- stage_state_view 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- stage_state_view 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- stage_state_view 的上下文字段 f2 含义在 v6 细化为含方向分量。
+- stage_state_view 的上下文字段 f1 含义在 v6 细化为含方向分量。
+- stage_state_patch 的字段编号重新分配以预留扩展位, 契约语义不变。
+- stage_state_legacy 的上下文字段 f2 含义在 v6 细化为含方向分量。
+- stage_state_legacy 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- stage_state_legacy 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- stage_state_legacy 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- stage_state_v2 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- thrust_report 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- thrust_reports 的上下文字段 f2 含义在 v6 细化为含方向分量。
+- thrust_report_view 的字段编号重新分配以预留扩展位, 契约语义不变。
+- thrust_report_view 的帧序号回绕处理在 v6 修复, 不再影响校验结论。
+- thrust_report_patch 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- thrust_report_legacy 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- thrust_report_legacy 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- thrust_report_legacy 的帧序号回绕处理在 v6 修复, 不再影响校验结论。
+- thrust_report_v2 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- thrust_report_v2 的字段编号重新分配以预留扩展位, 契约语义不变。
+- thrust_report_v2 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- nav_solution 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- nav_solution 的字段编号重新分配以预留扩展位, 契约语义不变。
+- nav_solutions 的字段编号重新分配以预留扩展位, 契约语义不变。
+- nav_solution_view 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- nav_solution_view 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- nav_solution_patch 的字段编号重新分配以预留扩展位, 契约语义不变。
+- nav_solution_patch 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- nav_solution_patch 的帧序号回绕处理在 v6 修复, 不再影响校验结论。
+- nav_solution_legacy 的字段编号重新分配以预留扩展位, 契约语义不变。
+- nav_solution_legacy 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- nav_solution_legacy 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- nav_solution_legacy 的字段编号重新分配以预留扩展位, 契约语义不变。
+- nav_solution_v2 的字段编号重新分配以预留扩展位, 契约语义不变。
+- nav_solution_v2 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- nav_solution_v2 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- nav_solution_v2 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- sep_event 的字段编号重新分配以预留扩展位, 契约语义不变。
+- sep_event 的上下文字段 f2 含义在 v6 细化为含方向分量。
+- sep_event 的上下文字段 f2 含义在 v6 细化为含方向分量。
+- sep_events 的字段编号重新分配以预留扩展位, 契约语义不变。
+- sep_event_view 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- sep_event_view 的帧序号回绕处理在 v6 修复, 不再影响校验结论。
+- sep_event_patch 在 v6 新增冗余链路统计字段, 不参与适配契约。
+- sep_event_legacy 的上下文字段 f5 含义在 v6 细化为含方向分量。
+- sep_event_v2 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- sep_event_v2 的告警阈值在 v6 调整, 由固定值改为按级序号查表。
+- sep_event_v2 的字段编号重新分配以预留扩展位, 契约语义不变。

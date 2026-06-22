@@ -7,6 +7,7 @@
 | claude code + glm-5.2 | `claude -p <prompt> --model glm-5.2` |
 | claude code + qwen3.7-max | `claude -p <prompt> --model coding-qwen-preview` |
 | codex + gpt-5.5 | `codex exec <prompt> -m gpt-5.5 -s workspace-write` |
+| codex + gpt-5.4 | `codex exec <prompt> -m gpt-5.4 -s workspace-write` |
 | opencode + glm-5.2 | `opencode run <prompt> -m stevenk.cn/glm-5.2` |
 | opencode + qwen3.7-max | `opencode run <prompt> -m xag/coding-qwen-preview` |
 
