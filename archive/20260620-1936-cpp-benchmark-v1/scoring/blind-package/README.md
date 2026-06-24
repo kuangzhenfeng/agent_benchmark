@@ -5,11 +5,11 @@
 ## 你只能读取的目录
 
 - 本 blind-package 目录（`P01`..`P06`，每个含三题完整产物：`QUESTION.md`、`ANSWER.md`、`include/`、`src/`、`tests/`、`run_public_checks.sh`）
-- 评分参考目录：`scoring/scorer-reference/`（含 `cpp17-advanced-v1.md` 语义参考解答与验收矩阵）
+- 评分参考目录：`scoring/scorer-reference/`（含 `benchmark-v1.md` 语义参考解答与验收矩阵）
 
 **禁止**读取：`mapping.private.md`、`participants.md`、`agents/`、`submissions/`、`questions/`、benchmark 目录之外任何与身份相关的文件。不要尝试推断身份。
 
-## 题目（预设 cpp17-advanced-v1，3 题，每题 100 分）
+## 题目（预设 benchmark-v1，3 题，每题 100 分）
 
 | 题 | 类型 | 评测重点 |
 |----|------|----------|
@@ -17,14 +17,14 @@
 | Q2 `q02-coalescing-cache` | Implementation | 并发请求合并状态机、TTL、失效竞态、LRU、递归加载 |
 | Q3 `q03-routing-config` | Refactor/Design | 快照发布、兼容 API 生命周期、观察者隔离、原子 reload、最长前缀匹配 |
 
-以 `cpp17-advanced-v1.md` 与各题 `QUESTION.md` 为准。**接受任何满足公开题面全部语义、资源安全和并发约束的等价实现**；不得以"未采用参考的数据结构"扣分。
+以 `benchmark-v1.md` 与各题 `QUESTION.md` 为准。**接受任何满足公开题面全部语义、资源安全和并发约束的等价实现**；不得以"未采用参考的数据结构"扣分。
 
 ## 如何评分
 
 对每个匿名对象（P01..P06）每题：
 
 1. **读题面** `QUESTION.md`，明确约束与验收点（含"硬性封顶条件"）。
-2. **读源码** `src/*.cpp`（必要时 `include/*.hpp`），对照 `cpp17-advanced-v1.md` 的验收矩阵，判断是否正确处理各组合缺陷维度。
+2. **读源码** `src/*.cpp`（必要时 `include/*.hpp`），对照 `benchmark-v1.md` 的验收矩阵，判断是否正确处理各组合缺陷维度。
 3. **读 `ANSWER.md`**，看是否填写了修改说明、验证方式、风险。
 4. **运行验证**：在对应 `Pxx/qXX-*` 目录内执行 `bash run_public_checks.sh`，记录退出码与输出。注意：
    - 该脚本内各测试自带 `timeout 5s`；退出码 `0` = 通过，`124` = 超时（典型为死锁），非 0 非 124 = 断言/ASAN 失败。

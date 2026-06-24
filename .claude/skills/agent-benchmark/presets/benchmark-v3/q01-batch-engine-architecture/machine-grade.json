@@ -1,0 +1,64 @@
+{
+  "SAMPLE": {
+    "views": {
+      "layered": {
+        "file": "01_layered_architecture.svg",
+        "data_style": "layered",
+        "node_precision": 1.0,
+        "node_recall": 1.0,
+        "edge_precision": 1.0,
+        "edge_recall": 1.0,
+        "edge_f1": 1.0,
+        "view_score": 1.0
+      },
+      "component_dependency": {
+        "file": "02_component_dependency.svg",
+        "data_style": "component",
+        "node_precision": 1.0,
+        "node_recall": 1.0,
+        "edge_precision": 1.0,
+        "edge_recall": 0.955,
+        "edge_f1": 0.977,
+        "view_score": 0.991
+      },
+      "dataflow": {
+        "file": "03_dataflow.svg",
+        "data_style": "dataflow",
+        "node_precision": 0.9,
+        "node_recall": 0.9,
+        "edge_precision": 0.9,
+        "edge_recall": 0.9,
+        "edge_f1": 0.9,
+        "view_score": 0.9
+      },
+      "class_relationship": {
+        "file": "04_class_relationship.svg",
+        "data_style": "class",
+        "node_precision": 1.0,
+        "node_recall": 1.0,
+        "edge_precision": 1.0,
+        "edge_recall": 1.0,
+        "edge_f1": 1.0,
+        "view_score": 1.0
+      },
+      "deployment": {
+        "file": "05_deployment_topology.svg",
+        "data_style": "deployment",
+        "node_precision": 0.9,
+        "node_recall": 0.9,
+        "edge_precision": 0.909,
+        "edge_recall": 0.909,
+        "edge_f1": 0.909,
+        "view_score": 0.904
+      }
+    },
+    "coverage_score_out_of_45": 45.0,
+    "coverage_raw_out_of_45": 43.36,
+    "trap_bonus": 3.0,
+    "trap_flags": {
+      "layering_present": true,
+      "no_compile_cycle": true,
+      "interface_deps": true
+    }
+  }
+}

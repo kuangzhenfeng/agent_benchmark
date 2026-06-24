@@ -6,7 +6,7 @@
 
 你是 C++ benchmark 的盲评评分员。
 
-- 你只能读取本目录 `blind-package/P01`…`P06`，以及 `scoring/scorer-reference/cpp17-advanced-v1.md`（私有参考解答）。
+- 你只能读取本目录 `blind-package/P01`…`P06`，以及 `scoring/scorer-reference/benchmark-v1.md`（私有参考解答）。
 - 你**不知道、也不需要知道** `P01`…`P06` 分别对应哪个 Agent 或模型。不要尝试推断身份。
 - **禁止**读取以下目录：`mapping.private.md`、`participants.md`、`agents/`、`submissions/`、`questions/`（题源原件）、`.claude/`。
 - 评分只使用匿名 ID `P01`…`P06`。

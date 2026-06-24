@@ -49,7 +49,7 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 - claude code + qwen3.7 max
 - opencode + glm-5.2
 
-如果你有期望题量、难度或时间盒，也一起告诉我；没有的话我使用 `cpp17-advanced-v1` 的 3 道 C++17 预设题（50 / 70 / 60 分钟）。
+如果你有期望题量、难度或时间盒，也一起告诉我；没有的话我使用 `benchmark-v1` 的 3 道 C++17 预设题（50 / 70 / 60 分钟）。
 ```
 
 收到回复后整理参评表：
@@ -59,22 +59,22 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 | 参评对象 | 原样保留用户写法，如 `claude code + qwen3.7 max` |
 | slug | 转成小写短横线目录名，如 `claude-code-qwen3-7-max` |
 | 题量 | 用户指定优先；未指定时使用 3 题预设套题 |
-| 难度 | 用户指定优先；默认 `cpp17-advanced-v1`（高级工程实践） |
+| 难度 | 用户指定优先；默认 `benchmark-v1`（高级工程实践） |
 | 时间盒 | 用户指定优先；默认 Q1 50 分钟、Q2 70 分钟、Q3 60 分钟 |
 
 若只有一个参评对象，可以生成单对象能力测评，但最终报告不能写成 A/B 差异。
 
 ### 2. 选择或设计 C++ 试题
 
-默认使用仓库内版本化预设 `cpp17-advanced-v1`，路径为：
+默认使用仓库内版本化预设 `benchmark-v1`，路径为：
 
 ```text
-.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/
+.claude/skills/agent-benchmark/presets/benchmark-v1/
 ```
 
-不要在默认流程中临时改题、替换单题或根据参评对象调整题面。预设冻结后，同一轮的所有参评对象必须从同一份预设副本作答。用户明确指定预设名（例如 `cpp17-advanced-v2`）时，使用该预设目录与对应私有评分参考；这不是自定义出题。只有用户明确要求预设之外的题量、题型、领域或难度时，才设计新题；此时要在本轮 `README.md` 记录偏离的原因，不能仍标为该预设版本。
+不要在默认流程中临时改题、替换单题或根据参评对象调整题面。预设冻结后，同一轮的所有参评对象必须从同一份预设副本作答。用户明确指定预设名（例如 `benchmark-v2`）时，使用该预设目录与对应私有评分参考；这不是自定义出题。只有用户明确要求预设之外的题量、题型、领域或难度时，才设计新题；此时要在本轮 `README.md` 记录偏离的原因，不能仍标为该预设版本。
 
-`cpp17-advanced-v1` 固定组合：
+`benchmark-v1` 固定组合：
 
 | 题号 | 类型 | 推荐耗时 | 评测重点 |
 |------|------|----------|----------|
@@ -82,14 +82,22 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 | Q2 `coalescing-cache` | Implementation | 70 分钟 | 并发状态机、请求合并、TTL、失效竞态、LRU、递归加载 |
 | Q3 `routing-config` | Refactor/Design | 60 分钟 | 快照发布、兼容 API 生命周期、观察者隔离、原子 reload、最长前缀匹配 |
 
-可选预设 `cpp17-advanced-v2` 固定组合：
+可选预设 `benchmark-v2` 固定组合：
 
 | 题号 | 类型 | 推荐耗时 | 评测重点 |
 |------|------|----------|----------|
 | Q1 `long-context-protocol` | 长上下文实现 | 300 分钟 | ~0.8M token 航天测控协议演进语料、纵向版本长程记忆、跨距离交叉引用、文档优先级取舍、幻觉抵抗 |
 | Q2 `protocol-adaptation` | 协议适配 | 300 分钟 | 两套 proto 物模型（各 ~348 结构）、横向相似系统逐字段迁移、近似命名辨别、enum 重编号、bit flag、范围控制 |
 
-`cpp17-advanced-v2` 专门评测长上下文下的跨距离交叉引用与协议适配能力。协议为全新虚构的航空航天测控物模型（`range.tc` / `orbit.tc`，proto3，仿物模型工程组织但内容与企业协议无关）。Q1 是 1M 上下文模型的长程记忆压力题：v6 正确值散落在 ~0.8M 语料的多份文档中，须按只在 ADR 出现一次的优先级规则取舍，并抵抗勘误推翻、词典滞后、单位漂移、枚举重编号、历史代码 bug 等幻觉陷阱；Q2 是横向结构迁移题。语料与评分参考由确定性生成器产出，所有真值点均可从公开语料推导。所有组合边界必须公开，不能用未说明的私人"隐藏坑"评分。它提高了仅读单一来源或机械复制近似结构的风险，但不能保证任何特定模型一定失败或通过；结论必须来自本轮盲评。
+`benchmark-v2` 专门评测长上下文下的跨距离交叉引用与协议适配能力。协议为全新虚构的航空航天测控物模型（`range.tc` / `orbit.tc`，proto3，仿物模型工程组织但内容与企业协议无关）。Q1 是 1M 上下文模型的长程记忆压力题：v6 正确值散落在 ~0.8M 语料的多份文档中，须按只在 ADR 出现一次的优先级规则取舍，并抵抗勘误推翻、词典滞后、单位漂移、枚举重编号、历史代码 bug 等幻觉陷阱；Q2 是横向结构迁移题。语料与评分参考由确定性生成器产出，所有真值点均可从公开语料推导。所有组合边界必须公开，不能用未说明的私人"隐藏坑"评分。它提高了仅读单一来源或机械复制近似结构的风险，但不能保证任何特定模型一定失败或通过；结论必须来自本轮盲评。
+
+可选预设 `benchmark-v3` 固定组合（**产物型**，1 题）：
+
+| 题号 | 类型 | 推荐耗时 | 评测重点 |
+|------|------|----------|----------|
+| Q1 `batch-engine-architecture` | 架构图绘制（产物型） | 120–150 分钟 | 读懂可运行 C++17 批处理引擎 `TaskForge` 后产出 5 种风格 SVG 架构图（分层/组件依赖/数据流/类关系/部署）、命名近似与死代码辨别、运行时回调 vs 编译期依赖、接口依赖 vs 具体类依赖、注释误导抵抗、SVG `data-*` 标注可机器核对 |
+
+`benchmark-v3` 是唯一的产物型预设：参评对象不改代码、不通过测试，而是通读一套可编译运行的 C++17 批处理引擎源码后，用 SVG 画出 5 种风格的架构图。所有架构事实都能从公开源码推导；评分把"正确性"从主观压成客观的架构事实覆盖率——参评对象须按约定在 SVG 中嵌入 `data-*` 标注（`data-style`/`data-role`/`data-id`/`data-from`+`data-to`+`data-kind`），主 agent 用 `_generator/grade_svg.py` 解析标注并与私有 ground truth（`_private/q01_truth.json`，5 视角节点/边/分层/陷阱）做集合匹配，产出 `machine-grade.json` 供匿名 scorer 引用。它检验"理解既有代码库 → 可视化抽象表达"这一与 v1/v2 正交的能力轴。它不能保证任何模型一定失败或通过；结论必须来自本轮盲评。
 
 这些题目通过多个相互影响的验收条件提高排查和实现深度，目标是让强模型也必须经历阅读、设计、实现和验证的多轮工作。不得宣称某个题目能保证所有当前或未来模型都无法单轮完成；模型能力需以实际 benchmark 结果验证。
 
@@ -122,8 +130,8 @@ description: 当需要评测多个 AI Coding Agent、模型组合或接入配置
 
 若使用预设（默认 v1 或用户明确指定的预设），按以下顺序创建题目，不能手写一个看似相同但内容漂移的副本：
 
-1. 将所选预设的全部 qXX 题目目录 **完整复制**到 `questions/`。v1 是三个目录；v2 是 `q01-long-context-protocol`、`q02-protocol-adaptation`（注意：v2 仅两题）。v2 复制时**不得**带上 `_generator/` 与各题 `_private/` 目录——这些是私有生成器与 ground truth，严禁进入题源或作答目录。
-2. 从刚生成的 `questions/` 完整复制每题到每个 `agents/<slug>/`，包括 `QUESTION.md`、`ANSWER.md`、`corpus/`（仅 v2 Q1）、`include/`、`src/`、`tests/` 与 `run_public_checks.sh`。
+1. 将所选预设的全部 qXX 题目目录 **完整复制**到 `questions/`。v1 是三个目录；v2 是 `q01-long-context-protocol`、`q02-protocol-adaptation`（注意：v2 仅两题）；v3 是 `q01-batch-engine-architecture`（仅一题）。v2、v3 复制时**不得**带上 `_generator/` 与各题 `_private/` 目录——这些是私有生成器与 ground truth，严禁进入题源或作答目录。
+2. 从刚生成的 `questions/` 完整复制每题到每个 `agents/<slug>/`，包括 `QUESTION.md`、`ANSWER.md`、`corpus/`（仅 v2 Q1）、`include/`、`src/`、`tests/`、`diagrams/`（仅 v3）与 `run_public_checks.sh`、`svg_check.py`（仅 v3）。
 3. 在本轮 `README.md` 和 `participants.md` 写明实际 `preset: <name>`、每题时间盒和 C++17 编译器版本。
 
 复制而非符号链接，保证每个作答目录可独立修改且题源在运行结束后可复现。复制后比较各 `agents/<slug>/qXX-*` 与 `questions/qXX-*` 的初始内容；任何差异都应视为生成失败并重新复制。严禁复制 `.claude/skills/agent-benchmark/scoring-reference/`、任何参考实现或私有验收材料到本轮目录；这些材料只在第 5 步创建 scorer 专用副本。
@@ -159,7 +167,7 @@ benchmark/<run-id>/
     │   ├── P01/
     │   └── P02/
     ├── scorer-reference/       # 作答结束后才创建，仅供 scorer
-    │   └── cpp17-advanced-v1.md
+    │   └── benchmark-v1.md
     ├── mapping.private.md
     ├── redaction-log.md
     └── scorer-report.md
@@ -230,9 +238,11 @@ benchmark/<run-id>/
 - 每个参评对象的 `agents/<slug>/qXX-*` 或 `submissions/<slug>/`
 - 每题 `ANSWER.md`、源码变更、测试或验证记录
 - 对应预设的 `.claude/skills/agent-benchmark/scoring-reference/<preset>.md`
-- 预设的私有 ground truth（v2 为各题 `_private/*_truth.json`）
+- 预设的私有 ground truth（v2 为各题 `_private/*_truth.json`；v3 为 `q01-batch-engine-architecture/_private/q01_truth.json`）
 
 所有参评对象完成并确认停止作答后，主 agent 才可将私有评分参考解答复制到 `scoring/scorer-reference/<preset>.md`，并将对应私有 ground truth JSON 一并复制到 `scoring/scorer-reference/`。复制前后记录文件 SHA-256 到 `scoring/reference-integrity.md`。该副本不得包含参评身份、评分结论或任何参评提交内容；若本轮不是预设题，主 agent 必须在生成阶段同步创建对应私有评分参考解答，否则不能声称评分依据完整。
+
+v3（产物型）额外：主 agent 在作答结束后运行 `_generator/grade_svg.py`，把每个匿名提交的 `diagrams/` 解析并与 ground truth 匹配，产出 `scoring/machine-grade.json`（5 视角覆盖率 + 陷阱命中），与 scorer-reference 一并交给匿名 scorer，作为"正确性"维度的客观依据。
 
 匿名包创建规则：
 

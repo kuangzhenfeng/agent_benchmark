@@ -1,4 +1,4 @@
-# 盲评评分报告 B（cpp17-advanced-v2）
+# 盲评评分报告 B（benchmark-v2）
 
 独立第二评分员。仅依据 `blind-package/` 与 `scorer-reference/` 两个目录。评分对象为匿名 P01..P06，不读取、不推断任何身份信息。
 

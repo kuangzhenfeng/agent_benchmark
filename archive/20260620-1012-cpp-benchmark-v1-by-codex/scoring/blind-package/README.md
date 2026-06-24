@@ -3,7 +3,7 @@
 ## Scope
 
 Each `Pxx` directory is one complete anonymous submission for the three
-`cpp17-advanced-v1` questions. Treat every participant as independent. The
+`benchmark-v1` questions. Treat every participant as independent. The
 directory names and file contents have been checked for explicit agent/model
 identifiers; do not attempt to infer identity from coding style.
 

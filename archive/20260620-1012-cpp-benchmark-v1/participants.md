@@ -16,7 +16,7 @@
 
 | 变量 | 值 |
 |------|-----|
-| 预设 | `cpp17-advanced-v1`（冻结，本轮不得修改） |
+| 预设 | `benchmark-v1`（冻结，本轮不得修改） |
 | 题量 | 3 |
 | 题型覆盖 | Bugfix / Implementation / Refactor-Design |
 | Q1 时间盒 | 50 分钟 |
@@ -26,7 +26,7 @@
 | 编译器 | `g++ 9.4.0`（Ubuntu 20.04） |
 | 交叉验证编译器 | `clang++ 10.0.0` |
 | 构建工具 | CMake 3.16.3 |
-| 题目来源 | `.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/`（完整复制到 `questions/` 与各 `agents/<slug>/`） |
+| 题目来源 | `.claude/skills/agent-benchmark/presets/benchmark-v1/`（完整复制到 `questions/` 与各 `agents/<slug>/`） |
 | 网络依赖 | 无 |
 | 私有环境依赖 | 无 |
 

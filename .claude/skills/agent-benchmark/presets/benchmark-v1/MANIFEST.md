@@ -1,6 +1,6 @@
-# cpp17-advanced-v1
+# benchmark-v1
 
-默认 C++17 工程能力基准题库，版本固定后不得在同一轮 benchmark 内修改。该公开题库不包含参考答案、隐藏测试或评分结论；仅供 scorer 的私有参考解答位于题库外的 `../../scoring-reference/cpp17-advanced-v1.md`。
+默认 C++17 工程能力基准题库，版本固定后不得在同一轮 benchmark 内修改。该公开题库不包含参考答案、隐藏测试或评分结论；仅供 scorer 的私有参考解答位于题库外的 `../../scoring-reference/benchmark-v1.md`。
 
 > 2026-06-20 的题面澄清将 callable 生命周期、Clock 重入、flight 完成顺序和跨实例 `current()` 生命周期列为公开契约。它只适用于之后从本预设生成的 benchmark，不追溯改变已归档轮次。
 

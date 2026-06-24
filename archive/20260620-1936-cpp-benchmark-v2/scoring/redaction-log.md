@@ -6,7 +6,7 @@
 |------|------|------|
 | 目录名 `agents/<slug>/` → `blind-package/P0X/` | 身份脱敏 | 用 P01..P06 替代原 slug 目录名 |
 | 脱敏扫描 | 残留检查 | grep 所有 Pxx 内的 `opencode-coding-*` / `coding-deepseek` / `agents/opencode` 等身份串，无残留 |
-| 评分参考 `scorer-reference/*` | 来源隔离 | 仅从 skill 原始文件复制（cpp17-advanced-v2.md、q01_truth.json、q02_truth.json），不含任何参评提交或身份 |
+| 评分参考 `scorer-reference/*` | 来源隔离 | 仅从 skill 原始文件复制（benchmark-v2.md、q01_truth.json、q02_truth.json），不含任何参评提交或身份 |
 | machine-grade.json | 客观匿名 | 主 agent 确定性脚本输出，仅含 P01..P06 键，无身份 |
 
 ## 残余风险

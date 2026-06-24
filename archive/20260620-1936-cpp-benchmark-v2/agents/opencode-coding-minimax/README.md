@@ -18,6 +18,6 @@
 
 ## 本轮信息
 
-- 预设：`cpp17-advanced-v2，共 2 题（Q1 long-context-protocol / Q2 protocol-adaptation）`
+- 预设：`benchmark-v2，共 2 题（Q1 long-context-protocol / Q2 protocol-adaptation）`
 - 语言：C++17；各题用 `run_public_checks.sh` 验证
 - 完成后停止，等待评分通知

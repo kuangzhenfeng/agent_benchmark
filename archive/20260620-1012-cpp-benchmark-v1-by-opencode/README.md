@@ -20,4 +20,4 @@
 
 - 盲评包来源：`archive/20260620-1012-cpp-benchmark/scoring/blind-package/`
 - 映射文件：`archive/20260620-1012-cpp-benchmark/scoring/mapping.private.md`
-- 评分参考：`.claude/skills/agent-benchmark/scoring-reference/cpp17-advanced-v1.md`
+- 评分参考：`.claude/skills/agent-benchmark/scoring-reference/benchmark-v1.md`

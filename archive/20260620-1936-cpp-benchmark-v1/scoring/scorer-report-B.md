@@ -1,4 +1,4 @@
-# 评分员 B 独立报告（cpp17-advanced-v1 盲评）
+# 评分员 B 独立报告（benchmark-v1 盲评）
 
 本报告由独立第二评分员完成。所有评分依据仅为允许读取的 `blind-package/` 与 `scorer-reference/` 目录内容（源码 + 公开检查实测 + 参考验收矩阵）。**全程未读取任何身份相关文件（mapping.private.md、participants.md、agents/、submissions/、questions/），未联网，未尝试推断 P01..P06 对应的 Agent 或模型。**
 

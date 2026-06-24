@@ -2,7 +2,7 @@
 
 ## 总结
 
-本轮（原 5 + 追加 1）共 6 个 AI Coding Agent×模型组合在 `cpp17-advanced-v1`（C++17，3 道高级工程题）上评测。头部三名（opencode+glm-5.2、codex+gpt-5.5、codex+gpt-5.4）总分差 ≤ 4，统计上未拉开显著差距；**模型维度上 GLM-5.2 与 GPT-5.x 明显领先 Qwen3.7max**——GLM 两个作答（均分 278）、GPT 两个作答（gpt-5.5=280、gpt-5.4=278，均分 279）均显著高于 Qwen 两个作答（均分 241），平均差 ~37 分。**本轮新观察**：在 codex 框架下，gpt-5.4（278）与 gpt-5.5（280）几乎打平（差 2），说明该预设下两个 GPT 版本能力接近。置信度受限于样本量（每模型仅 2 个作答）与全程缺 TSan。
+本轮（原 5 + 追加 1）共 6 个 AI Coding Agent×模型组合在 `benchmark-v1`（C++17，3 道高级工程题）上评测。头部三名（opencode+glm-5.2、codex+gpt-5.5、codex+gpt-5.4）总分差 ≤ 4，统计上未拉开显著差距；**模型维度上 GLM-5.2 与 GPT-5.x 明显领先 Qwen3.7max**——GLM 两个作答（均分 278）、GPT 两个作答（gpt-5.5=280、gpt-5.4=278，均分 279）均显著高于 Qwen 两个作答（均分 241），平均差 ~37 分。**本轮新观察**：在 codex 框架下，gpt-5.4（278）与 gpt-5.5（280）几乎打平（差 2），说明该预设下两个 GPT 版本能力接近。置信度受限于样本量（每模型仅 2 个作答）与全程缺 TSan。
 
 > **追加轮说明（2026-06-22）**：本轮在原 5 个参评对象归档裁决后，追加评测 `codex + gpt-5.4`（匿名 P06）。盲评流程与原轮一致：独立 scorer subagent 仅评 P06，与 P01–P05 同 rubric 尺度，分数单独归档于 `scoring/scorer-report-C.md`。P01–P05 分数沿用原双 scorer + 主 agent 裁决值不变；P06 为单 scorer 轮，未触发双 scorer 分歧复核（单轮无分歧对象），但 scorer 独立编译 + 跑探针验证。
 
@@ -124,7 +124,7 @@
 ## 附：评分依据来源
 
 - 公共题面：`questions/qXX-*/QUESTION.md`
-- 私有参考解答（验收矩阵）：`scoring/scorer-reference/cpp17-advanced-v1.md`（SHA-256 完整性见 `scoring/reference-integrity.md`）
+- 私有参考解答（验收矩阵）：`scoring/scorer-reference/benchmark-v1.md`（SHA-256 完整性见 `scoring/reference-integrity.md`）
 - scorer 匿名报告：`scoring/scorer-report-A.md`、`scoring/scorer-report-B.md`（P01–P05 原样归档）、`scoring/scorer-report-C.md`（P06 追加轮）
 - 匿名映射：`scoring/mapping.private.md`
 - 脱敏记录：`scoring/redaction-log.md`

@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "preset": "benchmark-v3",
+    "question": "q01-batch-engine-architecture",
+    "engine": "TaskForge",
+    "version": 1,
+    "note": "本文件为私有 ground truth。所有真值点均由源码（include/*.hpp, src/*.cpp）可证。复制到 questions/agents 时必须剥离；仅作答结束后复制进 scoring/scorer-reference/。"
+  },
+  "aliases": {
+    "Scheduler": ["scheduler", "调度器", "调度"],
+    "WorkerPool": ["workerpool", "worker pool", "线程池", "pool", "工作池", "工作线程池"],
+    "Worker": ["worker", "工作线程", "worker thread", "工作单元"],
+    "TaskQueue": ["taskqueue", "任务队列", "队列", "queue", "优先级队列"],
+    "TaskQueueLegacy": ["taskqueuelegacy", "任务队列旧版", "legacy队列", "legacy queue", "旧队列"],
+    "Task": ["task", "任务"],
+    "TaskResult": ["taskresult", "任务结果", "result", "结果"],
+    "ITaskStore": ["itaskstore", "taskstore", "任务存储", "存储", "store", "状态存储"],
+    "InMemoryTaskStore": ["inmemorytaskstore", "内存存储", "内存", "in-memory", "inmemory"],
+    "PersistentTaskStore": ["persistenttaskstore", "持久化存储", "持久存储", "persistent", "持久化"],
+    "IRetryPolicy": ["iretrypolicy", "retrypolicy", "重试策略", "重试"],
+    "FixedBackoffPolicy": ["fixedbackoffpolicy", "fixed backoff", "固定退避", "fixed"],
+    "ExponentialBackoffPolicy": ["exponentialbackoffpolicy", "exponential backoff", "指数退避", "exponential"],
+    "INotifier": ["inotifier", "notifier", "通知器", "通知"],
+    "ConsoleNotifier": ["consolenotifier", "console notifier", "控制台通知", "console"],
+    "CallbackNotifier": ["callbacknotifier", "callback notifier", "回调通知", "callback"],
+    "CompositeNotifier": ["compositenotifier", "composite notifier", "组合通知", "composite", "组合通知器"],
+    "MetricsCollector": ["metricscollector", "metrics", "指标", "统计", "metrics collector", "指标收集器"],
+    "IClock": ["iclock", "clock", "时钟"],
+    "SystemClock": ["systemclock", "system clock", "系统时钟"],
+    "ILogger": ["ilogger", "logger", "日志"],
+    "ConsoleLogger": ["consolelogger", "console logger", "控制台日志"],
+    "EngineConfig": ["engineconfig", "config", "配置"],
+    "ConfigLoader": ["configloader", "配置加载", "配置加载器"],
+    "main": ["main", "主程序", "main.cpp", "组合根", "composition root", "入口", "client", "客户端"]
+  },
+  "nodes": {
+    "main":              {"kind": "entry",  "file": "src/main.cpp",          "active": true,  "layer": "application"},
+    "Scheduler":         {"kind": "class",  "file": "include/scheduler.hpp", "active": true,  "layer": "orchestration"},
+    "WorkerPool":        {"kind": "class",  "file": "include/worker.hpp",    "active": true,  "layer": "orchestration"},
+    "Worker":            {"kind": "class",  "file": "include/worker.hpp",    "active": true,  "layer": "orchestration"},
+    "TaskQueue":         {"kind": "class",  "file": "include/task_queue.hpp","active": true,  "layer": "domain"},
+    "TaskQueueLegacy":   {"kind": "class",  "file": "include/task_queue.hpp","active": false, "legacy": true, "layer": "domain"},
+    "Task":              {"kind": "struct", "file": "include/task.hpp",      "active": true,  "layer": "domain"},
+    "TaskResult":        {"kind": "struct", "file": "include/task.hpp",      "active": true,  "layer": "domain"},
+    "IRetryPolicy":      {"kind": "interface", "file": "include/retry_policy.hpp", "active": true, "layer": "domain"},
+    "FixedBackoffPolicy":{"kind": "class",  "file": "include/retry_policy.hpp", "active": false, "layer": "domain"},
+    "ExponentialBackoffPolicy": {"kind": "class", "file": "include/retry_policy.hpp", "active": true, "layer": "domain"},
+    "ITaskStore":        {"kind": "interface", "file": "include/task_store.hpp", "active": true, "layer": "infrastructure"},
+    "InMemoryTaskStore":{"kind": "class",  "file": "include/task_store.hpp","active": true,  "layer": "infrastructure"},
+    "PersistentTaskStore":{"kind": "class", "file": "include/task_store.hpp","active": false, "layer": "infrastructure"},
+    "INotifier":         {"kind": "interface", "file": "include/notifier.hpp", "active": true, "layer": "infrastructure"},
+    "ConsoleNotifier":   {"kind": "class",  "file": "include/notifier.hpp", "active": true,  "layer": "infrastructure"},
+    "CallbackNotifier":  {"kind": "class",  "file": "include/notifier.hpp", "active": true,  "layer": "infrastructure"},
+    "CompositeNotifier": {"kind": "class",  "file": "include/notifier.hpp", "active": true,  "layer": "infrastructure"},
+    "MetricsCollector":  {"kind": "class",  "file": "include/metrics.hpp",  "active": true,  "layer": "infrastructure"},
+    "IClock":            {"kind": "interface", "file": "include/clock.hpp",  "active": true, "layer": "infrastructure"},
+    "SystemClock":       {"kind": "class",  "file": "include/clock.hpp",    "active": true,  "layer": "infrastructure"},
+    "ILogger":           {"kind": "interface", "file": "include/logger.hpp", "active": true, "layer": "infrastructure"},
+    "ConsoleLogger":     {"kind": "class",  "file": "include/logger.hpp",   "active": true,  "layer": "infrastructure"},
+    "EngineConfig":      {"kind": "struct", "file": "include/config.hpp",   "active": true,  "layer": "infrastructure"},
+    "ConfigLoader":      {"kind": "struct", "file": "include/config.hpp",   "active": true,  "layer": "infrastructure"}
+  },
+  "layered": {
+    "description": "分层按真实编译期依赖方向定义（自顶向下），不按源码注释自称。application 依赖 orchestration；orchestration 依赖 domain；domain 与 infrastructure 之间，Scheduler 仅通过接口依赖 infrastructure 契约。",
+    "layers": [
+      {"name": "application",      "members": ["main"]},
+      {"name": "orchestration",    "members": ["Scheduler", "WorkerPool", "Worker"]},
+      {"name": "domain",           "members": ["TaskQueue", "TaskQueueLegacy", "Task", "TaskResult", "IRetryPolicy", "FixedBackoffPolicy", "ExponentialBackoffPolicy"]},
+      {"name": "infrastructure",   "members": ["ITaskStore", "InMemoryTaskStore", "PersistentTaskStore", "INotifier", "ConsoleNotifier", "CallbackNotifier", "CompositeNotifier", "MetricsCollector", "IClock", "SystemClock", "ILogger", "ConsoleLogger", "EngineConfig", "ConfigLoader"]}
+    ],
+    "edges": [
+      {"from": "main", "to": "Scheduler", "kind": "depends"},
+      {"from": "Scheduler", "to": "TaskQueue", "kind": "depends"},
+      {"from": "Scheduler", "to": "WorkerPool", "kind": "depends"},
+      {"from": "WorkerPool", "to": "Worker", "kind": "depends"},
+      {"from": "Worker", "to": "TaskQueue", "kind": "depends"},
+      {"from": "Worker", "to": "Task", "kind": "depends"},
+      {"from": "Scheduler", "to": "ITaskStore", "kind": "depends", "note": "interface, not concrete"},
+      {"from": "Scheduler", "to": "IRetryPolicy", "kind": "depends", "note": "interface, not concrete"},
+      {"from": "Scheduler", "to": "INotifier", "kind": "depends", "note": "interface, not concrete"},
+      {"from": "Scheduler", "to": "MetricsCollector", "kind": "depends"},
+      {"from": "Scheduler", "to": "IClock", "kind": "depends", "note": "interface, not concrete"},
+      {"from": "Scheduler", "to": "EngineConfig", "kind": "depends"},
+      {"from": "Scheduler", "to": "Task", "kind": "depends"},
+      {"from": "Scheduler", "to": "TaskResult", "kind": "depends"},
+      {"from": "main", "to": "ConfigLoader", "kind": "depends"},
+      {"from": "main", "to": "EngineConfig", "kind": "depends"},
+      {"from": "main", "to": "SystemClock", "kind": "depends"},
+      {"from": "main", "to": "MetricsCollector", "kind": "depends"},
+      {"from": "main", "to": "CompositeNotifier", "kind": "depends"},
+      {"from": "main", "to": "ConsoleNotifier", "kind": "depends"},
+      {"from": "main", "to": "CallbackNotifier", "kind": "depends"},
+      {"from": "main", "to": "InMemoryTaskStore", "kind": "depends"},
+      {"from": "main", "to": "ExponentialBackoffPolicy", "kind": "depends"},
+      {"from": "main", "to": "ConsoleLogger", "kind": "depends"}
+    ]
+  },
+  "component_dependency": {
+    "description": "组件依赖图：编译期依赖方向。Worker->Scheduler 仅是运行时回调，不算编译期依赖，不应画为编译期循环。",
+    "nodes": ["main", "Scheduler", "WorkerPool", "Worker", "TaskQueue", "ITaskStore", "IRetryPolicy", "INotifier", "MetricsCollector", "IClock", "EngineConfig", "Task", "TaskResult", "ConfigLoader", "SystemClock", "CompositeNotifier", "ConsoleNotifier", "CallbackNotifier", "InMemoryTaskStore", "ExponentialBackoffPolicy", "ConsoleLogger"],
+    "edges": [
+      {"from": "main", "to": "Scheduler", "kind": "depends"},
+      {"from": "Scheduler", "to": "WorkerPool", "kind": "depends"},
+      {"from": "Scheduler", "to": "TaskQueue", "kind": "depends"},
+      {"from": "Scheduler", "to": "ITaskStore", "kind": "depends", "note": "interface"},
+      {"from": "Scheduler", "to": "IRetryPolicy", "kind": "depends", "note": "interface"},
+      {"from": "Scheduler", "to": "INotifier", "kind": "depends", "note": "interface"},
+      {"from": "Scheduler", "to": "MetricsCollector", "kind": "depends"},
+      {"from": "Scheduler", "to": "IClock", "kind": "depends", "note": "interface"},
+      {"from": "Scheduler", "to": "EngineConfig", "kind": "depends"},
+      {"from": "WorkerPool", "to": "Worker", "kind": "depends"},
+      {"from": "Worker", "to": "TaskQueue", "kind": "depends"},
+      {"from": "Worker", "to": "Task", "kind": "depends"},
+      {"from": "Worker", "to": "TaskResult", "kind": "depends"},
+      {"from": "main", "to": "ConfigLoader", "kind": "depends"},
+      {"from": "main", "to": "SystemClock", "kind": "depends"},
+      {"from": "main", "to": "InMemoryTaskStore", "kind": "depends"},
+      {"from": "main", "to": "ExponentialBackoffPolicy", "kind": "depends"},
+      {"from": "main", "to": "CompositeNotifier", "kind": "depends"},
+      {"from": "main", "to": "ConsoleNotifier", "kind": "depends"},
+      {"from": "main", "to": "CallbackNotifier", "kind": "depends"},
+      {"from": "main", "to": "ConsoleLogger", "kind": "depends"},
+      {"from": "Worker", "to": "Scheduler", "kind": "callback", "note": "RUNTIME ONLY via injected completion handler; NOT a compile-time dependency. worker.hpp does NOT include scheduler.hpp. Must NOT be drawn as a compile-time cycle."}
+    ],
+    "legacy_nodes": ["TaskQueueLegacy"],
+    "deprecated": ["Scheduler::run_legacy"]
+  },
+  "dataflow": {
+    "description": "数据流图：一次任务从提交到终态的流转，带方向。含失败重试回路。",
+    "nodes": ["Client", "Scheduler", "Task", "TaskQueue", "Worker", "TaskResult", "ITaskStore", "IRetryPolicy", "MetricsCollector", "INotifier"],
+    "edges": [
+      {"from": "Client", "to": "Scheduler", "kind": "flow", "label": "submit/submitBatch(Task)"},
+      {"from": "Scheduler", "to": "TaskQueue", "kind": "flow", "label": "enqueue (priority)"},
+      {"from": "Scheduler", "to": "ITaskStore", "kind": "flow", "label": "save(Task)"},
+      {"from": "Worker", "to": "TaskQueue", "kind": "flow", "label": "blocking_pop"},
+      {"from": "Worker", "to": "Task", "kind": "flow", "label": "run()"},
+      {"from": "Worker", "to": "TaskResult", "kind": "flow", "label": "produce"},
+      {"from": "Worker", "to": "Scheduler", "kind": "flow", "label": "on_done(TaskResult) [runtime callback]"},
+      {"from": "Scheduler", "to": "IRetryPolicy", "kind": "flow", "label": "next_delay_ms?"},
+      {"from": "Scheduler", "to": "TaskQueue", "kind": "flow", "label": "re-enqueue (attempt++)"},
+      {"from": "Scheduler", "to": "ITaskStore", "kind": "flow", "label": "update_status"},
+      {"from": "Scheduler", "to": "MetricsCollector", "kind": "flow", "label": "record_*"},
+      {"from": "Scheduler", "to": "INotifier", "kind": "flow", "label": "on_event (terminal)"}
+    ],
+    "feedback_loop": "Worker -> Scheduler(on_done) -> IRetryPolicy? -> Scheduler -> TaskQueue(re-enqueue) 构成失败重试反馈环。"
+  },
+  "class_relationship": {
+    "description": "类关系图：继承、实现、组合、聚合、依赖。Scheduler 依赖抽象接口而非具体类。",
+    "inheritance": [
+      {"child": "InMemoryTaskStore", "parent": "ITaskStore"},
+      {"child": "PersistentTaskStore", "parent": "ITaskStore"},
+      {"child": "FixedBackoffPolicy", "parent": "IRetryPolicy"},
+      {"child": "ExponentialBackoffPolicy", "parent": "IRetryPolicy"},
+      {"child": "ConsoleNotifier", "parent": "INotifier"},
+      {"child": "CallbackNotifier", "parent": "INotifier"},
+      {"child": "CompositeNotifier", "parent": "INotifier"},
+      {"child": "SystemClock", "parent": "IClock"},
+      {"child": "ConsoleLogger", "parent": "ILogger"}
+    ],
+    "composition": [
+      {"from": "main", "to": "Scheduler", "kind": "composes"},
+      {"from": "Scheduler", "to": "WorkerPool", "kind": "composes"},
+      {"from": "Scheduler", "to": "TaskQueue", "kind": "composes"},
+      {"from": "WorkerPool", "to": "Worker", "kind": "composes", "mult": "N"},
+      {"from": "CompositeNotifier", "to": "INotifier", "kind": "aggregates", "mult": "*"}
+    ],
+    "dependency": [
+      {"from": "Scheduler", "to": "ITaskStore", "kind": "depends-interface"},
+      {"from": "Scheduler", "to": "IRetryPolicy", "kind": "depends-interface"},
+      {"from": "Scheduler", "to": "INotifier", "kind": "depends-interface"},
+      {"from": "Scheduler", "to": "MetricsCollector", "kind": "uses"},
+      {"from": "Scheduler", "to": "IClock", "kind": "uses"},
+      {"from": "Scheduler", "to": "EngineConfig", "kind": "uses"},
+      {"from": "Worker", "to": "TaskQueue", "kind": "uses"},
+      {"from": "Worker", "to": "Task", "kind": "uses"},
+      {"from": "main", "to": "ITaskStore", "kind": "instantiates", "note": "main 装配具体类 InMemoryTaskStore"},
+      {"from": "main", "to": "IRetryPolicy", "kind": "instantiates", "note": "main 装配具体类 ExponentialBackoffPolicy"}
+    ],
+    "dead_or_deprecated": ["TaskQueueLegacy", "Scheduler::run_legacy"]
+  },
+  "deployment": {
+    "description": "部署/运行时拓扑：实例、线程、数量与归属。TaskQueue 为 Scheduler 与所有 Worker 共享的汇合点。",
+    "instances": [
+      {"id": "main-thread", "type": "thread", "count": 1, "note": "进程入口、组合根装配、提交、run()、停止"},
+      {"id": "Scheduler", "type": "instance", "count": 1},
+      {"id": "WorkerPool", "type": "pool", "count": 1},
+      {"id": "Worker", "type": "thread", "count": "N (= EngineConfig::worker_count, default 4)"},
+      {"id": "TaskQueue", "type": "channel", "count": 1, "shared": true, "note": "mutex+condition_variable 保护，Scheduler 入队 / Worker 出队"},
+      {"id": "ITaskStore", "type": "instance", "count": 1, "concrete": "InMemoryTaskStore"},
+      {"id": "IRetryPolicy", "type": "instance", "count": 1, "concrete": "ExponentialBackoffPolicy"},
+      {"id": "INotifier", "type": "instance", "count": 1, "concrete": "CompositeNotifier", "note": "内含 ConsoleNotifier + CallbackNotifier"},
+      {"id": "MetricsCollector", "type": "instance", "count": 1},
+      {"id": "IClock", "type": "instance", "count": 1, "concrete": "SystemClock"}
+    ],
+    "containment": [
+      {"parent": "main-thread", "child": "Scheduler", "kind": "contains"},
+      {"parent": "Scheduler", "child": "WorkerPool", "kind": "contains"},
+      {"parent": "Scheduler", "child": "TaskQueue", "kind": "contains"},
+      {"parent": "WorkerPool", "child": "Worker", "kind": "contains", "mult": "N"}
+    ],
+    "connections": [
+      {"from": "Scheduler", "to": "TaskQueue", "kind": "connects", "label": "push"},
+      {"from": "Worker", "to": "TaskQueue", "kind": "connects", "label": "blocking pop (cv)"},
+      {"from": "Worker", "to": "Scheduler", "kind": "callback", "label": "completion handler (runtime)"},
+      {"from": "Scheduler", "to": "ITaskStore", "kind": "connects"},
+      {"from": "Scheduler", "to": "MetricsCollector", "kind": "connects"},
+      {"from": "Scheduler", "to": "INotifier", "kind": "connects"},
+      {"from": "Scheduler", "to": "IRetryPolicy", "kind": "connects"}
+    ],
+    "not_instantiated": ["PersistentTaskStore", "FixedBackoffPolicy", "TaskQueueLegacy", "Scheduler::run_legacy"]
+  },
+  "traps": {
+    "near_name": [
+      {"real": "TaskQueue", "decoy": "TaskQueueLegacy", "judgment": "TaskQueue 是活跃优先级队列（Scheduler 入队、Worker 出队）；TaskQueueLegacy 是 FIFO 死代码，全仓库无调用，不画入核心架构或须显式标遗留。两者签名相近（push/pop/size）易混。"},
+      {"real": "Scheduler::submit(Task)", "decoy": "Scheduler::submitBatch(vector<Task>)", "judgment": "两条独立的公开提交入口，不可合并为单一 submit。"}
+    ],
+    "dead_code": [
+      {"symbol": "TaskQueueLegacy", "evidence": "include/task_queue.hpp 定义 + src/task_queue.cpp 实现；src 其余文件与 main 均无引用", "judgment": "非活跃，标 dead_code / 遗留"},
+      {"symbol": "Scheduler::run_legacy()", "evidence": "src/scheduler.cpp 定义；main 调用的是 run()，run_legacy 无调用方", "judgment": "deprecated，标遗留"}
+    ],
+    "pseudo_circular": [
+      {"a": "Worker", "b": "Scheduler",
+       "compile_time": "Scheduler -> WorkerPool -> Worker（worker.hpp 不 include scheduler.hpp，无编译期环）",
+       "runtime": "Worker 经 set_completion_handler 注入的回调调 Scheduler::handle_completion",
+       "judgment": "Worker->Scheduler 仅运行时回调，须标 callback / runtime，不得画为编译期循环依赖。"}
+    ],
+    "layering_misdirection": [
+      {"node": "MetricsCollector", "comment_says": "核心调度组件：引擎核心调度与统计", "real_layer": "infrastructure",
+       "judgment": "MetricsCollector 只含 <atomic>、不依赖任何内部模块、被 Scheduler/Worker 调用，按依赖方向是叶子，属 infrastructure 层。不因注释自称'核心'归入 orchestration 层。"}
+    ],
+    "interface_vs_impl": [
+      {"client": "Scheduler", "abstraction": "ITaskStore", "concretes": ["InMemoryTaskStore", "PersistentTaskStore"],
+       "judgment": "Scheduler 持 shared_ptr<ITaskStore>，类图/依赖图边画到 ITaskStore；具体类由 main 装配。画 Scheduler->InMemoryTaskStore 视为错（接口依赖被替换为具体依赖）。"},
+      {"client": "Scheduler", "abstraction": "IRetryPolicy", "concretes": ["FixedBackoffPolicy", "ExponentialBackoffPolicy"],
+       "judgment": "Scheduler 持 unique_ptr<IRetryPolicy>，依赖接口。"},
+      {"client": "Scheduler", "abstraction": "INotifier", "concretes": ["ConsoleNotifier", "CallbackNotifier", "CompositeNotifier"],
+       "judgment": "Scheduler 持 shared_ptr<INotifier>，依赖接口。"}
+    ]
+  },
+  "scoring_hints": {
+    "must_include_nodes_any_view": ["Scheduler", "WorkerPool", "Worker", "TaskQueue", "ITaskStore", "IRetryPolicy", "INotifier", "MetricsCollector"],
+    "interface_abstractions": ["ITaskStore", "IRetryPolicy", "INotifier", "IClock", "ILogger"],
+    "concrete_implementations": ["InMemoryTaskStore", "PersistentTaskStore", "FixedBackoffPolicy", "ExponentialBackoffPolicy", "ConsoleNotifier", "CallbackNotifier", "CompositeNotifier", "SystemClock", "ConsoleLogger"],
+    "note": "此为给机器评分（grade_svg.py）与 scorer 的提示，非额外题面要求；所有真值均见上表，无隐藏私人条件。"
+  }
+}

@@ -1,12 +1,12 @@
 # Agent Benchmark · 20260620-1936-cpp-benchmark-v1
 
-本轮评测 **opencode + 6 个 coding 模型**在标准 C++17 高级工程任务上的效果。预设：`cpp17-advanced-v1`。
+本轮评测 **opencode + 6 个 coding 模型**在标准 C++17 高级工程任务上的效果。预设：`benchmark-v1`。
 
 ## 总览
 
 | 项 | 内容 |
 |----|------|
-| 预设 | `cpp17-advanced-v1` |
+| 预设 | `benchmark-v1` |
 | 题量 | 3 题（Q1 subscription-hub、Q2 coalescing-cache、Q3 routing-config） |
 | 语言标准 | C++17 |
 | 编译器 | g++（记录实际版本见 participants.md） |

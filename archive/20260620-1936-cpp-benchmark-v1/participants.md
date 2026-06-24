@@ -17,7 +17,7 @@
 
 | 变量 | 取值 | 说明 |
 |------|------|------|
-| 预设 | `cpp17-advanced-v1` | 6 个参评对象共用同一份题源副本 |
+| 预设 | `benchmark-v1` | 6 个参评对象共用同一份题源副本 |
 | 题量 | 3 | Q1 subscription-hub、Q2 coalescing-cache、Q3 routing-config |
 | 语言标准 | C++17 | `-std=c++17` |
 | 编译选项 | `-Wall -Wextra -Wpedantic -pthread` | 见各题 `run_public_checks.sh` |

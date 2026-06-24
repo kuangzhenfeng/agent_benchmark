@@ -18,6 +18,6 @@
 
 ## 本轮信息
 
-- 预设：`cpp17-advanced-v1`，共 3 题（Q1 subscription-hub / Q2 coalescing-cache / Q3 routing-config）
+- 预设：`benchmark-v1`，共 3 题（Q1 subscription-hub / Q2 coalescing-cache / Q3 routing-config）
 - 语言：C++17；各题用 `run_public_checks.sh` 验证
 - 完成后停止，等待评分通知

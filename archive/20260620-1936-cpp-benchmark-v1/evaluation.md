@@ -1,6 +1,6 @@
 # Agent Benchmark 评测报告 · 20260620-1936-cpp-benchmark-v1
 
-> 预设 `cpp17-advanced-v1`（组合 Bugfix / 实现 / 重构，C++17）。6 个 opencode coding 模型经 `xag` 接入，3 题。
+> 预设 `benchmark-v1`（组合 Bugfix / 实现 / 重构，C++17）。6 个 opencode coding 模型经 `xag` 接入，3 题。
 
 ## 匿名映射（仅本报告解盲用）
 

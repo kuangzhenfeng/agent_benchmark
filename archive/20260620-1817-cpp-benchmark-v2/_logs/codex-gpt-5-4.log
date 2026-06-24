@@ -207,7 +207,7 @@ exec
  D ../../../20260620-1012-cpp-benchmark-by-codex/scoring/mapping.private.md
  D ../../../20260620-1012-cpp-benchmark-by-codex/scoring/redaction-log.md
  D ../../../20260620-1012-cpp-benchmark-by-codex/scoring/reference-integrity.md
- D ../../../20260620-1012-cpp-benchmark-by-codex/scoring/scorer-reference/cpp17-advanced-v1.md
+ D ../../../20260620-1012-cpp-benchmark-by-codex/scoring/scorer-reference/benchmark-v1.md
  D ../../../20260620-1012-cpp-benchmark-by-codex/scoring/scorer-report.md
  D ../../../20260620-1012-cpp-benchmark-by-opencode/README.md
  D ../../../20260620-1012-cpp-benchmark-by-opencode/evaluation.md
@@ -486,7 +486,7 @@ exec
  D ../../../20260620-1012-cpp-benchmark/scoring/mapping.private.md
  D ../../../20260620-1012-cpp-benchmark/scoring/redaction-log.md
  D ../../../20260620-1012-cpp-benchmark/scoring/reference-integrity.md
- D ../../../20260620-1012-cpp-benchmark/scoring/scorer-reference/cpp17-advanced-v1.md
+ D ../../../20260620-1012-cpp-benchmark/scoring/scorer-reference/benchmark-v1.md
  D ../../../20260620-1012-cpp-benchmark/scoring/scorer-report-A.md
  D ../../../20260620-1012-cpp-benchmark/scoring/scorer-report-B.md
  D ../../../20260620-1817-cpp-benchmark/README.md
@@ -1096,7 +1096,7 @@ exec
  D ../../../20260620-1817-cpp-benchmark/scoring/mapping.private.md
  D ../../../20260620-1817-cpp-benchmark/scoring/redaction-log.md
  D ../../../20260620-1817-cpp-benchmark/scoring/reference-integrity.md
- D ../../../20260620-1817-cpp-benchmark/scoring/scorer-reference/cpp17-advanced-v2.md
+ D ../../../20260620-1817-cpp-benchmark/scoring/scorer-reference/benchmark-v2.md
  D ../../../20260620-1817-cpp-benchmark/scoring/scorer-reference/machine-grade.json
  D ../../../20260620-1817-cpp-benchmark/scoring/scorer-reference/q01_truth.json
  D ../../../20260620-1817-cpp-benchmark/scoring/scorer-reference/q02_truth.json

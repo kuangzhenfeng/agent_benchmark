@@ -1,4 +1,4 @@
-# cpp17-advanced-v1 评分私有参考解答
+# benchmark-v1 评分私有参考解答
 
 仅供 benchmark 生成完成、所有参评对象停止作答后，由主 agent 复制给匿名 scorer。不得复制到 `questions/`、`agents/`、`submissions/`，不得在评分前向参评 Agent 透露其内容。
 

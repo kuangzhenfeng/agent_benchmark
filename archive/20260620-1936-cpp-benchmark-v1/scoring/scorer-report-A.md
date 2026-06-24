@@ -1,8 +1,8 @@
 # 盲评评分报告 A（scorer-report-A）
 
-评测对象：P01、P02、P03、P04、P05、P06（匿名）。题源：`cpp17-advanced-v1`，三题各 100 分，满分 300。
+评测对象：P01、P02、P03、P04、P05、P06（匿名）。题源：`benchmark-v1`，三题各 100 分，满分 300。
 编译/运行环境：g++ 9.4.0、`-std=c++17 -Wall -Wextra -Wpedantic -pthread`，Q3 跨实例检查额外带 AddressSanitizer。公开检查脚本每个测试自带 `timeout 5s`，退出码 `0`=通过、`124`=超时（死锁）、其它=断言/ASAN 失败。
-评分依据：以各题 `QUESTION.md` 与 `scorer-reference/cpp17-advanced-v1.md` 验收矩阵为准，结合源码事实与公开检查结果；接受任何满足公开语义的等价实现，不以"未采用参考数据结构"扣分。
+评分依据：以各题 `QUESTION.md` 与 `scorer-reference/benchmark-v1.md` 验收矩阵为准，结合源码事实与公开检查结果；接受任何满足公开语义的等价实现，不以"未采用参考数据结构"扣分。
 
 评分维度：正确性 45 / C++ 质量 20 / 约束遵循 15 / 可维护性 10 / 验证证据 10。
 

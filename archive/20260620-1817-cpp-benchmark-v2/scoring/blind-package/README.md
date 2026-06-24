@@ -7,7 +7,7 @@
 ## 你只能读取的目录
 
 - 本 blind-package 目录（`P01`..`P06`，每个含两题完整产物）
-- 评分参考目录：`scoring/scorer-reference/`（含 `cpp17-advanced-v2.md`、`q01_truth.json`、`q02_truth.json`）
+- 评分参考目录：`scoring/scorer-reference/`（含 `benchmark-v2.md`、`q01_truth.json`、`q02_truth.json`）
 
 **禁止**读取：`mapping.private.md`、`participants.md`、`agents/`、`submissions/`、`questions/`、benchmark 目录之外任何与身份相关的文件。不要尝试推断身份。
 
@@ -27,7 +27,7 @@
 - Q1 truth 字段：`route_code, schema_rev, id_policy, replay_scope, stamp_required, ordinal_required, mode_flag, phase_value, branch, band[min,max]`（10 字段）。
 - Q2 truth 字段（system_B）：`route_code, schema_rev, id_policy, replay_scope, stamp_required, ordinal_required, mode_flag, phase_value, branch, band_min, band_max`（注意额外有 `phase_idx`/`branch_idx`，但规则表 10 维对应的是 `phase_value`/`branch`/`band_min`/`band_max`，按提交源码实际字段名核对等价值）。
 
-以 `cpp17-advanced-v2.md` 与各题 `QUESTION.md` 为准；ground truth JSON 用于校准。**接受任何行为等价的实现**：字段顺序、枚举命名、数组 vs pair 表示 band 等差异不扣分，只看语义值是否正确。
+以 `benchmark-v2.md` 与各题 `QUESTION.md` 为准；ground truth JSON 用于校准。**接受任何行为等价的实现**：字段顺序、枚举命名、数组 vs pair 表示 band 等差异不扣分，只看语义值是否正确。
 
 ## rubric（每题 100 分）
 

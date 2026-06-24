@@ -23,7 +23,7 @@
 /agent-benchmark
 ```
 
-第一步 skill 一定会询问本次参评的 **Agent + 模型组合**（例如 `claude code + qwen3.7 max`、`opencode + glm-5.2`）。也可以顺带提供预设名、题量、难度、时间盒；不提供则默认使用版本化预设 **`cpp17-advanced-v1`** 的 3 道 C++17 题，时间盒依次为 50 / 70 / 60 分钟。若要评测长上下文与协议适配能力，明确指定 **`cpp17-advanced-v2`**（2 题，推荐各 300 分钟）。
+第一步 skill 一定会询问本次参评的 **Agent + 模型组合**（例如 `claude code + qwen3.7 max`、`opencode + glm-5.2`）。也可以顺带提供预设名、题量、难度、时间盒；不提供则默认使用版本化预设 **`benchmark-v1`** 的 3 道 C++17 题，时间盒依次为 50 / 70 / 60 分钟。若要评测长上下文与协议适配能力，明确指定 **`benchmark-v2`**（2 题，推荐各 300 分钟）。若要评测"读懂既有代码 → 绘制架构图"的可视化表达能力，明确指定 **`benchmark-v3`**（1 题，产物型，推荐 120–150 分钟）。
 
 ## 版本化预设题库
 
@@ -35,7 +35,7 @@
 | Q2 `coalescing-cache` | Implementation | 并发请求合并、TTL、失效竞态、LRU、递归加载 | starter 未实现，预期失败 |
 | Q3 `routing-config` | Refactor/Design | 快照发布、兼容 API 生命周期、观察者隔离、原子 reload | 基础路径通过；完整公开套件因生命周期/重入缺陷失败 |
 
-`cpp17-advanced-v2`（需明确指定）评测长上下文与协议适配，协议为全新虚构的航空航天测控物模型（`range.tc` / `orbit.tc`，proto3）：
+`benchmark-v2`（需明确指定）评测长上下文与协议适配，协议为全新虚构的航空航天测控物模型（`range.tc` / `orbit.tc`，proto3）：
 
 | 题目 | 类型 | 评测重点 | 初始公开检查 |
 |------|------|----------|--------------|
@@ -44,12 +44,20 @@
 
 v1 面向高级工程实践；v2 面向长上下文下的跨距离交叉引用与协议适配。v2 的语料与评分参考由确定性生成器产出，所有真值点均可从公开语料推导，Q1 的跨文档指针均指向 corpus 中对应的版本文件；评分不依赖未说明的"隐藏谜题"。它专门检验是否按公开优先级规则读取并交叉核对散落在多份文档中的真值，而不是仅读单一来源或机械复制近似结构。它不能保证任何模型一定失败或通过；实际能力结论以匿名盲评结果为准。
 
+`benchmark-v3`（需明确指定，产物型）评测"读懂既有 C++ 代码 → 用 SVG 可视化架构"能力。提供一套可编译运行的 C++17 批处理引擎 `TaskForge`，参评对象通读源码后产出 **5 种风格的 SVG 架构图**：
+
+| 题目 | 类型 | 评测重点 | 初始公开检查 |
+|------|------|----------|--------------|
+| Q1 `batch-engine-architecture` | 架构图绘制（产物型） | 分层/组件依赖/数据流/类关系/部署五视角、命名近似与死代码辨别、运行时回调 vs 编译期依赖、接口依赖 vs 具体类依赖、注释误导抵抗 | 引擎 demo 编译运行通过；5 张占位 SVG 缺 `data-*` 标注，`svg_check.py` 预期失败 |
+
+v3 与 v1/v2 正交：不考"改代码过测试"，而考"理解代码库 → 抽象表达"。架构事实全部可从公开源码推导；评分把"正确性"压成客观的架构事实覆盖率——参评对象须按约定在 SVG 中嵌入 `data-*` 标注，主 agent 用脚本解析并与私有 ground truth 做集合匹配产出 `machine-grade.json`。它不能保证任何模型一定失败或通过；结论以匿名盲评结果为准。
+
 ## 完整流程
 
 | 阶段 | 主 agent 动作 | 是否交给用户 |
 |------|--------------|--------------|
 | 1. 确认参评对象 | 询问 Agent + 模型组合，整理参评表 | 是，等用户回复 |
-| 2. 选择试题 | 默认复制 `cpp17-advanced-v1`；明确指定时复制 `cpp17-advanced-v2`；仅在预设外要求时自定义出题 | — |
+| 2. 选择试题 | 默认复制 `benchmark-v1`；明确指定时复制 `benchmark-v2`；仅在预设外要求时自定义出题 | — |
 | 3. 创建 benchmark 目录 | 在 `benchmark/<run-id>/` 生成题源 + 各参评对象独立作答目录 | 生成后停止 |
 | 4. 等待作答 | 不替参评 Agent 作答、不提前评分 | 是，用户分别让各 Agent 在各自目录答题 |
 | 5. 匿名盲评 | 全部作答结束后创建匿名包与私有参考解答副本，调用 scorer subagent 按 rubric 盲评 | — |
@@ -116,8 +124,9 @@ scorer 报告和最终 `evaluation.md`，避免向原始提交回写评分过程
 | 路径 | 说明 |
 |------|------|
 | [`.claude/skills/agent-benchmark/SKILL.md`](./.claude/skills/agent-benchmark/SKILL.md) | **核心**：完整流程、公平性控制、rubric、报告模板 |
-| [`.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/`](./.claude/skills/agent-benchmark/presets/cpp17-advanced-v1/) | 默认预设题库、starter 与公开检查 |
-| [`.claude/skills/agent-benchmark/presets/cpp17-advanced-v2/`](./.claude/skills/agent-benchmark/presets/cpp17-advanced-v2/) | 长文本业务协议预设题库、起始代码与公开检查 |
+| [`.claude/skills/agent-benchmark/presets/benchmark-v1/`](./.claude/skills/agent-benchmark/presets/benchmark-v1/) | 默认预设题库、starter 与公开检查 |
+| [`.claude/skills/agent-benchmark/presets/benchmark-v2/`](./.claude/skills/agent-benchmark/presets/benchmark-v2/) | 长文本业务协议预设题库、起始代码与公开检查 |
+| [`.claude/skills/agent-benchmark/presets/benchmark-v3/`](./.claude/skills/agent-benchmark/presets/benchmark-v3/) | 架构图绘制（产物型）预设题库：可运行的 C++ 批处理引擎 + SVG 标注约定 + 机器评分脚本 |
 | [`.claude/skills/create-skill/SKILL.md`](./.claude/skills/create-skill/SKILL.md) | 创建新 skill 的辅助 skill |
 | [`evaluation-agents.md`](./evaluation-agents.md) | 可参评的 Agent + 模型组合与自动化评测启动指令 |
 | [`score.md`](./score.md) | 各轮 archive 评测结果的简洁积分汇总（排名/总分/结论） |

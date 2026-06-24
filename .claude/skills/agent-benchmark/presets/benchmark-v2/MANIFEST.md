@@ -1,4 +1,4 @@
-# cpp17-advanced-v2
+# benchmark-v2
 
 这是面向长上下文与协议适配的 C++17 基准预设。协议为全新虚构的航空航天测控物模型（proto3，仿物模型工程组织但与 tsl 企业协议无内容重叠）：运载火箭箭载测控协议 `range.tc` 及其目标系统 `orbit.tc`。
 
@@ -33,7 +33,7 @@ python3 verify_q02.py ..    # 验证 Q02 正确解通过公开检查
 
 ## 使用规则
 
-- 用户明确选择 cpp17-advanced-v2 时，完整复制两个题目目录到本轮 questions，再复制到每个 agents 目录。
+- 用户明确选择 benchmark-v2 时，完整复制两个题目目录到本轮 questions，再复制到每个 agents 目录。
 - corpus、QUESTION.md、ANSWER.md、起始代码与 tests 目录都是公开题源；所有参评对象必须拿到字节等价副本。
-- 生成与作答阶段绝不能复制私有评分参考（`_private/*_truth.json`、`scoring-reference/cpp17-advanced-v2.md`）到 questions、agents 或 submissions。
+- 生成与作答阶段绝不能复制私有评分参考（`_private/*_truth.json`、`scoring-reference/benchmark-v2.md`）到 questions、agents 或 submissions。
 - 全部参评对象停止作答后，才把对应私有评分参考复制到本轮 scorer-reference。

@@ -1,6 +1,6 @@
 # Agent Benchmark 评测报告 · 20260620-1936-cpp-benchmark-v2
 
-> 预设 `cpp17-advanced-v2`（长上下文协议实现 + 协议适配，C++17）。6 个 opencode coding 模型经 `xag` 接入，2 题。
+> 预设 `benchmark-v2`（长上下文协议实现 + 协议适配，C++17）。6 个 opencode coding 模型经 `xag` 接入，2 题。
 
 ## 匿名映射（仅本报告解盲用）
 

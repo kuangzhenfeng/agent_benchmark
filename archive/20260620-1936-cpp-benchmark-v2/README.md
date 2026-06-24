@@ -1,12 +1,12 @@
 # Agent Benchmark · 20260620-1936-cpp-benchmark-v2
 
-本轮评测 **opencode + 6 个 coding 模型**在长上下文 C++ 协议任务上的效果。预设：`cpp17-advanced-v2`。
+本轮评测 **opencode + 6 个 coding 模型**在长上下文 C++ 协议任务上的效果。预设：`benchmark-v2`。
 
 ## 总览
 
 | 项 | 内容 |
 |----|------|
-| 预设 | `cpp17-advanced-v2` |
+| 预设 | `benchmark-v2` |
 | 题量 | 2 题（Q1 long-context-protocol、Q2 protocol-adaptation） |
 | 语言标准 | C++17 |
 | 编译器 | g++（记录实际版本见 participants.md） |
