@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" data-style="component">
+<text x="600.0" y="35" font-family="Segoe UI, Arial, sans-serif" font-size="22" text-anchor="middle" fill="#222" font-weight="bold">TaskForge 组件依赖图</text>
+<text x="600.0" y="55" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666" font-weight="normal">实线 = 编译期依赖 (#include) | 虚线 = 运行时回调 (callback)</text>
+<g data-role="nodes">
+<g data-id="main" data-kind="module">
+<rect x="500" y="80" width="200" height="55" fill="#ffcc80" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="600.0" y="103.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">main.cpp</text>
+<text x="600.0" y="119.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">组合根</text>
+</g>
+<g data-id="scheduler" data-kind="module">
+<rect x="500" y="200" width="200" height="55" fill="#ffd699" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="600.0" y="232.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">scheduler.hpp/.cpp</text>
+</g>
+<g data-id="worker" data-kind="module">
+<rect x="180" y="320" width="180" height="55" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="270.0" y="352.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">worker.hpp/.cpp</text>
+</g>
+<g data-id="task_queue" data-kind="module">
+<rect x="400" y="320" width="200" height="55" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="500.0" y="352.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">task_queue.hpp/.cpp</text>
+</g>
+<g data-id="task_store" data-kind="module">
+<rect x="80" y="460" width="200" height="55" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="180.0" y="492.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">task_store.hpp/.cpp</text>
+</g>
+<g data-id="retry_policy" data-kind="module">
+<rect x="310" y="460" width="200" height="55" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="410.0" y="492.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">retry_policy.hpp/.cpp</text>
+</g>
+<g data-id="metrics" data-kind="module">
+<rect x="540" y="460" width="180" height="55" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="630.0" y="492.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">metrics.hpp/.cpp</text>
+</g>
+<g data-id="clock" data-kind="module">
+<rect x="750" y="460" width="150" height="55" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="825.0" y="492.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">clock.hpp/.cpp</text>
+</g>
+<g data-id="config" data-kind="module">
+<rect x="930" y="460" width="150" height="55" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="1005.0" y="492.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">config.hpp/.cpp</text>
+</g>
+<g data-id="notifier" data-kind="module">
+<rect x="750" y="320" width="200" height="55" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="850.0" y="352.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">notifier.hpp/.cpp</text>
+</g>
+<g data-id="logger" data-kind="module">
+<rect x="980" y="320" width="150" height="55" fill="#e0e0e0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="1055.0" y="343.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">logger.hpp</text>
+<text x="1055.0" y="359.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">未使用</text>
+</g>
+<g data-id="task" data-kind="module">
+<rect x="540" y="600" width="150" height="55" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="615.0" y="632.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">task.hpp/.cpp</text>
+</g>
+<g data-id="TaskQueueLegacy" data-kind="module">
+<rect x="340" y="600" width="170" height="55" fill="#e0e0e0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="425.0" y="623.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">TaskQueueLegacy</text>
+<text x="425.0" y="639.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">死代码</text>
+</g>
+</g>
+<g data-role="edges">
+<line data-from="main" data-to="scheduler" data-kind="depends" x1="600" y1="135" x2="600" y2="200" stroke="#555" stroke-width="1.5"/>
+<polygon points="596.0,192.0 600,200 604.0,192.0" fill="#555"/>
+<line data-from="main" data-to="notifier" data-kind="depends" x1="680" y1="107" x2="850" y2="320" stroke="#555" stroke-width="1.5"/>
+<polygon points="841.8832656101106,316.2425244054038 850,320 848.1359398417433,311.2521271313307" fill="#555"/>
+<line data-from="scheduler" data-to="task_queue" data-kind="depends" x1="550" y1="255" x2="500" y2="320" stroke="#555" stroke-width="1.5"/>
+<polygon points="501.70719013037916,311.22016504376444 500,320 508.04818204321595,316.097851130562" fill="#555"/>
+<line data-from="scheduler" data-to="worker" data-kind="depends" x1="530" y1="255" x2="270" y2="320" stroke="#555" stroke-width="1.5"/>
+<polygon points="276.7909975010173,314.179144999128 270,320 278.731282501308,321.94028500029066" fill="#555"/>
+<line data-from="scheduler" data-to="retry_policy" data-kind="depends" x1="570" y1="255" x2="410" y2="460" stroke="#555" stroke-width="1.5"/>
+<polygon points="411.76890370928356,451.23239031050747 410,460 418.07542997716416,456.15455715373133" fill="#555"/>
+<line data-from="scheduler" data-to="metrics" data-kind="depends" x1="620" y1="255" x2="630" y2="460" stroke="#555" stroke-width="1.5"/>
+<polygon points="625.6149701657932,452.20439140585444 630,460 633.6054689747923,451.8146109761472" fill="#555"/>
+<line data-from="scheduler" data-to="clock" data-kind="depends" x1="660" y1="255" x2="825" y2="460" stroke="#555" stroke-width="1.5"/>
+<polygon points="816.8678780172553,456.2759441387431 825,460 823.0999714993587,451.2598688970501" fill="#555"/>
+<line data-from="scheduler" data-to="config" data-kind="depends" x1="690" y1="255" x2="1005" y2="460" stroke="#555" stroke-width="1.5"/>
+<polygon points="996.1130601940238,458.98891104003866 1005,460 1000.4767072843833,452.2837947792422" fill="#555"/>
+<line data-from="worker" data-to="task_queue" data-kind="depends" x1="330" y1="347" x2="400" y2="347" stroke="#555" stroke-width="1.5"/>
+<polygon points="392.0,351.0 400,347 392.0,343.0" fill="#555"/>
+<line data-from="task_queue" data-to="task" data-kind="depends" x1="500" y1="375" x2="615" y2="600" stroke="#555" stroke-width="1.5"/>
+<polygon points="607.7973727929028,594.6969667815878 615,600 614.9208502504715,591.0560783032748" fill="#555"/>
+<line data-from="task_store" data-to="task" data-kind="depends" x1="180" y1="515" x2="570" y2="627" stroke="#555" stroke-width="1.5"/>
+<polygon points="561.2066999759592,628.6364213049225 570,627 563.4148829416375,620.9472127637208" fill="#555"/>
+<line data-from="notifier" data-to="task" data-kind="depends" x1="850" y1="375" x2="660" y2="600" stroke="#555" stroke-width="1.5"/>
+<polygon points="662.1053268792226,591.3070374019197 660,600 668.2175662059977,596.4684839445298" fill="#555"/>
+<line data-from="scheduler" data-to="task_store" data-kind="depends" x1="530" y1="255" x2="180" y2="460" stroke="#555" stroke-width="1.5"/>
+<polygon points="184.88145444284663,452.50524166350823 180,460 188.92467933490138,459.40830855238227" fill="#555"/>
+<line data-from="worker" data-to="scheduler" data-kind="callback" x1="270" y1="320" x2="560" y2="255" stroke="#e06060" stroke-width="1.5" stroke-dasharray="6,3"/>
+<polygon points="553.0685292115415,260.65284996340307 560,255 551.3188375562024,252.84653334727503" fill="#e06060"/>
+<text x="415.0" y="281.5" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">completion_handler (runtime)</text>
+</g>
+</svg>

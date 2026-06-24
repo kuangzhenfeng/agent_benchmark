@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TaskForge 部署 / 运行时拓扑图：单个进程内的运行时实例与线程。
+     默认档位 worker_count=4（4 个 Worker 线程）。TaskQueue 是共享汇合点。
+     右侧灰色区列出"编译进产物但运行时未实例化"的类型。 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 860" width="1240" height="860"
+     data-style="deployment" data-title="TaskForge Deployment Topology">
+  <defs>
+    <marker id="arrowDep" markerWidth="11" markerHeight="11" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <marker id="arrowCb" markerWidth="11" markerHeight="11" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#b45309"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1240" height="860" fill="#fbfbfd"/>
+
+  <text x="620" y="38" font-family="sans-serif" font-size="24" font-weight="700" text-anchor="middle" fill="#1a1a2e">TaskForge — 部署 / 运行时拓扑</text>
+  <text x="620" y="60" font-family="sans-serif" font-size="13" text-anchor="middle" fill="#6b7280">单进程；默认档位 worker_count=4；× 表示运行时实例数量</text>
+
+  <!-- 进程容器 -->
+  <rect x="30" y="85" width="950" height="710" rx="14" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+  <text x="55" y="112" font-family="sans-serif" font-size="15" font-weight="700" fill="#1e1b4b">«process» TaskForge（1 个进程）</text>
+
+  <g data-role="nodes">
+    <!-- 主线程 -->
+    <g data-id="MainThread" data-kind="thread">
+      <rect x="70" y="140" width="200" height="70" rx="8" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+      <text x="170" y="166" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1e1b4b">主线程 ×1</text>
+      <text x="170" y="184" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4338ca">scheduler.run() 阻塞循环</text>
+      <text x="170" y="200" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4338ca">（提交任务 + 等待停止）</text>
+    </g>
+
+    <!-- 停止线程 -->
+    <g data-id="StopperThread" data-kind="thread">
+      <rect x="300" y="140" width="200" height="70" rx="8" fill="#fef2f2" stroke="#dc2626"/>
+      <text x="400" y="166" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#7f1d1d">停止线程 ×1</text>
+      <text x="400" y="184" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#b91c1c">800ms 后 scheduler.stop()</text>
+      <text x="400" y="200" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#b91c1c">queue.shutdown()+pool.request_stop()</text>
+    </g>
+
+    <!-- Scheduler 实例 -->
+    <g data-id="Scheduler" data-kind="instance">
+      <rect x="530" y="140" width="210" height="70" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+      <text x="635" y="166" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#064e3b">Scheduler 实例 ×1</text>
+      <text x="635" y="184" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#047857">编排核心，注入完成回调</text>
+      <text x="635" y="200" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#047857">handle_completion</text>
+    </g>
+
+    <!-- 共享汇合点：TaskQueue -->
+    <g data-id="TaskQueue" data-kind="instance">
+      <rect x="770" y="300" width="190" height="90" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2.5"/>
+      <text x="865" y="326" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#78350f">TaskQueue ×1</text>
+      <text x="865" y="344" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">共享汇合点（优先级队列）</text>
+      <text x="865" y="362" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">主线程 push / Workers pop</text>
+      <text x="865" y="378" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">mutex + condition_variable</text>
+    </g>
+
+    <!-- WorkerPool -->
+    <g data-id="WorkerPool" data-kind="instance">
+      <rect x="70" y="300" width="220" height="70" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+      <text x="180" y="326" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#78350f">WorkerPool ×1</text>
+      <text x="180" y="344" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">拥有 4 个 Worker</text>
+      <text x="180" y="360" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">统一注入完成回调</text>
+    </g>
+
+    <!-- 4 个 Worker 线程 -->
+    <g data-id="Worker1" data-kind="thread">
+      <rect x="70" y="430" width="100" height="60" rx="8" fill="#eef2ff" stroke="#4f46e5"/>
+      <text x="120" y="456" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#1e1b4b">Worker #1</text>
+      <text x="120" y="474" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4338ca">线程 ×1</text>
+    </g>
+    <g data-id="Worker2" data-kind="thread">
+      <rect x="185" y="430" width="100" height="60" rx="8" fill="#eef2ff" stroke="#4f46e5"/>
+      <text x="235" y="456" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#1e1b4b">Worker #2</text>
+      <text x="235" y="474" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4338ca">线程 ×1</text>
+    </g>
+    <g data-id="Worker3" data-kind="thread">
+      <rect x="300" y="430" width="100" height="60" rx="8" fill="#eef2ff" stroke="#4f46e5"/>
+      <text x="350" y="456" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#1e1b4b">Worker #3</text>
+      <text x="350" y="474" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4338ca">线程 ×1</text>
+    </g>
+    <g data-id="Worker4" data-kind="thread">
+      <rect x="415" y="430" width="100" height="60" rx="8" fill="#eef2ff" stroke="#4f46e5"/>
+      <text x="465" y="456" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#1e1b4b">Worker #4</text>
+      <text x="465" y="474" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4338ca">线程 ×1</text>
+    </g>
+
+    <!-- 装配的单例基础设施 -->
+    <g data-id="InMemoryTaskStore" data-kind="instance">
+      <rect x="70" y="560" width="180" height="60" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="160" y="586" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#155e75">InMemoryTaskStore ×1</text>
+      <text x="160" y="604" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#0e7490">运行时实际状态存储</text>
+    </g>
+    <g data-id="ExponentialBackoffPolicy" data-kind="instance">
+      <rect x="270" y="560" width="190" height="60" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="365" y="586" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#155e75">ExponentialBackoffPolicy ×1</text>
+      <text x="365" y="604" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#0e7490">50/2000ms, cap=3</text>
+    </g>
+    <g data-id="CompositeNotifier" data-kind="instance">
+      <rect x="480" y="560" width="200" height="60" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="580" y="586" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#155e75">CompositeNotifier ×1</text>
+      <text x="580" y="604" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#0e7490">含 Console + Callback 子通知器</text>
+    </g>
+    <g data-id="MetricsCollector" data-kind="instance">
+      <rect x="700" y="560" width="180" height="60" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="790" y="586" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#155e75">MetricsCollector ×1</text>
+      <text x="790" y="604" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#0e7490">原子计数统计</text>
+    </g>
+    <g data-id="SystemClock" data-kind="instance">
+      <rect x="900" y="560" width="160" height="60" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="980" y="586" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#155e75">SystemClock ×1</text>
+      <text x="980" y="604" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#0e7490">steady_clock</text>
+    </g>
+    <g data-id="ConsoleNotifier" data-kind="instance">
+      <rect x="480" y="640" width="140" height="50" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="550" y="662" font-family="sans-serif" font-size="12" font-weight="700" text-anchor="middle" fill="#155e75">ConsoleNotifier ×1</text>
+      <text x="550" y="678" font-family="sans-serif" font-size="10" text-anchor="middle" fill="#0e7490">子通知器</text>
+    </g>
+    <g data-id="CallbackNotifier" data-kind="instance">
+      <rect x="630" y="640" width="150" height="50" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="705" y="662" font-family="sans-serif" font-size="12" font-weight="700" text-anchor="middle" fill="#155e75">CallbackNotifier ×1</text>
+      <text x="705" y="678" font-family="sans-serif" font-size="10" text-anchor="middle" fill="#0e7490">子通知器</text>
+    </g>
+  </g>
+
+  <!-- 进程边界外的"未实例化"清单 -->
+  <g data-id="CompiledNotInstantiated" data-kind="note">
+    <rect x="1000" y="85" width="220" height="340" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-dasharray="5 4"/>
+    <text x="1110" y="110" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#334155">编译进产物但运行时未实例化</text>
+    <text x="1015" y="138" font-family="sans-serif" font-size="12" fill="#475569">• PersistentTaskStore</text>
+    <text x="1015" y="158" font-family="sans-serif" font-size="12" fill="#475569">• FixedBackoffPolicy</text>
+    <text x="1015" y="178" font-family="sans-serif" font-size="12" fill="#475569">• ILogger / ConsoleLogger</text>
+    <text x="1015" y="198" font-family="sans-serif" font-size="12" fill="#475569">• TaskQueueLegacy（旧 FIFO）</text>
+    <text x="1015" y="218" font-family="sans-serif" font-size="12" fill="#475569">• Scheduler::reschedule()</text>
+    <text x="1015" y="238" font-family="sans-serif" font-size="12" fill="#475569">• Scheduler::run_legacy()</text>
+    <text x="1015" y="270" font-family="sans-serif" font-size="11" fill="#64748b">理由：组合根 main 未装配 /</text>
+    <text x="1015" y="286" font-family="sans-serif" font-size="11" fill="#64748b">无任何调用方（死代码 / 历史遗留）</text>
+    <text x="1015" y="320" font-family="sans-serif" font-size="11" font-style="italic" fill="#64748b">这些类型在图中不画</text>
+    <text x="1015" y="336" font-family="sans-serif" font-size="11" font-style="italic" fill="#64748b">实例节点，仅在此备查。</text>
+  </g>
+
+  <!-- ===== 边 ===== -->
+  <g data-role="edges" fill="none">
+    <!-- contains 关系（进程包含线程/实例；池包含 worker） -->
+    <line data-from="WorkerPool" data-to="Worker1" data-kind="contains" x1="120" y1="370" x2="120" y2="428" stroke="#334155" stroke-width="1.6" marker-end="url(#arrowDep)"/>
+    <line data-from="WorkerPool" data-to="Worker2" data-kind="contains" x1="180" y1="370" x2="235" y2="428" stroke="#334155" stroke-width="1.6" marker-end="url(#arrowDep)"/>
+    <line data-from="WorkerPool" data-to="Worker3" data-kind="contains" x1="240" y1="370" x2="350" y2="428" stroke="#334155" stroke-width="1.6" marker-end="url(#arrowDep)"/>
+    <line data-from="WorkerPool" data-to="Worker4" data-kind="contains" x1="290" y1="370" x2="465" y2="428" stroke="#334155" stroke-width="1.6" marker-end="url(#arrowDep)"/>
+    <line data-from="CompositeNotifier" data-to="ConsoleNotifier" data-kind="contains" x1="530" y1="620" x2="550" y2="638" stroke="#334155" stroke-width="1.5" marker-end="url(#arrowDep)"/>
+    <line data-from="CompositeNotifier" data-to="CallbackNotifier" data-kind="contains" x1="630" y1="620" x2="700" y2="638" stroke="#334155" stroke-width="1.5" marker-end="url(#arrowDep)"/>
+
+    <!-- connects：主线程 ↔ Scheduler；Scheduler ↔ TaskQueue（汇合点） -->
+    <line data-from="MainThread" data-to="Scheduler" data-kind="connects" x1="270" y1="175" x2="528" y2="175" stroke="#334155" stroke-width="1.6" marker-end="url(#arrowDep)"/>
+    <line data-from="StopperThread" data-to="Scheduler" data-kind="connects" x1="500" y1="175" x2="528" y2="175" stroke="#dc2626" stroke-width="1.6" marker-end="url(#arrowDep)"/>
+    <line data-from="Scheduler" data-to="TaskQueue" data-kind="connects" x1="740" y1="210" x2="820" y2="298" stroke="#334155" stroke-width="1.6" marker-end="url(#arrowDep)"/>
+    <text x="745" y="258" font-family="sans-serif" font-size="11" fill="#334155">push</text>
+
+    <!-- connects：Workers ↔ TaskQueue（pop 消费） -->
+    <line data-from="Worker1" data-to="TaskQueue" data-kind="connects" x1="170" y1="455" x2="768" y2="335" stroke="#334155" stroke-width="1.4" marker-end="url(#arrowDep)"/>
+    <line data-from="Worker2" data-to="TaskQueue" data-kind="connects" x1="285" y1="455" x2="775" y2="340" stroke="#334155" stroke-width="1.4" marker-end="url(#arrowDep)"/>
+    <line data-from="Worker3" data-to="TaskQueue" data-kind="connects" x1="400" y1="455" x2="785" y2="345" stroke="#334155" stroke-width="1.4" marker-end="url(#arrowDep)"/>
+    <line data-from="Worker4" data-to="TaskQueue" data-kind="connects" x1="515" y1="455" x2="795" y2="350" stroke="#334155" stroke-width="1.4" marker-end="url(#arrowDep)"/>
+    <text x="600" y="395" font-family="sans-serif" font-size="11" fill="#334155">blocking_pop</text>
+
+    <!-- runs-on：Workers 运行在线程上（Worker 节点即代表线程，用 runs-on 标注） -->
+    <line data-from="Worker1" data-to="WorkerPool" data-kind="runs-on" x1="90" y1="428" x2="90" y2="372" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+    <!-- callback：Workers → Scheduler.handle_completion（运行时回调） -->
+    <path data-from="Worker4" data-to="Scheduler" data-kind="callback"
+          d="M 515 470 C 700 470, 740 320, 700 212"
+          stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrowCb)"/>
+    <text x="620" y="430" font-family="sans-serif" font-size="11" font-weight="700" fill="#b45309">① 完成回调 on_done(TaskResult)</text>
+
+    <!-- Scheduler 使用各单例（connects 到基础设施实例） -->
+    <line data-from="Scheduler" data-to="InMemoryTaskStore" data-kind="connects" x1="560" y1="210" x2="200" y2="558" stroke="#334155" stroke-width="1.3" marker-end="url(#arrowDep)"/>
+    <line data-from="Scheduler" data-to="ExponentialBackoffPolicy" data-kind="connects" x1="590" y1="210" x2="360" y2="558" stroke="#334155" stroke-width="1.3" marker-end="url(#arrowDep)"/>
+    <line data-from="Scheduler" data-to="CompositeNotifier" data-kind="connects" x1="620" y1="210" x2="560" y2="558" stroke="#334155" stroke-width="1.3" marker-end="url(#arrowDep)"/>
+    <line data-from="Scheduler" data-to="MetricsCollector" data-kind="connects" x1="650" y1="210" x2="780" y2="558" stroke="#334155" stroke-width="1.3" marker-end="url(#arrowDep)"/>
+    <line data-from="Scheduler" data-to="SystemClock" data-kind="connects" x1="680" y1="210" x2="970" y2="558" stroke="#334155" stroke-width="1.3" marker-end="url(#arrowDep)"/>
+  </g>
+
+  <!-- 图例 -->
+  <g font-family="sans-serif" font-size="12" fill="#374151">
+    <rect x="1000" y="450" width="220" height="170" rx="6" fill="#ffffff" stroke="#d1d5db"/>
+    <text x="1012" y="472" font-weight="700">图例</text>
+    <line x1="1014" y1="492" x2="1054" y2="492" stroke="#334155" stroke-width="1.6" marker-end="url(#arrowDep)"/>
+    <text x="1062" y="496">contains / connects</text>
+    <line x1="1014" y1="514" x2="1054" y2="514" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrowCb)"/>
+    <text x="1062" y="518">callback（运行时回调）</text>
+    <line x1="1014" y1="536" x2="1054" y2="536" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+    <text x="1062" y="540">runs-on</text>
+    <text x="1014" y="566" font-size="11" fill="#64748b">×N = 运行时实例数量</text>
+    <text x="1014" y="584" font-size="11" fill="#64748b">默认 worker_count = 4</text>
+    <text x="1014" y="602" font-size="11" fill="#64748b">（ConfigLoader::default_for</text>
+    <text x="1014" y="616" font-size="11" fill="#64748b"> "default" → 4）</text>
+  </g>
+</svg>

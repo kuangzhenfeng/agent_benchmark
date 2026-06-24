@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- UML 风格关系图：空心三角表示实现/继承，菱形表示成员拥有/共享聚合。 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1080" width="1600" height="1080" data-style="class">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#53697d"/></marker>
+    <marker id="triangle" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="10" markerHeight="10" orient="auto"><path d="M 1 1 L 13 7 L 1 13 z" fill="#fff" stroke="#53697d" stroke-width="1.5"/></marker>
+    <style>
+      .title { font: 700 30px sans-serif; fill: #152235; } .subtitle { font: 15px sans-serif; fill: #5a6b7d; }
+      .node rect { rx: 8; stroke-width: 1.7; } .node .name { font: 700 17px sans-serif; fill: #17283a; text-anchor: middle; } .node .member { font: 13px monospace; fill: #536577; text-anchor: start; } .node .stereo { font: italic 13px sans-serif; fill: #7658a7; text-anchor: middle; }
+      .interface rect { fill: #fbf9ff; stroke: #8e72b4; } .class rect { fill: #fff; stroke: #528fb9; } .concrete rect { fill: #f4fbf6; stroke: #5aa174; } .muted rect { fill: #f7f7f7; stroke: #9ca3af; stroke-dasharray: 6 4; }
+      .edge { fill: none; stroke: #53697d; stroke-width: 1.8; marker-end: url(#arrow); } .inherit { fill: none; stroke: #53697d; stroke-width: 1.8; marker-end: url(#triangle); } .compose { fill: none; stroke: #2f7b58; stroke-width: 2; marker-end: url(#arrow); } .aggregate { fill: none; stroke: #8b6bba; stroke-width: 2; stroke-dasharray: 5 3; marker-end: url(#arrow); }
+      .rel { font: 12px sans-serif; fill: #536577; } .legend { font: 13px sans-serif; fill: #4c6072; }
+    </style>
+  </defs>
+  <rect width="1600" height="1080" fill="#fafcff"/>
+  <text x="60" y="58" class="title">TaskForge 类与模块关系</text>
+  <text x="60" y="86" class="subtitle">Scheduler 对外部服务依赖抽象；`main` 选择并装配实际实现。灰色虚线类已编译但默认运行不实例化。</text>
+  <g data-role="edges">
+    <path class="compose" data-from="main" data-to="Scheduler" data-kind="composes" d="M 220 190 L 440 190"/>
+    <path class="compose" data-from="main" data-to="InMemoryTaskStore" data-kind="composes" d="M 220 225 C 390 360, 480 450, 650 450"/>
+    <path class="compose" data-from="main" data-to="ExponentialBackoffPolicy" data-kind="composes" d="M 220 235 C 420 530, 490 630, 650 630"/>
+    <path class="compose" data-from="main" data-to="CompositeNotifier" data-kind="composes" d="M 220 245 C 440 720, 495 805, 650 805"/>
+    <path class="compose" data-from="main" data-to="SystemClock" data-kind="composes" d="M 220 205 C 390 240, 490 260, 650 265"/>
+    <path class="compose" data-from="Scheduler" data-to="TaskQueue" data-kind="composes" d="M 690 190 L 890 190"/>
+    <path class="compose" data-from="Scheduler" data-to="WorkerPool" data-kind="composes" d="M 690 220 C 805 310, 830 350, 890 350"/>
+    <path class="compose" data-from="Scheduler" data-to="IRetryPolicy" data-kind="composes" d="M 690 235 C 790 520, 820 600, 890 600"/>
+    <path class="aggregate" data-from="Scheduler" data-to="ITaskStore" data-kind="aggregates" d="M 690 205 C 800 400, 815 450, 890 450"/>
+    <path class="aggregate" data-from="Scheduler" data-to="INotifier" data-kind="aggregates" d="M 690 245 C 810 700, 815 805, 890 805"/>
+    <path class="aggregate" data-from="Scheduler" data-to="MetricsCollector" data-kind="aggregates" d="M 690 245 C 850 830, 920 930, 1080 930"/>
+    <path class="edge" data-from="Scheduler" data-to="IClock" data-kind="uses" d="M 690 180 C 800 260, 810 280, 890 265"/>
+    <path class="compose" data-from="WorkerPool" data-to="Worker" data-kind="composes" d="M 1070 350 L 1250 350"/>
+    <path class="edge" data-from="Worker" data-to="TaskQueue" data-kind="uses" d="M 1250 340 C 1170 190, 1080 180, 1070 180"/>
+    <path class="edge" data-from="Worker" data-to="TaskResult" data-kind="uses" d="M 1340 400 L 1340 535"/>
+    <path class="edge" data-from="TaskQueue" data-to="Task" data-kind="uses" d="M 980 230 L 980 535"/>
+    <path class="inherit" data-from="InMemoryTaskStore" data-to="ITaskStore" data-kind="implements" d="M 830 450 L 890 450"/>
+    <path class="inherit" data-from="PersistentTaskStore" data-to="ITaskStore" data-kind="implements" d="M 830 500 C 870 500, 860 470, 890 470"/>
+    <path class="inherit" data-from="ExponentialBackoffPolicy" data-to="IRetryPolicy" data-kind="implements" d="M 830 630 L 890 630"/>
+    <path class="inherit" data-from="FixedBackoffPolicy" data-to="IRetryPolicy" data-kind="implements" d="M 830 680 C 875 680, 865 650, 890 650"/>
+    <path class="inherit" data-from="SystemClock" data-to="IClock" data-kind="implements" d="M 830 265 L 890 265"/>
+    <path class="inherit" data-from="CompositeNotifier" data-to="INotifier" data-kind="implements" d="M 830 805 L 890 805"/>
+    <path class="inherit" data-from="ConsoleNotifier" data-to="INotifier" data-kind="implements" d="M 830 855 C 875 855, 865 825, 890 825"/>
+    <path class="inherit" data-from="CallbackNotifier" data-to="INotifier" data-kind="implements" d="M 830 905 C 875 905, 865 845, 890 845"/>
+    <path class="aggregate" data-from="CompositeNotifier" data-to="INotifier" data-kind="aggregates" d="M 740 840 C 790 880, 850 875, 890 850"/>
+  </g>
+  <g data-role="nodes">
+    <g data-id="main" data-kind="composition-root" class="node class"><rect x="70" y="140" width="150" height="100"/><text x="145" y="172" class="name">main</text><line x1="70" y1="186" x2="220" y2="186" stroke="#528fb9"/><text x="82" y="212" class="member">装配具体对象</text><text x="82" y="230" class="member">调用 run()</text></g>
+    <g data-id="Scheduler" data-kind="class" class="node class"><rect x="440" y="135" width="250" height="130"/><text x="565" y="167" class="name">Scheduler</text><line x1="440" y1="181" x2="690" y2="181" stroke="#528fb9"/><text x="452" y="205" class="member">TaskQueue queue_</text><text x="452" y="225" class="member">WorkerPool pool_</text><text x="452" y="245" class="member">抽象服务的指针/引用</text></g>
+    <g data-id="TaskQueue" data-kind="class" class="node class"><rect x="890" y="135" width="180" height="95"/><text x="980" y="166" class="name">TaskQueue</text><line x1="890" y1="180" x2="1070" y2="180" stroke="#528fb9"/><text x="902" y="208" class="member">priority_queue&lt;Task&gt;</text></g>
+    <g data-id="WorkerPool" data-kind="class" class="node class"><rect x="890" y="310" width="180" height="85"/><text x="980" y="340" class="name">WorkerPool</text><line x1="890" y1="354" x2="1070" y2="354" stroke="#528fb9"/><text x="902" y="380" class="member">vector&lt;Worker&gt;</text></g>
+    <g data-id="Worker" data-kind="class" class="node class"><rect x="1250" y="310" width="180" height="95"/><text x="1340" y="340" class="name">Worker</text><line x1="1250" y1="354" x2="1430" y2="354" stroke="#528fb9"/><text x="1262" y="380" class="member">TaskQueue&amp; queue_</text><text x="1262" y="398" class="member">on_done_ callback</text></g>
+    <g data-id="IClock" data-kind="interface" class="node interface"><rect x="890" y="240" width="180" height="55"/><text x="980" y="260" class="stereo">«interface»</text><text x="980" y="282" class="name">IClock</text></g>
+    <g data-id="SystemClock" data-kind="class" class="node concrete"><rect x="650" y="235" width="180" height="60"/><text x="740" y="258" class="name">SystemClock</text><text x="740" y="280" class="stereo">实际装配</text></g>
+    <g data-id="ITaskStore" data-kind="interface" class="node interface"><rect x="890" y="415" width="180" height="70"/><text x="980" y="438" class="stereo">«interface»</text><text x="980" y="465" class="name">ITaskStore</text></g>
+    <g data-id="InMemoryTaskStore" data-kind="class" class="node concrete"><rect x="650" y="415" width="180" height="65"/><text x="740" y="440" class="name">InMemoryTaskStore</text><text x="740" y="462" class="stereo">实际装配</text></g>
+    <g data-id="PersistentTaskStore" data-kind="class" class="node muted"><rect x="650" y="490" width="180" height="55"/><text x="740" y="523" class="name">PersistentTaskStore</text></g>
+    <g data-id="IRetryPolicy" data-kind="interface" class="node interface"><rect x="890" y="590" width="180" height="70"/><text x="980" y="613" class="stereo">«interface»</text><text x="980" y="640" class="name">IRetryPolicy</text></g>
+    <g data-id="ExponentialBackoffPolicy" data-kind="class" class="node concrete"><rect x="650" y="590" width="180" height="65"/><text x="740" y="615" class="name">ExponentialBackoffPolicy</text><text x="740" y="637" class="stereo">实际装配</text></g>
+    <g data-id="FixedBackoffPolicy" data-kind="class" class="node muted"><rect x="650" y="670" width="180" height="55"/><text x="740" y="703" class="name">FixedBackoffPolicy</text></g>
+    <g data-id="Task" data-kind="domain-model" class="node class"><rect x="890" y="535" width="180" height="55"/><text x="980" y="568" class="name">Task</text></g>
+    <g data-id="TaskResult" data-kind="domain-model" class="node class"><rect x="1250" y="535" width="180" height="55"/><text x="1340" y="568" class="name">TaskResult</text></g>
+    <g data-id="INotifier" data-kind="interface" class="node interface"><rect x="890" y="775" width="180" height="70"/><text x="980" y="798" class="stereo">«interface»</text><text x="980" y="825" class="name">INotifier</text></g>
+    <g data-id="CompositeNotifier" data-kind="class" class="node concrete"><rect x="650" y="775" width="180" height="65"/><text x="740" y="800" class="name">CompositeNotifier</text><text x="740" y="822" class="stereo">实际装配</text></g>
+    <g data-id="ConsoleNotifier" data-kind="class" class="node concrete"><rect x="650" y="850" width="180" height="55"/><text x="740" y="883" class="name">ConsoleNotifier</text></g>
+    <g data-id="CallbackNotifier" data-kind="class" class="node concrete"><rect x="650" y="925" width="180" height="55"/><text x="740" y="958" class="name">CallbackNotifier</text></g>
+    <g data-id="MetricsCollector" data-kind="class" class="node class"><rect x="1080" y="900" width="205" height="65"/><text x="1182" y="925" class="name">MetricsCollector</text><text x="1182" y="947" class="stereo">shared_ptr 注入</text></g>
+  </g>
+  <rect x="70" y="1005" width="1380" height="44" rx="8" fill="#f2f7fb" stroke="#b7c9d9"/>
+  <text x="90" y="1033" class="legend">实线绿：组合/值成员（Scheduler 自有 queue_、pool_、retry_）；紫色虚线：shared_ptr 聚合；三角：实现接口；普通箭头：使用/引用。Scheduler 不指向任何具体 Store/Policy/Notifier 实现。</text>
+</svg>

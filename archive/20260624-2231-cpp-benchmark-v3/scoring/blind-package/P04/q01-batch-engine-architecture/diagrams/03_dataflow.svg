@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" data-style="dataflow">
+<text x="600.0" y="35" font-family="Segoe UI, Arial, sans-serif" font-size="22" text-anchor="middle" fill="#222" font-weight="bold">TaskForge 任务数据流图</text>
+<text x="600.0" y="55" font-family="Segoe UI, Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666" font-weight="normal">一次任务从提交、入队、执行、产出结果、失败重试、到终态通知的完整流转</text>
+<g data-role="nodes">
+<g data-id="Client" data-kind="actor">
+<rect x="50" y="130" width="140" height="55" fill="#b3d9f2" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="120.0" y="153.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Client / main</text>
+<text x="120.0" y="169.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">submit()</text>
+</g>
+<g data-id="Scheduler" data-kind="class">
+<rect x="250" y="130" width="160" height="55" fill="#ffd699" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="330.0" y="153.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Scheduler</text>
+<text x="330.0" y="169.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">submit/submitBatch</text>
+</g>
+<g data-id="ITaskStore" data-kind="interface">
+<rect x="250" y="280" width="160" height="55" fill="#d4b8f0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="330.0" y="303.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">ITaskStore</text>
+<text x="330.0" y="319.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">save/load/update</text>
+</g>
+<g data-id="TaskQueue" data-kind="class">
+<rect x="480" y="130" width="160" height="55" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="560.0" y="153.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">TaskQueue</text>
+<text x="560.0" y="169.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">push/blocking_pop</text>
+</g>
+<g data-id="Worker" data-kind="class">
+<rect x="700" y="130" width="140" height="55" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="770.0" y="153.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Worker (xN)</text>
+<text x="770.0" y="169.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">loop()</text>
+</g>
+<g data-id="task_work" data-kind="function">
+<rect x="920" y="130" width="160" height="55" fill="#ffcc80" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="1000.0" y="153.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">task.work()</text>
+<text x="1000.0" y="169.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">业务负载</text>
+</g>
+<g data-id="TaskResult" data-kind="struct">
+<rect x="920" y="280" width="160" height="55" fill="#ffcc80" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="1000.0" y="303.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">TaskResult</text>
+<text x="1000.0" y="319.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">ok/code/attempt</text>
+</g>
+<g data-id="handle_completion" data-kind="method">
+<rect x="700" y="280" width="200" height="55" fill="#ffd699" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="800.0" y="303.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">handle_completion</text>
+<text x="800.0" y="319.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">Scheduler 回调</text>
+</g>
+<g data-id="IRetryPolicy" data-kind="interface">
+<rect x="530" y="400" width="170" height="55" fill="#d4b8f0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="615.0" y="423.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">IRetryPolicy</text>
+<text x="615.0" y="439.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">next_delay_ms</text>
+</g>
+<g data-id="MetricsCollector" data-kind="class">
+<rect x="920" y="400" width="180" height="55" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="1010.0" y="423.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">MetricsCollector</text>
+<text x="1010.0" y="439.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">record_*</text>
+</g>
+<g data-id="INotifier" data-kind="interface">
+<rect x="700" y="460" width="160" height="55" fill="#d4b8f0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="780.0" y="483.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">INotifier</text>
+<text x="780.0" y="499.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">on_event</text>
+</g>
+<g data-id="Succeeded" data-kind="state">
+<rect x="50" y="460" width="120" height="45" fill="#90ee90" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="110.0" y="487.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Succeeded</text>
+</g>
+<g data-id="Failed" data-kind="state">
+<rect x="50" y="530" width="120" height="45" fill="#ff9999" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="110.0" y="557.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Failed</text>
+</g>
+<g data-id="Retrying" data-kind="state">
+<rect x="350" y="530" width="120" height="45" fill="#ffcc80" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="410.0" y="557.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Retrying</text>
+</g>
+</g>
+<g data-role="edges">
+<line data-from="Client" data-to="Scheduler" data-kind="flow" x1="190" y1="157" x2="250" y2="157" stroke="#555" stroke-width="1.5"/>
+<polygon points="242.0,161.0 250,157 242.0,153.0" fill="#555"/>
+<text x="220.0" y="151.0" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">Task</text>
+<line data-from="Scheduler" data-to="ITaskStore" data-kind="flow" x1="330" y1="185" x2="330" y2="280" stroke="#555" stroke-width="1.5"/>
+<polygon points="326.0,272.0 330,280 334.0,272.0" fill="#555"/>
+<text x="330.0" y="226.5" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">save(task)</text>
+<line data-from="Scheduler" data-to="TaskQueue" data-kind="flow" x1="410" y1="157" x2="480" y2="157" stroke="#555" stroke-width="1.5"/>
+<polygon points="472.0,161.0 480,157 472.0,153.0" fill="#555"/>
+<text x="445.0" y="151.0" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">push(task)</text>
+<line data-from="TaskQueue" data-to="Worker" data-kind="flow" x1="640" y1="157" x2="700" y2="157" stroke="#555" stroke-width="1.5"/>
+<polygon points="692.0,161.0 700,157 692.0,153.0" fill="#555"/>
+<text x="670.0" y="151.0" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">blocking_pop</text>
+<line data-from="Worker" data-to="task_work" data-kind="flow" x1="840" y1="157" x2="920" y2="157" stroke="#555" stroke-width="1.5"/>
+<polygon points="912.0,161.0 920,157 912.0,153.0" fill="#555"/>
+<text x="880.0" y="151.0" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">execute</text>
+<line data-from="task_work" data-to="TaskResult" data-kind="flow" x1="1000" y1="185" x2="1000" y2="280" stroke="#555" stroke-width="1.5"/>
+<polygon points="996.0,272.0 1000,280 1004.0,272.0" fill="#555"/>
+<text x="1000.0" y="226.5" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">result</text>
+<line data-from="Worker" data-to="handle_completion" data-kind="flow" x1="770" y1="185" x2="790" y2="280" stroke="#555" stroke-width="1.5"/>
+<polygon points="784.4377170116543,272.9956436443054 790,280 792.2661152915482,271.34755979590665" fill="#555"/>
+<text x="780.0" y="226.5" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">callback(TaskResult)</text>
+<line data-from="handle_completion" data-to="ITaskStore" data-kind="flow" x1="700" y1="307" x2="410" y2="307" stroke="#555" stroke-width="1.5"/>
+<polygon points="418.0,303.0 410,307 418.0,311.0" fill="#555"/>
+<text x="555.0" y="301.0" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">update_status</text>
+<line data-from="handle_completion" data-to="MetricsCollector" data-kind="flow" x1="900" y1="307" x2="1010" y2="400" stroke="#555" stroke-width="1.5"/>
+<polygon points="1001.3082796744848,397.8895503362966 1010,400 1006.4733275356537,391.78035394136583" fill="#555"/>
+<text x="955.0" y="347.5" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">record_*</text>
+<line data-from="handle_completion" data-to="IRetryPolicy" data-kind="flow" x1="730" y1="335" x2="615" y2="400" stroke="#555" stroke-width="1.5"/>
+<polygon points="619.9962736830895,392.5812905917762 615,400 623.9327317364326,399.5457933015373" fill="#555"/>
+<text x="672.5" y="361.5" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">next_delay_ms</text>
+<line data-from="handle_completion" data-to="INotifier" data-kind="flow" x1="800" y1="335" x2="780" y2="460" stroke="#555" stroke-width="1.5"/>
+<polygon points="777.3141614811865,451.4685129402397 780,460 785.2136865365202,452.732436949093" fill="#555"/>
+<text x="790.0" y="391.5" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">on_event</text>
+<line data-from="handle_completion" data-to="Succeeded" data-kind="flow" x1="700" y1="310" x2="110" y2="482" stroke="#555" stroke-width="1.5"/>
+<polygon points="116.56079140496959,475.9208539957921 110,482 118.7997916463481,483.6011455214509" fill="#555"/>
+<text x="405.0" y="390.0" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">ok=true</text>
+<line data-from="handle_completion" data-to="Failed" data-kind="flow" x1="700" y1="320" x2="110" y2="552" stroke="#555" stroke-width="1.5"/>
+<polygon points="115.98131064811858,545.3498930135896 110,552 118.90887197799941,552.7949843266487" fill="#555"/>
+<text x="405.0" y="430.0" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">exhausted</text>
+<line data-from="handle_completion" data-to="Retrying" data-kind="flow" x1="730" y1="335" x2="410" y2="552" stroke="#555" stroke-width="1.5"/>
+<polygon points="414.3761856767055,544.199423167291 410,552 418.86617287219053,550.820602441739" fill="#555"/>
+<text x="570.0" y="437.5" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">can retry</text>
+<line data-from="Retrying" data-to="TaskQueue" data-kind="flow" x1="410" y1="535" x2="530" y2="185" stroke="#555" stroke-width="1.5"/>
+<polygon points="531.1891891891892,193.86486486486487 530,185 523.6216216216217,191.2702702702703" fill="#555"/>
+<text x="470.0" y="354.0" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">re-push(task)</text>
+</g>
+</svg>

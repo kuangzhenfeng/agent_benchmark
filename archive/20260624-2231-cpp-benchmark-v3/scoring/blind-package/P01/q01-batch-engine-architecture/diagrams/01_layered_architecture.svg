@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" font-family="Helvetica, Arial, sans-serif" data-style="layered">
+<defs>
+<marker id="mk-depends" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52606d"/></marker>
+<marker id="mk-callback" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
+<marker id="mk-flow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/></marker>
+<marker id="mk-implements" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/></marker>
+<marker id="mk-inherits" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/></marker>
+<marker id="mk-composes" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#047857"/></marker>
+<marker id="mk-aggregates" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#059669"/></marker>
+<marker id="mk-uses" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker>
+<marker id="mk-contains" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+<marker id="mk-connects" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/></marker>
+<marker id="mk-runs-on" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b45309"/></marker>
+</defs>
+<rect x="0" y="0" width="1200" height="800" fill="#fbfcfd"/>
+<text x="600.0" y="38" font-size="22" font-weight="700" text-anchor="middle" fill="#1f2d3d">TaskForge 分层架构图（按真实 #include / 类型依赖方向分层）</text>
+<rect x="40" y="76" width="880" height="100" rx="10" fill="#eaf2fb" stroke="#bcd5ee" opacity="0.6"/>
+<text x="56" y="98" font-size="13" font-weight="700" fill="#33475b">L4 应用入口 / 组合根（main：装配所有具体实现）</text>
+<rect x="40" y="196" width="880" height="100" rx="10" fill="#e3f3ea" stroke="#a7dcc0" opacity="0.6"/>
+<text x="56" y="218" font-size="13" font-weight="700" fill="#33475b">L3 编排核心（Orchestration）</text>
+<rect x="40" y="316" width="880" height="100" rx="10" fill="#fdf3e1" stroke="#eccfa3" opacity="0.6"/>
+<text x="56" y="338" font-size="13" font-weight="700" fill="#33475b">L2 执行单元（Execution）</text>
+<rect x="40" y="436" width="880" height="100" rx="10" fill="#efeaf7" stroke="#cdbce6" opacity="0.6"/>
+<text x="56" y="458" font-size="13" font-weight="700" fill="#33475b">L1 领域契约与汇合（Contracts / Concurrency）</text>
+<rect x="40" y="556" width="880" height="100" rx="10" fill="#f1f2f4" stroke="#cfd4dc" opacity="0.6"/>
+<text x="56" y="578" font-size="13" font-weight="700" fill="#33475b">L0 基础设施 / 值类型（Foundation）</text>
+<rect x="940" y="316" width="240" height="100" rx="10" fill="#fbeaea" stroke="#e6b8b8" opacity="0.6"/>
+<text x="956" y="338" font-size="13" font-weight="700" fill="#b03a3a">死代码 / 历史遗留（编译进产物，无人调用）</text>
+<text x="600" y="705" font-size="11.5" fill="#5a6b7b" text-anchor="middle" font-weight="400">分层依据真实依赖方向：main 仅装配具体实现；Scheduler 只持有抽象接口指针；TaskQueueLegacy 全仓库无人调用 → 不进入主流依赖，归入死代码侧栏。</text>
+<g data-role="edges">
+<line data-from="main" data-to="Scheduler" data-kind="depends" x1="600.0" y1="153.0" x2="600.0" y2="219.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="main" data-to="MetricsCollector" data-kind="depends" x1="587.6" y1="153.0" x2="392.4" y2="579.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="main" data-to="INotifier" data-kind="depends" x1="582.0" y1="153.0" x2="378.0" y2="459.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="main" data-to="IClock" data-kind="depends" x1="609.0" y1="153.0" x2="711.0" y2="459.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="main" data-to="EngineConfig" data-kind="depends" x1="597.8" y1="153.0" x2="562.2" y2="579.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="WorkerPool" data-kind="depends" x1="532.5" y1="273.0" x2="367.5" y2="339.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="TaskQueue" data-kind="depends" x1="622.5" y1="273.0" x2="677.5" y2="339.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="ITaskStore" data-kind="depends" x1="552.8" y1="273.0" x2="227.2" y2="459.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="INotifier" data-kind="depends" x1="573.0" y1="273.0" x2="387.0" y2="459.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="IRetryPolicy" data-kind="depends" x1="593.2" y1="273.0" x2="546.8" y2="459.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="IClock" data-kind="depends" x1="613.5" y1="273.0" x2="706.5" y2="459.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="MetricsCollector" data-kind="depends" x1="583.5" y1="273.0" x2="396.5" y2="579.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="EngineConfig" data-kind="depends" x1="597.0" y1="273.0" x2="563.0" y2="579.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="WorkerPool" data-to="Worker" data-kind="depends" x1="386.0" y1="366.0" x2="414.0" y2="366.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Worker" data-to="TaskQueue" data-kind="depends" x1="586.0" y1="366.0" x2="614.0" y2="366.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Worker" data-to="Task" data-kind="depends" x1="464.0" y1="393.0" x2="216.0" y2="579.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="TaskQueue" data-to="Task" data-kind="depends" x1="641.5" y1="393.0" x2="238.5" y2="579.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="ITaskStore" data-to="Task" data-kind="depends" x1="180.0" y1="513.0" x2="180.0" y2="579.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="INotifier" data-to="Task" data-kind="depends" x1="319.5" y1="513.0" x2="220.5" y2="579.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+</g>
+<g data-role="nodes">
+<g data-id="main" data-kind="app">
+<rect x="514" y="99" width="172" height="54" rx="9" fill="#eaf2fb" stroke="#2f6db5" stroke-width="2"/>
+<text x="600" y="123" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">main</text>
+<text x="600" y="139" text-anchor="middle" font-size="10.5" fill="#5a6b7b">src/main.cpp · 组合根</text>
+</g>
+<g data-id="Scheduler" data-kind="core">
+<rect x="514" y="219" width="172" height="54" rx="9" fill="#e3f3ea" stroke="#1f8a4c" stroke-width="2"/>
+<text x="600" y="243" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">Scheduler</text>
+<text x="600" y="259" text-anchor="middle" font-size="10.5" fill="#5a6b7b">scheduler.hpp:19 · 编排核心</text>
+</g>
+<g data-id="WorkerPool" data-kind="exec">
+<rect x="214" y="339" width="172" height="54" rx="9" fill="#fdf3e1" stroke="#c2761b" stroke-width="2"/>
+<text x="300" y="363" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">WorkerPool</text>
+<text x="300" y="379" text-anchor="middle" font-size="10.5" fill="#5a6b7b">worker.hpp:37</text>
+</g>
+<g data-id="Worker" data-kind="exec">
+<rect x="414" y="339" width="172" height="54" rx="9" fill="#fdf3e1" stroke="#c2761b" stroke-width="2"/>
+<text x="500" y="363" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">Worker</text>
+<text x="500" y="379" text-anchor="middle" font-size="10.5" fill="#5a6b7b">worker.hpp:15</text>
+</g>
+<g data-id="TaskQueue" data-kind="exec">
+<rect x="614" y="339" width="172" height="54" rx="9" fill="#fdf3e1" stroke="#c2761b" stroke-width="2"/>
+<text x="700" y="363" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">TaskQueue</text>
+<text x="700" y="379" text-anchor="middle" font-size="10.5" fill="#5a6b7b">task_queue.hpp:13 · 优先级队列(在用)</text>
+</g>
+<g data-id="ITaskStore" data-kind="contract">
+<rect x="94" y="459" width="172" height="54" rx="9" fill="#efeaf7" stroke="#7c3aed" stroke-width="2"/>
+<text x="180" y="483" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">ITaskStore</text>
+<text x="180" y="499" text-anchor="middle" font-size="10.5" fill="#5a6b7b">task_store.hpp:11 · 抽象接口</text>
+</g>
+<g data-id="INotifier" data-kind="contract">
+<rect x="274" y="459" width="172" height="54" rx="9" fill="#efeaf7" stroke="#7c3aed" stroke-width="2"/>
+<text x="360" y="483" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">INotifier</text>
+<text x="360" y="499" text-anchor="middle" font-size="10.5" fill="#5a6b7b">notifier.hpp:11 · 抽象接口</text>
+</g>
+<g data-id="IRetryPolicy" data-kind="contract">
+<rect x="454" y="459" width="172" height="54" rx="9" fill="#efeaf7" stroke="#7c3aed" stroke-width="2"/>
+<text x="540" y="483" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">IRetryPolicy</text>
+<text x="540" y="499" text-anchor="middle" font-size="10.5" fill="#5a6b7b">retry_policy.hpp:9 · 抽象接口</text>
+</g>
+<g data-id="IClock" data-kind="contract">
+<rect x="634" y="459" width="172" height="54" rx="9" fill="#efeaf7" stroke="#7c3aed" stroke-width="2"/>
+<text x="720" y="483" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">IClock</text>
+<text x="720" y="499" text-anchor="middle" font-size="10.5" fill="#5a6b7b">clock.hpp:7 · 抽象接口</text>
+</g>
+<g data-id="Task" data-kind="data">
+<rect x="94" y="579" width="172" height="54" rx="9" fill="#f1f2f4" stroke="#475569" stroke-width="2"/>
+<text x="180" y="603" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">Task</text>
+<text x="180" y="619" text-anchor="middle" font-size="10.5" fill="#5a6b7b">task.hpp:54 · 实体/值类型</text>
+</g>
+<g data-id="MetricsCollector" data-kind="infra">
+<rect x="294" y="579" width="172" height="54" rx="9" fill="#f1f2f4" stroke="#475569" stroke-width="2"/>
+<text x="380" y="603" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">MetricsCollector</text>
+<text x="380" y="619" text-anchor="middle" font-size="10.5" fill="#5a6b7b">metrics.hpp:8 · 统计(叶子,非核心)</text>
+</g>
+<g data-id="EngineConfig" data-kind="infra">
+<rect x="474" y="579" width="172" height="54" rx="9" fill="#f1f2f4" stroke="#475569" stroke-width="2"/>
+<text x="560" y="603" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">EngineConfig</text>
+<text x="560" y="619" text-anchor="middle" font-size="10.5" fill="#5a6b7b">config.hpp:8 · 运行配置</text>
+</g>
+<g data-id="TaskQueueLegacy" data-kind="dead">
+<rect x="974" y="339" width="172" height="54" rx="9" fill="#fbeaea" stroke="#c0392b" stroke-width="2"/>
+<text x="1060" y="363" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1f2d3d">TaskQueueLegacy</text>
+<text x="1060" y="379" text-anchor="middle" font-size="9.5" fill="#5a6b7b">task_queue.hpp:42 · 注释自称“通用队列”</text>
+</g>
+</g>
+<rect x="950" y="600" width="300" height="40" rx="8" fill="#ffffff" stroke="#d7dde5"/>
+<text x="962" y="620" font-size="12" font-weight="700" fill="#33475b">图例</text>
+<line x1="962" y1="640" x2="994" y2="640" stroke="#52606d" stroke-width="2" marker-end="url(#mk-depends)"/>
+<text x="1002" y="644" font-size="11.5" fill="#33475b">编译期 / 类型依赖（上层 → 下层）</text>
+</svg>

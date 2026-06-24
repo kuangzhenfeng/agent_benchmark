@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TaskForge 组件依赖图：模块（头文件）之间的编译期 #include 依赖（实线 depends）
+     + 运行时回调（虚线 callback）。重点：Worker 与 Scheduler 之间无编译期依赖，
+     Worker→Scheduler 仅靠运行时注入的完成回调（worker.hpp 不 include scheduler.hpp）。 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" width="1200" height="820"
+     data-style="component" data-title="TaskForge Component Dependency">
+  <defs>
+    <marker id="arrowC" markerWidth="11" markerHeight="11" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <marker id="arrowCb" markerWidth="11" markerHeight="11" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#b45309"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="820" fill="#fbfbfd"/>
+
+  <text x="600" y="40" font-family="sans-serif" font-size="24" font-weight="700" text-anchor="middle" fill="#1a1a2e">TaskForge — 组件依赖图（编译期依赖 vs 运行时回调）</text>
+  <text x="600" y="62" font-family="sans-serif" font-size="13" text-anchor="middle" fill="#6b7280">实线 = #include 编译期依赖；虚线 = 运行时注入回调（非编译期循环依赖）</text>
+
+  <g data-role="nodes">
+    <!-- main（组合根，最上层） -->
+    <g data-id="main" data-kind="module">
+      <rect x="510" y="100" width="180" height="60" rx="8" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+      <text x="600" y="128" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#1e1b4b">main.cpp</text>
+      <text x="600" y="148" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4338ca">组合根</text>
+    </g>
+
+    <!-- scheduler -->
+    <g data-id="scheduler" data-kind="module">
+      <rect x="510" y="225" width="180" height="60" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+      <text x="600" y="253" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#064e3b">scheduler.hpp/.cpp</text>
+      <text x="600" y="273" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#047857">编排模块</text>
+    </g>
+
+    <!-- 中间层模块 -->
+    <g data-id="worker" data-kind="module">
+      <rect x="150" y="370" width="180" height="60" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+      <text x="240" y="398" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#78350f">worker.hpp</text>
+      <text x="240" y="418" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">Worker / WorkerPool</text>
+    </g>
+    <g data-id="task_queue" data-kind="module">
+      <rect x="390" y="370" width="180" height="60" rx="8" fill="#ffffff" stroke="#d97706"/>
+      <text x="480" y="398" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#78350f">task_queue.hpp</text>
+      <text x="480" y="418" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">TaskQueue(+ Legacy 死代码)</text>
+    </g>
+    <g data-id="task_store" data-kind="module">
+      <rect x="630" y="370" width="180" height="60" rx="8" fill="#ffffff" stroke="#d97706"/>
+      <text x="720" y="398" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#78350f">task_store.hpp</text>
+      <text x="720" y="418" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">ITaskStore + impl</text>
+    </g>
+    <g data-id="notifier" data-kind="module">
+      <rect x="870" y="370" width="180" height="60" rx="8" fill="#ffffff" stroke="#d97706"/>
+      <text x="960" y="398" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#78350f">notifier.hpp</text>
+      <text x="960" y="418" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">INotifier + impl</text>
+    </g>
+
+    <!-- 叶子模块 -->
+    <g data-id="task" data-kind="module">
+      <rect x="150" y="560" width="180" height="60" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+      <text x="240" y="588" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#334155">task.hpp</text>
+      <text x="240" y="608" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">领域实体（叶子）</text>
+    </g>
+    <g data-id="retry_policy" data-kind="module">
+      <rect x="360" y="560" width="180" height="60" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+      <text x="450" y="588" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#334155">retry_policy.hpp</text>
+      <text x="450" y="608" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">IRetryPolicy（叶子）</text>
+    </g>
+    <g data-id="clock" data-kind="module">
+      <rect x="570" y="560" width="180" height="60" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+      <text x="660" y="588" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#334155">clock.hpp</text>
+      <text x="660" y="608" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">IClock（叶子）</text>
+    </g>
+    <g data-id="config" data-kind="module">
+      <rect x="780" y="560" width="180" height="60" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+      <text x="870" y="588" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#334155">config.hpp</text>
+      <text x="870" y="608" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">EngineConfig（叶子）</text>
+    </g>
+    <g data-id="metrics" data-kind="module">
+      <rect x="990" y="560" width="180" height="60" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+      <text x="1080" y="588" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#334155">metrics.hpp</text>
+      <text x="1080" y="608" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">MetricsCollector（叶子）</text>
+    </g>
+    <g data-id="logger" data-kind="module">
+      <rect x="990" y="225" width="180" height="60" rx="8" fill="#f1f5f9" stroke="#64748b" stroke-dasharray="4 3"/>
+      <text x="1080" y="253" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#334155">logger.hpp</text>
+      <text x="1080" y="273" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">ILogger（被 main include 但未用）</text>
+    </g>
+  </g>
+
+  <!-- ===== 编译期依赖边 ===== -->
+  <g data-role="edges" stroke="#334155" stroke-width="1.6" fill="none">
+    <!-- main 编译期 includes -->
+    <line data-from="main" data-to="scheduler" data-kind="depends" x1="600" y1="160" x2="600" y2="223" marker-end="url(#arrowC)"/>
+    <line data-from="main" data-to="notifier" data-kind="depends" x1="690" y1="150" x2="900" y2="368" marker-end="url(#arrowC)"/>
+    <line data-from="main" data-to="metrics" data-kind="depends" x1="690" y1="155" x2="1030" y2="558" marker-end="url(#arrowC)"/>
+    <line data-from="main" data-to="clock" data-kind="depends" x1="510" y1="150" x2="700" y2="558" marker-end="url(#arrowC)"/>
+    <line data-from="main" data-to="config" data-kind="depends" x1="510" y1="148" x2="850" y2="558" marker-end="url(#arrowC)"/>
+    <line data-from="main" data-to="logger" data-kind="depends" x1="690" y1="135" x2="988" y2="245" marker-end="url(#arrowC)" stroke-dasharray="5 4"/>
+
+    <!-- scheduler 编译期 includes -->
+    <line data-from="scheduler" data-to="worker" data-kind="depends" x1="510" y1="265" x2="260" y2="368" marker-end="url(#arrowC)"/>
+    <line data-from="scheduler" data-to="task_queue" data-kind="depends" x1="540" y1="285" x2="480" y2="368" marker-end="url(#arrowC)"/>
+    <line data-from="scheduler" data-to="task_store" data-kind="depends" x1="620" y1="285" x2="700" y2="368" marker-end="url(#arrowC)"/>
+    <line data-from="scheduler" data-to="notifier" data-kind="depends" x1="690" y1="265" x2="900" y2="368" marker-end="url(#arrowC)"/>
+    <line data-from="scheduler" data-to="retry_policy" data-kind="depends" x1="560" y1="285" x2="480" y2="558" marker-end="url(#arrowC)"/>
+    <line data-from="scheduler" data-to="metrics" data-kind="depends" x1="640" y1="285" x2="1050" y2="558" marker-end="url(#arrowC)"/>
+    <line data-from="scheduler" data-to="clock" data-kind="depends" x1="600" y1="285" x2="660" y2="558" marker-end="url(#arrowC)"/>
+    <line data-from="scheduler" data-to="config" data-kind="depends" x1="660" y1="280" x2="850" y2="558" marker-end="url(#arrowC)"/>
+    <line data-from="scheduler" data-to="task" data-kind="depends" x1="520" y1="280" x2="280" y2="558" marker-end="url(#arrowC)"/>
+
+    <!-- 中层模块 → task 叶子 -->
+    <line data-from="worker" data-to="task" data-kind="depends" x1="220" y1="430" x2="240" y2="558" marker-end="url(#arrowC)"/>
+    <line data-from="worker" data-to="task_queue" data-kind="depends" x1="330" y1="400" x2="388" y2="400" marker-end="url(#arrowC)"/>
+    <line data-from="task_queue" data-to="task" data-kind="depends" x1="450" y1="430" x2="290" y2="558" marker-end="url(#arrowC)"/>
+    <line data-from="task_store" data-to="task" data-kind="depends" x1="690" y1="430" x2="310" y2="558" marker-end="url(#arrowC)"/>
+    <line data-from="notifier" data-to="task" data-kind="depends" x1="930" y1="430" x2="320" y2="558" marker-end="url(#arrowC)"/>
+
+    <!-- ★ 运行时回调（非编译期依赖）：Worker → Scheduler -->
+    <path data-from="worker" data-to="scheduler" data-kind="callback"
+          d="M 240 368 C 240 300, 420 250, 510 250"
+          stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrowCb)"/>
+  </g>
+
+  <!-- 回调标注 -->
+  <text x="300" y="320" font-family="sans-serif" font-size="12" font-weight="700" fill="#b45309">① 运行时回调</text>
+  <text x="300" y="336" font-family="sans-serif" font-size="11" fill="#b45309">pool.set_completion_handler(handle_completion)</text>
+  <text x="300" y="350" font-family="sans-serif" font-size="11" fill="#b45309">→ worker.hpp 不 include scheduler.hpp</text>
+
+  <!-- 图例 -->
+  <g font-family="sans-serif" font-size="12" fill="#374151">
+    <rect x="60" y="700" width="500" height="86" rx="6" fill="#ffffff" stroke="#d1d5db"/>
+    <text x="72" y="722" font-weight="700">图例 / 关键判断</text>
+    <line x1="76" y1="742" x2="116" y2="742" stroke="#334155" stroke-width="1.6" marker-end="url(#arrowC)"/>
+    <text x="124" y="746">depends = 编译期 #include 依赖</text>
+    <line x1="76" y1="764" x2="116" y2="764" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrowCb)"/>
+    <text x="124" y="768">callback = 仅运行时注入的回调，不构成编译期循环</text>
+  </g>
+</svg>

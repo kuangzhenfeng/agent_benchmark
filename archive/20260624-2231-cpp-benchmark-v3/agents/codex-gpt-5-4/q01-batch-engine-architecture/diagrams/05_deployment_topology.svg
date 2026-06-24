@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" data-style="deployment">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#26465c"/>
+    </marker>
+    <style>
+      .title { font: 700 30px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #f6fbff; }
+      .subtitle { font: 400 14px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #d1e0ea; }
+      .node-label { font: 600 14px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #17384c; text-anchor: middle; dominant-baseline: middle; }
+      .small { font: 12px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #566976; text-anchor: middle; }
+      .edge { stroke: #26465c; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .callback { stroke: #d47439; stroke-width: 2.4; fill: none; marker-end: url(#arrow); stroke-dasharray: 8 6; }
+      .box { rx: 18; ry: 18; stroke-width: 2; }
+      .runtime { fill: #ffffff; stroke: #6fa5c4; }
+      .thread { fill: #fff6ea; stroke: #d39e56; }
+      .process { fill: #0f2232; stroke: #44657b; }
+      .binary { fill: #183145; stroke: #5e819a; }
+      .dormant { fill: #f2eef6; stroke: #b9abc6; stroke-dasharray: 6 6; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="800" fill="#0b1a26"/>
+  <text class="title" x="50" y="58">TaskForge Deployment / Runtime Topology</text>
+  <text class="subtitle" x="50" y="86">Default profile: one process, one main thread, one stopper thread, and four worker threads sharing a single queue.</text>
+
+  <g>
+    <rect x="40" y="120" width="1120" height="630" rx="30" ry="30" fill="#183145" stroke="#5e819a" stroke-width="2"/>
+    <rect x="70" y="160" width="780" height="540" rx="26" ry="26" fill="#eef6fb" stroke="#89acc0" stroke-width="2"/>
+    <rect x="885" y="160" width="230" height="540" rx="26" ry="26" fill="#f5f1f8" stroke="#bdaecc" stroke-width="2"/>
+    <text class="subtitle" x="90" y="146">live process</text>
+    <text class="subtitle" x="905" y="146">compiled but not instantiated</text>
+  </g>
+
+  <g data-role="edges">
+    <line class="edge" x1="150" y1="152" x2="160" y2="214" data-from="TaskForgeBinary" data-to="TaskForgeProcess" data-kind="contains"/>
+    <line class="edge" x1="150" y1="152" x2="970" y2="254" data-from="TaskForgeBinary" data-to="PersistentTaskStore" data-kind="contains"/>
+    <line class="edge" x1="150" y1="152" x2="970" y2="354" data-from="TaskForgeBinary" data-to="TaskQueueLegacy" data-kind="contains"/>
+    <line class="edge" x1="150" y1="152" x2="970" y2="454" data-from="TaskForgeBinary" data-to="ConsoleLogger" data-kind="contains"/>
+    <line class="edge" x1="150" y1="152" x2="970" y2="554" data-from="TaskForgeBinary" data-to="FixedBackoffPolicy" data-kind="contains"/>
+
+    <line class="edge" x1="220" y1="214" x2="170" y2="284" data-from="TaskForgeProcess" data-to="main" data-kind="contains"/>
+    <line class="edge" x1="240" y1="214" x2="180" y2="444" data-from="TaskForgeProcess" data-to="StopperThread" data-kind="contains"/>
+    <line class="edge" x1="250" y1="214" x2="180" y2="604" data-from="TaskForgeProcess" data-to="WorkerThreads" data-kind="contains"/>
+    <line class="edge" x1="290" y1="214" x2="450" y2="284" data-from="TaskForgeProcess" data-to="Scheduler" data-kind="contains"/>
+    <line class="edge" x1="320" y1="214" x2="450" y2="414" data-from="TaskForgeProcess" data-to="TaskQueue" data-kind="contains"/>
+    <line class="edge" x1="330" y1="214" x2="450" y2="584" data-from="TaskForgeProcess" data-to="WorkerPool" data-kind="contains"/>
+    <line class="edge" x1="420" y1="214" x2="690" y2="284" data-from="TaskForgeProcess" data-to="InMemoryTaskStore" data-kind="contains"/>
+    <line class="edge" x1="440" y1="214" x2="690" y2="394" data-from="TaskForgeProcess" data-to="ExponentialBackoffPolicy" data-kind="contains"/>
+    <line class="edge" x1="470" y1="214" x2="690" y2="504" data-from="TaskForgeProcess" data-to="MetricsCollector" data-kind="contains"/>
+    <line class="edge" x1="500" y1="214" x2="690" y2="614" data-from="TaskForgeProcess" data-to="CompositeNotifier" data-kind="contains"/>
+    <line class="edge" x1="530" y1="214" x2="690" y2="174" data-from="TaskForgeProcess" data-to="SystemClock" data-kind="contains"/>
+
+    <line class="edge" x1="225" y1="284" x2="450" y2="284" data-from="main" data-to="Scheduler" data-kind="runs-on"/>
+    <line class="edge" x1="225" y1="604" x2="620" y2="604" data-from="WorkerThreads" data-to="Worker" data-kind="runs-on"/>
+    <line class="edge" x1="535" y1="584" x2="620" y2="604" data-from="WorkerPool" data-to="Worker" data-kind="contains"/>
+    <line class="edge" x1="535" y1="284" x2="690" y2="284" data-from="Scheduler" data-to="InMemoryTaskStore" data-kind="connects"/>
+    <line class="edge" x1="535" y1="324" x2="690" y2="394" data-from="Scheduler" data-to="ExponentialBackoffPolicy" data-kind="connects"/>
+    <line class="edge" x1="525" y1="414" x2="620" y2="604" data-from="TaskQueue" data-to="Worker" data-kind="connects"/>
+    <line class="edge" x1="520" y1="404" x2="450" y2="314" data-from="Scheduler" data-to="TaskQueue" data-kind="connects"/>
+    <line class="edge" x1="535" y1="504" x2="690" y2="504" data-from="Scheduler" data-to="MetricsCollector" data-kind="connects"/>
+    <line class="edge" x1="535" y1="284" x2="690" y2="174" data-from="Scheduler" data-to="SystemClock" data-kind="connects"/>
+    <line class="edge" x1="535" y1="614" x2="690" y2="614" data-from="Scheduler" data-to="CompositeNotifier" data-kind="connects"/>
+    <line class="edge" x1="785" y1="614" x2="785" y2="544" data-from="CompositeNotifier" data-to="ConsoleNotifier" data-kind="contains"/>
+    <line class="edge" x1="785" y1="614" x2="785" y2="674" data-from="CompositeNotifier" data-to="CallbackNotifier" data-kind="contains"/>
+
+    <path class="callback" d="M 705 604 C 660 540, 620 430, 520 324" data-from="Worker" data-to="Scheduler" data-kind="callback"/>
+    <path class="callback" d="M 225 444 C 320 444, 355 380, 450 324" data-from="StopperThread" data-to="Scheduler" data-kind="callback"/>
+  </g>
+
+  <g data-role="nodes">
+    <g data-id="TaskForgeBinary" data-kind="artifact">
+      <rect class="box binary" x="80" y="130" width="140" height="44"/>
+      <text class="node-label" x="150" y="152" fill="#f6fbff">TaskForgeBinary</text>
+    </g>
+    <g data-id="TaskForgeProcess" data-kind="process">
+      <rect class="box process" x="110" y="190" width="140" height="48"/>
+      <text class="node-label" x="180" y="214" fill="#f6fbff">TaskForgeProcess</text>
+    </g>
+
+    <g data-id="main" data-kind="thread">
+      <rect class="box thread" x="110" y="254" width="115" height="60"/>
+      <text class="node-label" x="167.5" y="282">main()</text>
+      <text class="small" x="167.5" y="302">main thread</text>
+    </g>
+    <g data-id="StopperThread" data-kind="thread">
+      <rect class="box thread" x="105" y="414" width="130" height="60"/>
+      <text class="node-label" x="170" y="442">StopperThread</text>
+      <text class="small" x="170" y="462">sleep then stop()</text>
+    </g>
+    <g data-id="WorkerThreads" data-kind="thread">
+      <rect class="box thread" x="90" y="574" width="150" height="60"/>
+      <text class="node-label" x="165" y="602">WorkerThreads</text>
+      <text class="small" x="165" y="622">4 threads</text>
+    </g>
+
+    <g data-id="Scheduler" data-kind="class">
+      <rect class="box runtime" x="450" y="254" width="170" height="70"/>
+      <text class="node-label" x="535" y="282">Scheduler</text>
+      <text class="small" x="535" y="302">run() on main thread</text>
+    </g>
+    <g data-id="TaskQueue" data-kind="class">
+      <rect class="box runtime" x="450" y="384" width="170" height="60"/>
+      <text class="node-label" x="535" y="412">TaskQueue</text>
+      <text class="small" x="535" y="432">shared queue</text>
+    </g>
+    <g data-id="WorkerPool" data-kind="class">
+      <rect class="box runtime" x="450" y="554" width="170" height="60"/>
+      <text class="node-label" x="535" y="582">WorkerPool</text>
+      <text class="small" x="535" y="602">owns workers</text>
+    </g>
+    <g data-id="Worker" data-kind="class">
+      <rect class="box runtime" x="620" y="574" width="170" height="60"/>
+      <text class="node-label" x="705" y="602">Worker</text>
+      <text class="small" x="705" y="622">runtime instances x4</text>
+    </g>
+
+    <g data-id="SystemClock" data-kind="class">
+      <rect class="box runtime" x="690" y="144" width="160" height="60"/>
+      <text class="node-label" x="770" y="172">SystemClock</text>
+      <text class="small" x="770" y="192">steady_clock</text>
+    </g>
+    <g data-id="InMemoryTaskStore" data-kind="class">
+      <rect class="box runtime" x="690" y="254" width="170" height="60"/>
+      <text class="node-label" x="775" y="282">InMemoryTaskStore</text>
+      <text class="small" x="775" y="302">actual store in demo</text>
+    </g>
+    <g data-id="ExponentialBackoffPolicy" data-kind="class">
+      <rect class="box runtime" x="690" y="364" width="190" height="60"/>
+      <text class="node-label" x="785" y="392">ExponentialBackoffPolicy</text>
+      <text class="small" x="785" y="412">retry gate</text>
+    </g>
+    <g data-id="MetricsCollector" data-kind="class">
+      <rect class="box runtime" x="690" y="474" width="170" height="60"/>
+      <text class="node-label" x="775" y="502">MetricsCollector</text>
+      <text class="small" x="775" y="522">atomic counters</text>
+    </g>
+    <g data-id="CompositeNotifier" data-kind="class">
+      <rect class="box runtime" x="690" y="584" width="190" height="60"/>
+      <text class="node-label" x="785" y="612">CompositeNotifier</text>
+      <text class="small" x="785" y="632">fan-out terminal events</text>
+    </g>
+    <g data-id="ConsoleNotifier" data-kind="class">
+      <rect class="box runtime" x="920" y="514" width="160" height="60"/>
+      <text class="node-label" x="1000" y="542">ConsoleNotifier</text>
+      <text class="small" x="1000" y="562">stdout</text>
+    </g>
+    <g data-id="CallbackNotifier" data-kind="class">
+      <rect class="box runtime" x="920" y="644" width="160" height="60"/>
+      <text class="node-label" x="1000" y="672">CallbackNotifier</text>
+      <text class="small" x="1000" y="692">user lambda</text>
+    </g>
+
+    <g data-id="PersistentTaskStore" data-kind="class">
+      <rect class="box dormant" x="920" y="224" width="160" height="60"/>
+      <text class="node-label" x="1000" y="252">PersistentTaskStore</text>
+      <text class="small" x="1000" y="272">defined, not constructed</text>
+    </g>
+    <g data-id="TaskQueueLegacy" data-kind="class">
+      <rect class="box dormant" x="920" y="324" width="160" height="60"/>
+      <text class="node-label" x="1000" y="352">TaskQueueLegacy</text>
+      <text class="small" x="1000" y="372">no callers</text>
+    </g>
+    <g data-id="ConsoleLogger" data-kind="class">
+      <rect class="box dormant" x="920" y="424" width="160" height="60"/>
+      <text class="node-label" x="1000" y="452">ConsoleLogger</text>
+      <text class="small" x="1000" y="472">included, unused</text>
+    </g>
+    <g data-id="FixedBackoffPolicy" data-kind="class">
+      <rect class="box dormant" x="920" y="524" width="160" height="60"/>
+      <text class="node-label" x="1000" y="552">FixedBackoffPolicy</text>
+      <text class="small" x="1000" y="572">compiled, not chosen</text>
+    </g>
+  </g>
+</svg>

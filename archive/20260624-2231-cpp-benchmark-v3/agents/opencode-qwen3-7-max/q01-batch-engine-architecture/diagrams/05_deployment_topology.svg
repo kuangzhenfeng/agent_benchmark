@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850"
+     data-style="deployment">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.2"/>
+    </filter>
+    <marker id="arr-depends" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#555"/>
+    </marker>
+    <marker id="arr-callback" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e91e63"/>
+    </marker>
+    <marker id="arr-flow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0d47a1"/>
+    </marker>
+    <marker id="arr-retry" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e65100"/>
+    </marker>
+    <marker id="arr-impl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0d47a1"/>
+    </marker>
+    <marker id="arr-uses" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888"/>
+    </marker>
+    <marker id="arr-aggr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e65100"/>
+    </marker>
+    <marker id="arr-comp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2e7d32"/>
+    </marker>
+    <marker id="arr-conn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#444"/>
+    </marker>
+    <marker id="arr-cont" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1565c0"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1200" height="850" fill="#f8f9fa"/>
+  <text x="600" y="38" font-family="sans-serif" font-size="21" font-weight="bold" text-anchor="middle" fill="#1a1a2e">TaskForge 部署与运行时拓扑</text>
+  <rect x="40" y="70" width="1120" height="760" rx="12" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="70" y="97" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1565c0">Single Process (单进程, main())</text>
+  <rect x="70" y="115" width="1060" height="110" rx="8" fill="#bbdefb" stroke="#0d47a1" stroke-width="1.5"/>
+  <text x="90" y="140" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Main Thread — 主调度循环 (Scheduler::run: sleep 20ms loop)</text>
+  <g data-role="nodes">
+  <g data-id="Scheduler" data-kind="instance">
+    <rect x="100" y="160" width="180" height="45" rx="6" fill="#2e7d32" filter="url(#shadow)"/>
+    <text x="190" y="182" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">Scheduler (编排)</text>
+  </g>
+  <g data-id="INotifier-rt" data-kind="instance">
+    <rect x="310" y="160" width="200" height="45" rx="6" fill="#e65100" filter="url(#shadow)"/>
+    <text x="410" y="175" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">INotifier*</text>
+    <text x="410" y="189" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">CompositeNotifier</text>
+  </g>
+  <g data-id="ITaskStore-rt" data-kind="instance">
+    <rect x="540" y="160" width="200" height="45" rx="6" fill="#c62828" filter="url(#shadow)"/>
+    <text x="640" y="175" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">ITaskStore*</text>
+    <text x="640" y="189" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">InMemoryTaskStore</text>
+  </g>
+  <g data-id="MetricsCollector-rt" data-kind="instance">
+    <rect x="770" y="160" width="200" height="45" rx="6" fill="#5e35b1" filter="url(#shadow)"/>
+    <text x="870" y="175" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">MetricsCollector</text>
+    <text x="870" y="189" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">(shared_ptr)</text>
+  </g>
+  <rect x="70" y="240" width="1060" height="200" rx="8" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="90" y="265" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2e7d32">Worker Thread Pool (4 threads, EngineConfig.worker_count=4)</text>
+  <g data-id="Worker-0" data-kind="instance">
+    <rect x="100" y="290" width="200" height="55" rx="6" fill="#388e3c" filter="url(#shadow)"/>
+    <text x="200" y="310" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">Worker-0</text>
+    <text x="200" y="324" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">std::thread  (blocking_pop 50ms)</text>
+  </g>
+  <g data-id="Worker-1" data-kind="instance">
+    <rect x="350" y="290" width="200" height="55" rx="6" fill="#388e3c" filter="url(#shadow)"/>
+    <text x="450" y="310" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">Worker-1</text>
+    <text x="450" y="324" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">std::thread  (blocking_pop 50ms)</text>
+  </g>
+  <g data-id="Worker-2" data-kind="instance">
+    <rect x="600" y="290" width="200" height="55" rx="6" fill="#388e3c" filter="url(#shadow)"/>
+    <text x="700" y="310" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">Worker-2</text>
+    <text x="700" y="324" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">std::thread  (blocking_pop 50ms)</text>
+  </g>
+  <g data-id="Worker-3" data-kind="instance">
+    <rect x="850" y="290" width="200" height="55" rx="6" fill="#388e3c" filter="url(#shadow)"/>
+    <text x="950" y="310" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">Worker-3</text>
+    <text x="950" y="324" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">std::thread  (blocking_pop 50ms)</text>
+  </g>
+  <rect x="70" y="455" width="1060" height="100" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+  <text x="90" y="480" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828">Shared TaskQueue (priority_queue + mutex + condvar — 唯一共享汇合点)</text>
+  <g data-id="TaskQueue" data-kind="instance">
+    <rect x="350" y="495" width="450" height="50" rx="6" fill="#c62828" filter="url(#shadow)"/>
+    <text x="575" y="520" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">TaskQueue — Scheduler push() / Worker blocking_pop() (线程安全)</text>
+  </g>
+  <rect x="70" y="570" width="1060" height="165" rx="8" fill="#ede7f6" stroke="#5e35b1" stroke-width="1.5"/>
+  <text x="90" y="595" font-family="sans-serif" font-size="13" font-weight="bold" fill="#5e35b1">Support Services (shared_ptr / reference injected)</text>
+  <g data-id="IRetryPolicy-rt" data-kind="instance">
+    <rect x="100" y="620" width="200" height="50" rx="6" fill="#7b1fa2" filter="url(#shadow)"/>
+    <text x="200" y="638" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">IRetryPolicy*</text>
+    <text x="200" y="652" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">ExponentialBackoff</text>
+  </g>
+  <g data-id="IClock-rt" data-kind="instance">
+    <rect x="330" y="620" width="180" height="50" rx="6" fill="#00838f" filter="url(#shadow)"/>
+    <text x="420" y="638" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">IClock ref</text>
+    <text x="420" y="652" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">SystemClock</text>
+  </g>
+  <g data-id="EngineConfig-rt" data-kind="instance">
+    <rect x="540" y="620" width="195" height="50" rx="6" fill="#00695c" filter="url(#shadow)"/>
+    <text x="637" y="638" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">EngineConfig</text>
+    <text x="637" y="652" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">worker_count=4</text>
+  </g>
+  <g data-id="CompositeNotif-rt" data-kind="instance">
+    <rect x="765" y="620" width="220" height="50" rx="6" fill="#e65100" filter="url(#shadow)"/>
+    <text x="875" y="638" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">CompositeNotifier</text>
+    <text x="875" y="652" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">[Console + Callback]</text>
+  </g>
+  <g data-id="DeadCode-note" data-kind="instance">
+    <rect x="100" y="690" width="600" height="55" rx="6" fill="#bdbdbd" filter="url(#shadow)"/>
+    <text x="400" y="717" font-family="monospace" font-size="12" text-anchor="middle" fill="#fff">未实例化: TaskQueueLegacy / PersistentTaskStore / ILogger+ConsoleLogger / FixedBackoffPolicy</text>
+  </g>
+  </g>
+  <g data-role="edges">
+  <line data-from="Scheduler" data-to="Worker-0" data-kind="connects"
+        x1="190" y1="205" x2="200" y2="290"
+        stroke="#2e7d32" stroke-width="2" marker-end="url(#arr-conn)"/>
+  <line data-from="Scheduler" data-to="Worker-1" data-kind="connects"
+        x1="190" y1="205" x2="450" y2="290"
+        stroke="#2e7d32" stroke-width="2" marker-end="url(#arr-conn)"/>
+  <line data-from="Scheduler" data-to="Worker-2" data-kind="connects"
+        x1="190" y1="205" x2="700" y2="290"
+        stroke="#2e7d32" stroke-width="2" marker-end="url(#arr-conn)"/>
+  <line data-from="Scheduler" data-to="Worker-3" data-kind="connects"
+        x1="190" y1="205" x2="850" y2="290"
+        stroke="#2e7d32" stroke-width="2" marker-end="url(#arr-conn)"/>
+  <line data-from="Worker-0" data-to="TaskQueue" data-kind="connects"
+        x1="200" y1="345" x2="410" y2="495"
+        stroke="#444" stroke-width="2" marker-end="url(#arr-conn)"/>
+  <line data-from="Worker-1" data-to="TaskQueue" data-kind="connects"
+        x1="450" y1="345" x2="520" y2="495"
+        stroke="#444" stroke-width="2" marker-end="url(#arr-conn)"/>
+  <line data-from="Worker-2" data-to="TaskQueue" data-kind="connects"
+        x1="700" y1="345" x2="630" y2="495"
+        stroke="#444" stroke-width="2" marker-end="url(#arr-conn)"/>
+  <line data-from="Worker-3" data-to="TaskQueue" data-kind="connects"
+        x1="850" y1="345" x2="730" y2="495"
+        stroke="#444" stroke-width="2" marker-end="url(#arr-conn)"/>
+  <line data-from="Worker-0" data-to="Scheduler" data-kind="callback"
+        x1="195" y1="315" x2="190" y2="220"
+        stroke="#e91e63" stroke-width="2" marker-end="url(#arr-callback)" stroke-dasharray="6,3"/>
+  <line data-from="Scheduler" data-to="IRetryPolicy-rt" data-kind="connects"
+        x1="280" y1="205" x2="200" y2="620"
+        stroke="#7b1fa2" stroke-width="2" marker-end="url(#arr-conn)"/>
+  <line data-from="Scheduler" data-to="IClock-rt" data-kind="connects"
+        x1="280" y1="205" x2="420" y2="620"
+        stroke="#00838f" stroke-width="2" marker-end="url(#arr-conn)"/>
+  <line data-from="Scheduler" data-to="TaskQueue" data-kind="connects"
+        x1="280" y1="245" x2="450" y2="495"
+        stroke="#1565c0" stroke-width="2" marker-end="url(#arr-cont)"/>
+</g>
+  <text x="110" y="775" font-family="sans-serif" font-size="11" fill="#757575" font-style="italic">运行时回调 (callback): Worker → Scheduler (via std::function, NOT 编译期)</text>
+  <text x="110" y="793" font-family="sans-serif" font-size="11" fill="#757575" font-style="italic">所有 worker 共享同一 TaskQueue 实例; Scheduler 在主线程 sleep 循环, 本身不是 worker 线程</text>
+</svg>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" data-style="dataflow">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#fff8ee"/>
+      <stop offset="100%" stop-color="#eef9ff"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#244861"/>
+    </marker>
+    <style>
+      .title { font: 700 30px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #17384c; }
+      .subtitle { font: 400 14px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #4b5f6a; }
+      .node-label { font: 600 14px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #17384c; text-anchor: middle; dominant-baseline: middle; }
+      .small { font: 12px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #556773; text-anchor: middle; }
+      .edge { stroke: #244861; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .box { rx: 18; ry: 18; stroke-width: 2; }
+      .pill { rx: 24; ry: 24; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="800" fill="url(#bg)"/>
+  <text class="title" x="60" y="60">TaskForge Runtime Dataflow</text>
+  <text class="subtitle" x="60" y="88">Single task lifecycle from submit to terminal notification, including the retry feedback loop.</text>
+
+  <g data-role="edges">
+    <line class="edge" x1="185" y1="374" x2="360" y2="374" data-from="Task" data-to="Scheduler" data-kind="flow"/>
+    <line class="edge" x1="450" y1="350" x2="450" y2="184" data-from="Scheduler" data-to="ITaskStore" data-kind="flow"/>
+    <line class="edge" x1="545" y1="374" x2="680" y2="374" data-from="Scheduler" data-to="TaskQueue" data-kind="flow"/>
+    <line class="edge" x1="830" y1="374" x2="955" y2="374" data-from="TaskQueue" data-to="Worker" data-kind="flow"/>
+    <line class="edge" x1="1065" y1="374" x2="1065" y2="226" data-from="Worker" data-to="TaskResult" data-kind="flow"/>
+    <path class="edge" d="M 1035 206 C 920 170, 650 150, 490 326" data-from="TaskResult" data-to="Scheduler" data-kind="flow"/>
+    <line class="edge" x1="545" y1="346" x2="1030" y2="164" data-from="Scheduler" data-to="IRetryPolicy" data-kind="flow"/>
+    <line class="edge" x1="540" y1="398" x2="1015" y2="398" data-from="Scheduler" data-to="CompositeNotifier" data-kind="flow"/>
+    <line class="edge" x1="490" y1="422" x2="1015" y2="536" data-from="Scheduler" data-to="TaskStatus::Succeeded" data-kind="flow"/>
+    <line class="edge" x1="470" y1="430" x2="1015" y2="666" data-from="Scheduler" data-to="TaskStatus::Failed" data-kind="flow"/>
+    <line class="edge" x1="460" y1="430" x2="780" y2="544" data-from="Scheduler" data-to="TaskStatus::Retrying" data-kind="flow"/>
+    <line class="edge" x1="810" y1="544" x2="810" y2="184" data-from="TaskStatus::Retrying" data-to="ITaskStore" data-kind="flow"/>
+    <path class="edge" d="M 860 544 C 920 544, 980 500, 980 444 C 980 416, 945 398, 830 390" data-from="TaskStatus::Retrying" data-to="TaskQueue" data-kind="flow"/>
+    <line class="edge" x1="525" y1="406" x2="1015" y2="214" data-from="Scheduler" data-to="MetricsCollector" data-kind="flow"/>
+  </g>
+
+  <g data-role="nodes">
+    <g data-id="Task" data-kind="model">
+      <rect class="pill" x="70" y="340" width="120" height="68" fill="#ffffff" stroke="#cc9152"/>
+      <text class="node-label" x="130" y="374">Task</text>
+      <text class="small" x="130" y="394">submit payload</text>
+    </g>
+    <g data-id="Scheduler" data-kind="class">
+      <rect class="box" x="360" y="316" width="190" height="116" fill="#ffffff" stroke="#35739b"/>
+      <text class="node-label" x="455" y="350">Scheduler</text>
+      <text class="small" x="455" y="374">submit / handle_completion</text>
+      <text class="small" x="455" y="396">updates store, queue, metrics</text>
+    </g>
+    <g data-id="ITaskStore" data-kind="interface">
+      <rect class="box" x="340" y="110" width="220" height="74" fill="#f5fbff" stroke="#7ba6c3"/>
+      <text class="node-label" x="450" y="142">ITaskStore</text>
+      <text class="small" x="450" y="164">save / load / update / remove</text>
+    </g>
+    <g data-id="TaskQueue" data-kind="class">
+      <rect class="pill" x="680" y="340" width="150" height="68" fill="#ffffff" stroke="#35739b"/>
+      <text class="node-label" x="755" y="374">TaskQueue</text>
+      <text class="small" x="755" y="394">priority queue</text>
+    </g>
+    <g data-id="Worker" data-kind="class">
+      <rect class="pill" x="955" y="340" width="150" height="68" fill="#ffffff" stroke="#35739b"/>
+      <text class="node-label" x="1030" y="374">Worker</text>
+      <text class="small" x="1030" y="394">blocking_pop + work()</text>
+    </g>
+    <g data-id="TaskResult" data-kind="model">
+      <rect class="box" x="965" y="132" width="200" height="74" fill="#ffffff" stroke="#35739b"/>
+      <text class="node-label" x="1065" y="164">TaskResult</text>
+      <text class="small" x="1065" y="186">ok / code / attempt / detail</text>
+    </g>
+    <g data-id="IRetryPolicy" data-kind="interface">
+      <rect class="box" x="945" y="110" width="170" height="54" fill="#fff7f0" stroke="#cc9152"/>
+      <text class="node-label" x="1030" y="137">IRetryPolicy</text>
+    </g>
+    <g data-id="MetricsCollector" data-kind="class">
+      <rect class="box" x="945" y="190" width="170" height="54" fill="#f5fbff" stroke="#7ba6c3"/>
+      <text class="node-label" x="1030" y="217">MetricsCollector</text>
+    </g>
+    <g data-id="CompositeNotifier" data-kind="class">
+      <rect class="box" x="945" y="340" width="170" height="68" fill="#f5fbff" stroke="#7ba6c3"/>
+      <text class="node-label" x="1030" y="368">CompositeNotifier</text>
+      <text class="small" x="1030" y="390">terminal events</text>
+    </g>
+    <g data-id="TaskStatus::Retrying" data-kind="state">
+      <rect class="box" x="700" y="512" width="220" height="64" fill="#fff9ef" stroke="#d6a35f"/>
+      <text class="node-label" x="810" y="544">TaskStatus::Retrying</text>
+      <text class="small" x="810" y="564">sync attempt, save, requeue</text>
+    </g>
+    <g data-id="TaskStatus::Succeeded" data-kind="state">
+      <rect class="box" x="945" y="504" width="170" height="64" fill="#edf8ef" stroke="#7bb181"/>
+      <text class="node-label" x="1030" y="536">TaskStatus::Succeeded</text>
+      <text class="small" x="1030" y="556">remove + notify</text>
+    </g>
+    <g data-id="TaskStatus::Failed" data-kind="state">
+      <rect class="box" x="945" y="634" width="170" height="64" fill="#fff0ef" stroke="#d78274"/>
+      <text class="node-label" x="1030" y="666">TaskStatus::Failed</text>
+      <text class="small" x="1030" y="686">give up after retries</text>
+    </g>
+  </g>
+
+  <g>
+    <text class="small" x="274" y="356">submit / submitBatch</text>
+    <text class="small" x="512" y="250">save queued task</text>
+    <text class="small" x="615" y="360">push</text>
+    <text class="small" x="892" y="360">blocking_pop</text>
+    <text class="small" x="976" y="270">completion callback</text>
+    <text class="small" x="850" y="300">check retry gate</text>
+    <text class="small" x="725" y="470">retry feedback loop</text>
+    <text class="small" x="732" y="610">requeue</text>
+  </g>
+</svg>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" font-family="Helvetica, Arial, sans-serif" data-style="dataflow">
+<defs>
+<marker id="mk-depends" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52606d"/></marker>
+<marker id="mk-callback" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
+<marker id="mk-flow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/></marker>
+<marker id="mk-implements" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/></marker>
+<marker id="mk-inherits" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/></marker>
+<marker id="mk-composes" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#047857"/></marker>
+<marker id="mk-aggregates" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#059669"/></marker>
+<marker id="mk-uses" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker>
+<marker id="mk-contains" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+<marker id="mk-connects" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/></marker>
+<marker id="mk-runs-on" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b45309"/></marker>
+</defs>
+<rect x="0" y="0" width="1400" height="820" fill="#fbfcfd"/>
+<text x="700.0" y="38" font-size="22" font-weight="700" text-anchor="middle" fill="#1f2d3d">TaskForge 数据流图（一次任务：提交→入队→执行→结算→重试反馈环→终态通知）</text>
+<text x="700" y="760" font-size="11.5" fill="#5a6b7b" text-anchor="middle" font-weight="400">重试反馈环：handle_completion 在仍有重试机会时，将 attempt 同步回 store 并重新 push 进队列，形成 worker←→queue 的回环（scheduler.cpp:101-109）。注意 worker 本地累加的 attempt 必须写回 store，否则永不递增（scheduler.cpp:105）。</text>
+<g data-role="edges">
+<line data-from="submit" data-to="Scheduler.submit" data-kind="flow" x1="180.0" y1="410.0" x2="225.0" y2="410.0" stroke="#1d4ed8" stroke-width="1.7" fill="none" marker-end="url(#mk-flow)"/>
+<text x="202.5" y="406.0" font-size="10.5" fill="#1d4ed8" text-anchor="middle" font-weight="600">Task</text>
+<rect x="200.5" y="395.0" width="1" height="1" fill="none"/>
+<line data-from="Scheduler.submit" data-to="store.save" data-kind="flow" x1="320.0" y1="382.0" x2="320.0" y2="238.0" stroke="#1d4ed8" stroke-width="1.7" fill="none" marker-end="url(#mk-flow)"/>
+<text x="320.0" y="306.0" font-size="10.5" fill="#1d4ed8" text-anchor="middle" font-weight="600">save(task)</text>
+<rect x="318.0" y="295.0" width="1" height="1" fill="none"/>
+<line data-from="Scheduler.submit" data-to="queue.push" data-kind="flow" x1="415.0" y1="410.0" x2="465.0" y2="410.0" stroke="#1d4ed8" stroke-width="1.7" fill="none" marker-end="url(#mk-flow)"/>
+<text x="440.0" y="406.0" font-size="10.5" fill="#1d4ed8" text-anchor="middle" font-weight="600">push(task)</text>
+<rect x="438.0" y="395.0" width="1" height="1" fill="none"/>
+<line data-from="queue.push" data-to="worker.exec" data-kind="flow" x1="655.0" y1="410.0" x2="732.0" y2="410.0" stroke="#1d4ed8" stroke-width="1.7" fill="none" marker-end="url(#mk-flow)"/>
+<text x="693.5" y="406.0" font-size="10.5" fill="#1d4ed8" text-anchor="middle" font-weight="600">blocking_pop</text>
+<rect x="691.5" y="395.0" width="1" height="1" fill="none"/>
+<line data-from="worker.exec" data-to="TaskResult" data-kind="flow" x1="863.1" y1="380.0" x2="1006.9" y2="280.0" stroke="#1d4ed8" stroke-width="1.7" fill="none" marker-end="url(#mk-flow)"/>
+<text x="935.0" y="326.0" font-size="10.5" fill="#1d4ed8" text-anchor="middle" font-weight="600">产出 result</text>
+<rect x="933.0" y="315.0" width="1" height="1" fill="none"/>
+<line data-from="worker.exec" data-to="handle_completion" data-kind="flow" x1="908.0" y1="410.0" x2="950.0" y2="410.0" stroke="#1d4ed8" stroke-width="1.7" fill="none" marker-end="url(#mk-flow)"/>
+<text x="929.0" y="406.0" font-size="10.5" fill="#1d4ed8" text-anchor="middle" font-weight="600">回调 result(运行时)</text>
+<rect x="927.0" y="395.0" width="1" height="1" fill="none"/>
+<line data-from="handle_completion" data-to="store.retry" data-kind="flow" x1="1015.5" y1="440.0" x2="852.2" y2="582.0" stroke="#1d4ed8" stroke-width="1.7" fill="none" marker-end="url(#mk-flow)"/>
+<text x="933.9" y="507.0" font-size="10.5" fill="#1d4ed8" text-anchor="middle" font-weight="600">load + save(attempt++)</text>
+<rect x="931.85" y="496.0" width="1" height="1" fill="none"/>
+<line data-from="store.retry" data-to="queue.push" data-kind="flow" x1="783.6" y1="582.0" x2="596.4" y2="438.0" stroke="#1d4ed8" stroke-width="1.7" fill="none" marker-end="url(#mk-flow)"/>
+<text x="690.0" y="506.0" font-size="10.5" fill="#1d4ed8" text-anchor="middle" font-weight="600">re-push(重试反馈环)</text>
+<rect x="688.0" y="495.0" width="1" height="1" fill="none"/>
+<line data-from="handle_completion" data-to="notifier.event" data-kind="flow" x1="1150.0" y1="410.0" x2="1185.0" y2="410.0" stroke="#1d4ed8" stroke-width="1.7" fill="none" marker-end="url(#mk-flow)"/>
+<text x="1167.5" y="406.0" font-size="10.5" fill="#1d4ed8" text-anchor="middle" font-weight="600">终态事件</text>
+<rect x="1165.5" y="395.0" width="1" height="1" fill="none"/>
+<line data-from="handle_completion" data-to="store.save" data-kind="flow" x1="950.0" y1="382.6" x2="415.0" y2="236.0" stroke="#1d4ed8" stroke-width="1.7" fill="none" marker-end="url(#mk-flow)"/>
+<text x="682.5" y="305.3" font-size="10.5" fill="#1d4ed8" text-anchor="middle" font-weight="600">update_status / remove(成功)</text>
+<rect x="680.5" y="294.31506849315065" width="1" height="1" fill="none"/>
+</g>
+<g data-role="nodes">
+<g data-id="submit" data-kind="app">
+<rect x="40" y="380" width="140" height="60" rx="9" fill="#eaf2fb" stroke="#2f6db5" stroke-width="2"/>
+<text x="110" y="407" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">Client</text>
+<text x="110" y="423" text-anchor="middle" font-size="10.5" fill="#5a6b7b">submit() / submitBatch()</text>
+</g>
+<g data-id="Scheduler.submit" data-kind="core">
+<rect x="225" y="382" width="190" height="56" rx="9" fill="#e3f3ea" stroke="#1f8a4c" stroke-width="2"/>
+<text x="320" y="407" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">Scheduler::submit</text>
+<text x="320" y="423" text-anchor="middle" font-size="10.5" fill="#5a6b7b">scheduler.cpp:22</text>
+</g>
+<g data-id="store.save" data-kind="contract">
+<rect x="225" y="182" width="190" height="56" rx="9" fill="#efeaf7" stroke="#7c3aed" stroke-width="2"/>
+<text x="320" y="207" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">ITaskStore::save</text>
+<text x="320" y="223" text-anchor="middle" font-size="10.5" fill="#5a6b7b">save(task)</text>
+</g>
+<g data-id="queue.push" data-kind="exec">
+<rect x="465" y="382" width="190" height="56" rx="9" fill="#fdf3e1" stroke="#c2761b" stroke-width="2"/>
+<text x="560" y="407" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">TaskQueue::push</text>
+<text x="560" y="423" text-anchor="middle" font-size="10.5" fill="#5a6b7b">优先级队列(task_queue.cpp:3)</text>
+</g>
+<g data-id="worker.exec" data-kind="exec">
+<rect x="732" y="380" width="176" height="60" rx="9" fill="#fdf3e1" stroke="#c2761b" stroke-width="2"/>
+<text x="820" y="407" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">Worker::loop</text>
+<text x="820" y="423" text-anchor="middle" font-size="10.5" fill="#5a6b7b">blocking_pop + 执行 work()</text>
+</g>
+<g data-id="TaskResult" data-kind="data">
+<rect x="972" y="220" width="156" height="60" rx="9" fill="#eef6ff" stroke="#1d4ed8" stroke-width="2"/>
+<text x="1050" y="247" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">TaskResult</text>
+<text x="1050" y="263" text-anchor="middle" font-size="10.5" fill="#5a6b7b">{id,ok,attempt,code}</text>
+</g>
+<g data-id="handle_completion" data-kind="core">
+<rect x="950" y="380" width="200" height="60" rx="9" fill="#e3f3ea" stroke="#1f8a4c" stroke-width="2"/>
+<text x="1050" y="407" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">handle_completion</text>
+<text x="1050" y="423" text-anchor="middle" font-size="10.5" fill="#5a6b7b">scheduler.cpp:82 结算</text>
+</g>
+<g data-id="store.retry" data-kind="contract">
+<rect x="740" y="582" width="160" height="56" rx="9" fill="#efeaf7" stroke="#7c3aed" stroke-width="2"/>
+<text x="820" y="607" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">ITaskStore</text>
+<text x="820" y="623" text-anchor="middle" font-size="10.5" fill="#5a6b7b">load+save(Retrying)</text>
+</g>
+<g data-id="notifier.event" data-kind="contract">
+<rect x="1185" y="382" width="190" height="56" rx="9" fill="#efeaf7" stroke="#7c3aed" stroke-width="2"/>
+<text x="1280" y="407" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">INotifier::on_event</text>
+<text x="1280" y="423" text-anchor="middle" font-size="10.5" fill="#5a6b7b">task.succeeded / failed</text>
+</g>
+</g>
+<rect x="40" y="700" width="300" height="40" rx="8" fill="#ffffff" stroke="#d7dde5"/>
+<text x="52" y="720" font-size="12" font-weight="700" fill="#33475b">图例</text>
+<line x1="52" y1="740" x2="84" y2="740" stroke="#1d4ed8" stroke-width="2" marker-end="url(#mk-flow)"/>
+<text x="92" y="744" font-size="11.5" fill="#33475b">有向数据流（标注流转内容）</text>
+</svg>

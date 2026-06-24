@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TaskForge 类与模块关系图：接口/实现的继承(implements)、类的组合(composes)/聚合(aggregates)/使用(uses)。
+     重点：Scheduler 持有的是抽象接口（ITaskStore/IRetryPolicy/INotifier/IClock），
+     具体实现由组合根(main)装配；INotifier 用组合模式（CompositeNotifier 聚合子通知器）。 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 860" width="1240" height="860"
+     data-style="class" data-title="TaskForge Class Relationship">
+  <defs>
+    <marker id="impA" markerWidth="13" markerHeight="13" refX="11" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,8 L11,4 z" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/>
+    </marker>
+    <marker id="cmpA" markerWidth="11" markerHeight="11" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#be123c"/>
+    </marker>
+    <marker id="aggD" markerWidth="12" markerHeight="12" refX="1" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M11,0 L1,4 L11,8 z" fill="#ffffff" stroke="#0891b2" stroke-width="1.2"/>
+    </marker>
+    <marker id="useA" markerWidth="11" markerHeight="11" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1240" height="860" fill="#fbfbfd"/>
+
+  <text x="620" y="38" font-family="sans-serif" font-size="24" font-weight="700" text-anchor="middle" fill="#1a1a2e">TaskForge — 类与模块关系图</text>
+  <text x="620" y="60" font-family="sans-serif" font-size="13" text-anchor="middle" fill="#6b7280">实线三角=implements；实线箭头=composes；空心菱形=aggregates；灰箭头=uses</text>
+
+  <g data-role="nodes">
+    <!-- 组合根 -->
+    <g data-id="main" data-kind="class">
+      <rect x="540" y="90" width="160" height="56" rx="8" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+      <text x="620" y="116" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#1e1b4b">main</text>
+      <text x="620" y="134" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4338ca">组合根（装配具体实现）</text>
+    </g>
+
+    <!-- Scheduler -->
+    <g data-id="Scheduler" data-kind="class">
+      <rect x="540" y="210" width="160" height="56" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+      <text x="620" y="236" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#064e3b">Scheduler</text>
+      <text x="620" y="254" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#047857">编排器</text>
+    </g>
+
+    <!-- 抽象接口（顶层） -->
+    <g data-id="ITaskStore" data-kind="interface">
+      <rect x="80" y="330" width="170" height="56" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+      <text x="165" y="354" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#5b21b6" font-style="italic">«interface» ITaskStore</text>
+      <text x="165" y="372" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#6d28d9">save/load/update_status/...</text>
+    </g>
+    <g data-id="IRetryPolicy" data-kind="interface">
+      <rect x="290" y="330" width="170" height="56" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+      <text x="375" y="354" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#5b21b6" font-style="italic">«interface» IRetryPolicy</text>
+      <text x="375" y="372" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#6d28d9">next_delay_ms / cap_attempts</text>
+    </g>
+    <g data-id="INotifier" data-kind="interface">
+      <rect x="540" y="330" width="160" height="56" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+      <text x="620" y="354" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#5b21b6" font-style="italic">«interface» INotifier</text>
+      <text x="620" y="372" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#6d28d9">on_event</text>
+    </g>
+    <g data-id="IClock" data-kind="interface">
+      <rect x="740" y="330" width="150" height="56" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+      <text x="815" y="354" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#5b21b6" font-style="italic">«interface» IClock</text>
+      <text x="815" y="372" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#6d28d9">now_ms</text>
+    </g>
+    <g data-id="ILogger" data-kind="interface">
+      <rect x="940" y="330" width="150" height="56" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="1015" y="354" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#5b21b6" font-style="italic">«interface» ILogger</text>
+      <text x="1015" y="372" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#6d28d9">log（运行时未实例化）</text>
+    </g>
+
+    <!-- 具体实现 -->
+    <g data-id="InMemoryTaskStore" data-kind="class">
+      <rect x="50" y="450" width="170" height="56" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="135" y="476" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#155e75">InMemoryTaskStore</text>
+      <text x="135" y="494" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#0e7490">main 实际装配</text>
+    </g>
+    <g data-id="PersistentTaskStore" data-kind="class">
+      <rect x="240" y="450" width="180" height="56" rx="8" fill="#ffffff" stroke="#64748b" stroke-dasharray="4 3"/>
+      <text x="330" y="476" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#334155">PersistentTaskStore</text>
+      <text x="330" y="494" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">编译进产物，运行时未用</text>
+    </g>
+    <g data-id="ExponentialBackoffPolicy" data-kind="class">
+      <rect x="440" y="450" width="200" height="56" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="540" y="476" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#155e75">ExponentialBackoffPolicy</text>
+      <text x="540" y="494" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#0e7490">main 实际装配</text>
+    </g>
+    <g data-id="FixedBackoffPolicy" data-kind="class">
+      <rect x="660" y="450" width="170" height="56" rx="8" fill="#ffffff" stroke="#64748b" stroke-dasharray="4 3"/>
+      <text x="745" y="476" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#334155">FixedBackoffPolicy</text>
+      <text x="745" y="494" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">编译进产物，运行时未用</text>
+    </g>
+    <g data-id="SystemClock" data-kind="class">
+      <rect x="860" y="450" width="150" height="56" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="935" y="476" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#155e75">SystemClock</text>
+      <text x="935" y="494" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#0e7490">main 实际装配</text>
+    </g>
+    <g data-id="ConsoleLogger" data-kind="class">
+      <rect x="1040" y="450" width="160" height="56" rx="8" fill="#ffffff" stroke="#64748b" stroke-dasharray="4 3"/>
+      <text x="1120" y="476" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#334155">ConsoleLogger</text>
+      <text x="1120" y="494" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">编译进产物，运行时未用</text>
+    </g>
+
+    <!-- 通知器组合族 -->
+    <g data-id="CompositeNotifier" data-kind="class">
+      <rect x="470" y="600" width="190" height="56" rx="8" fill="#ffffff" stroke="#be123c" stroke-width="2"/>
+      <text x="565" y="626" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#7f1d1d">CompositeNotifier</text>
+      <text x="565" y="644" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#be123c">main 实际装配（组合模式）</text>
+    </g>
+    <g data-id="ConsoleNotifier" data-kind="class">
+      <rect x="690" y="600" width="170" height="56" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="775" y="626" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#155e75">ConsoleNotifier</text>
+      <text x="775" y="644" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#0e7490">main 加入复合通知器</text>
+    </g>
+    <g data-id="CallbackNotifier" data-kind="class">
+      <rect x="890" y="600" width="180" height="56" rx="8" fill="#ffffff" stroke="#0891b2"/>
+      <text x="980" y="626" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#155e75">CallbackNotifier</text>
+      <text x="980" y="644" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#0e7490">main 加入复合通知器</text>
+    </g>
+
+    <!-- 执行/队列 -->
+    <g data-id="WorkerPool" data-kind="class">
+      <rect x="50" y="740" width="170" height="56" rx="8" fill="#ffffff" stroke="#d97706"/>
+      <text x="135" y="766" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#78350f">WorkerPool</text>
+      <text x="135" y="784" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">持有 vector&lt;Worker&gt;</text>
+    </g>
+    <g data-id="Worker" data-kind="class">
+      <rect x="250" y="740" width="150" height="56" rx="8" fill="#ffffff" stroke="#d97706"/>
+      <text x="325" y="766" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#78350f">Worker</text>
+      <text x="325" y="784" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">单线程执行单元</text>
+    </g>
+    <g data-id="TaskQueue" data-kind="class">
+      <rect x="430" y="740" width="160" height="56" rx="8" fill="#ffffff" stroke="#d97706"/>
+      <text x="510" y="766" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#78350f">TaskQueue</text>
+      <text x="510" y="784" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">优先级队列（值语义）</text>
+    </g>
+    <g data-id="Task" data-kind="class">
+      <rect x="620" y="740" width="150" height="56" rx="8" fill="#ffffff" stroke="#d97706"/>
+      <text x="695" y="766" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#78350f">Task</text>
+      <text x="695" y="784" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">领域实体</text>
+    </g>
+    <g data-id="MetricsCollector" data-kind="class">
+      <rect x="800" y="740" width="190" height="56" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+      <text x="895" y="766" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#334155">MetricsCollector</text>
+      <text x="895" y="784" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">main 实际装配</text>
+    </g>
+  </g>
+
+  <!-- ===== 边 ===== -->
+  <g data-role="edges" fill="none">
+    <!-- main 装配具体实现（depends） -->
+    <line data-from="main" data-to="InMemoryTaskStore" data-kind="depends" x1="560" y1="146" x2="160" y2="448" stroke="#4338ca" stroke-width="1.6" marker-end="url(#useA)"/>
+    <line data-from="main" data-to="ExponentialBackoffPolicy" data-kind="depends" x1="600" y1="146" x2="540" y2="448" stroke="#4338ca" stroke-width="1.6" marker-end="url(#useA)"/>
+    <line data-from="main" data-to="CompositeNotifier" data-kind="depends" x1="610" y1="146" x2="560" y2="598" stroke="#4338ca" stroke-width="1.6" marker-end="url(#useA)"/>
+    <line data-from="main" data-to="SystemClock" data-kind="depends" x1="660" y1="146" x2="930" y2="448" stroke="#4338ca" stroke-width="1.6" marker-end="url(#useA)"/>
+    <line data-from="main" data-to="MetricsCollector" data-kind="depends" x1="680" y1="146" x2="890" y2="738" stroke="#4338ca" stroke-width="1.6" marker-end="url(#useA)"/>
+    <line data-from="main" data-to="ConsoleNotifier" data-kind="depends" x1="690" y1="140" x2="775" y2="598" stroke="#4338ca" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#useA)"/>
+    <line data-from="main" data-to="CallbackNotifier" data-kind="depends" x1="700" y1="140" x2="980" y2="598" stroke="#4338ca" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#useA)"/>
+
+    <!-- Scheduler 依赖抽象接口（aggregates/uses，画到接口而非具体类） -->
+    <line data-from="Scheduler" data-to="ITaskStore" data-kind="aggregates" x1="555" y1="266" x2="200" y2="328" stroke="#0891b2" stroke-width="1.8" marker-start="url(#aggD)"/>
+    <line data-from="Scheduler" data-to="IRetryPolicy" data-kind="aggregates" x1="585" y1="266" x2="395" y2="328" stroke="#0891b2" stroke-width="1.8" marker-start="url(#aggD)"/>
+    <line data-from="Scheduler" data-to="INotifier" data-kind="aggregates" x1="620" y1="266" x2="620" y2="328" stroke="#0891b2" stroke-width="1.8" marker-start="url(#aggD)"/>
+    <line data-from="Scheduler" data-to="IClock" data-kind="uses" x1="660" y1="266" x2="790" y2="328" stroke="#6b7280" stroke-width="1.6" marker-end="url(#useA)"/>
+    <line data-from="Scheduler" data-to="MetricsCollector" data-kind="aggregates" x1="680" y1="260" x2="850" y2="738" stroke="#0891b2" stroke-width="1.6" marker-start="url(#aggD)"/>
+
+    <!-- implements（具体 → 接口） -->
+    <line data-from="InMemoryTaskStore" data-to="ITaskStore" data-kind="implements" x1="135" y1="448" x2="150" y2="388" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#impA)"/>
+    <line data-from="PersistentTaskStore" data-to="ITaskStore" data-kind="implements" x1="320" y1="448" x2="200" y2="388" stroke="#7c3aed" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#impA)"/>
+    <line data-from="ExponentialBackoffPolicy" data-to="IRetryPolicy" data-kind="implements" x1="500" y1="448" x2="395" y2="388" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#impA)"/>
+    <line data-from="FixedBackoffPolicy" data-to="IRetryPolicy" data-kind="implements" x1="700" y1="448" x2="420" y2="388" stroke="#7c3aed" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#impA)"/>
+    <line data-from="SystemClock" data-to="IClock" data-kind="implements" x1="920" y1="448" x2="830" y2="388" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#impA)"/>
+    <line data-from="ConsoleLogger" data-to="ILogger" data-kind="implements" x1="1090" y1="448" x2="1030" y2="388" stroke="#7c3aed" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#impA)"/>
+    <line data-from="CompositeNotifier" data-to="INotifier" data-kind="implements" x1="560" y1="598" x2="610" y2="388" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#impA)"/>
+    <line data-from="ConsoleNotifier" data-to="INotifier" data-kind="implements" x1="760" y1="598" x2="640" y2="388" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#impA)"/>
+    <line data-from="CallbackNotifier" data-to="INotifier" data-kind="implements" x1="950" y1="598" x2="660" y2="388" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#impA)"/>
+
+    <!-- CompositeNotifier aggregates INotifier（组合模式：聚合子通知器） -->
+    <line data-from="CompositeNotifier" data-to="ConsoleNotifier" data-kind="aggregates" x1="660" y1="628" x2="688" y2="628" stroke="#0891b2" stroke-width="1.6" marker-start="url(#aggD)"/>
+    <line data-from="CompositeNotifier" data-to="CallbackNotifier" data-kind="aggregates" x1="660" y1="640" x2="888" y2="632" stroke="#0891b2" stroke-width="1.6" marker-start="url(#aggD)"/>
+
+    <!-- Scheduler composes WorkerPool / TaskQueue（值语义拥有） -->
+    <line data-from="Scheduler" data-to="WorkerPool" data-kind="composes" x1="555" y1="266" x2="160" y2="738" stroke="#be123c" stroke-width="1.8" marker-end="url(#cmpA)"/>
+    <line data-from="Scheduler" data-to="TaskQueue" data-kind="composes" x1="600" y1="266" x2="500" y2="738" stroke="#be123c" stroke-width="1.8" marker-end="url(#cmpA)"/>
+    <!-- WorkerPool composes Worker -->
+    <line data-from="WorkerPool" data-to="Worker" data-kind="composes" x1="220" y1="768" x2="248" y2="768" stroke="#be123c" stroke-width="1.8" marker-end="url(#cmpA)"/>
+    <!-- Worker uses TaskQueue / Task -->
+    <line data-from="Worker" data-to="TaskQueue" data-kind="uses" x1="380" y1="760" x2="428" y2="760" stroke="#6b7280" stroke-width="1.6" marker-end="url(#useA)"/>
+    <line data-from="Worker" data-to="Task" data-kind="uses" x1="400" y1="772" x2="618" y2="765" stroke="#6b7280" stroke-width="1.6" marker-end="url(#useA)"/>
+  </g>
+
+  <!-- 图例 -->
+  <g font-family="sans-serif" font-size="12" fill="#374151">
+    <rect x="1010" y="730" width="215" height="108" rx="6" fill="#ffffff" stroke="#d1d5db"/>
+    <text x="1022" y="752" font-weight="700">图例</text>
+    <line x1="1024" y1="772" x2="1064" y2="772" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#impA)"/>
+    <text x="1072" y="776">implements（实现接口）</text>
+    <line x1="1024" y1="792" x2="1064" y2="792" stroke="#be123c" stroke-width="1.8" marker-end="url(#cmpA)"/>
+    <text x="1072" y="796">composes（值语义拥有）</text>
+    <line x1="1024" y1="812" x2="1064" y2="812" stroke="#0891b2" stroke-width="1.8" marker-start="url(#aggD)"/>
+    <text x="1072" y="816">aggregates（引用/共享）</text>
+    <line x1="1024" y1="832" x2="1064" y2="832" stroke="#6b7280" stroke-width="1.6" marker-end="url(#useA)"/>
+    <text x="1072" y="836">uses（使用，不持有）</text>
+  </g>
+</svg>

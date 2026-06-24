@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TaskForge 数据流图：一次任务从提交→入队→执行→结果→成功/失败/重试反馈环→终态通知的完整流转。
+     重点：失败重试形成回到 TaskQueue 的反馈环（handle_completion → 重新 push）。 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 820" width="1240" height="820"
+     data-style="dataflow" data-title="TaskForge Dataflow">
+  <defs>
+    <marker id="arrowD" markerWidth="11" markerHeight="11" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="arrowR" markerWidth="11" markerHeight="11" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#be123c"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1240" height="820" fill="#fbfbfd"/>
+
+  <text x="620" y="40" font-family="sans-serif" font-size="24" font-weight="700" text-anchor="middle" fill="#1a1a2e">TaskForge — 数据流图（一次任务的完整生命周期）</text>
+  <text x="620" y="62" font-family="sans-serif" font-size="13" text-anchor="middle" fill="#6b7280">蓝色 = 正向流转；红色虚线 = 失败重试反馈环</text>
+
+  <g data-role="nodes">
+    <g data-id="Client" data-kind="actor">
+      <rect x="40" y="110" width="150" height="60" rx="30" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+      <text x="115" y="138" font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#1e1b4b">Client</text>
+      <text x="115" y="156" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#4338ca">调用方</text>
+    </g>
+
+    <g data-id="Scheduler.submit" data-kind="process">
+      <rect x="250" y="110" width="190" height="60" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+      <text x="345" y="138" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#064e3b">Scheduler::submit</text>
+      <text x="345" y="156" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#047857">分配 id / created_tick</text>
+    </g>
+
+    <g data-id="ITaskStore" data-kind="store">
+      <rect x="250" y="240" width="190" height="60" rx="8" fill="#ffffff" stroke="#d97706"/>
+      <text x="345" y="266" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#78350f">ITaskStore.save</text>
+      <text x="345" y="285" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">状态存储（status=Queued）</text>
+    </g>
+
+    <g data-id="TaskQueue" data-kind="store">
+      <rect x="510" y="240" width="190" height="60" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+      <text x="605" y="266" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#78350f">TaskQueue</text>
+      <text x="605" y="285" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">优先级队列（汇合点）</text>
+    </g>
+
+    <g data-id="MetricsCollector" data-kind="store">
+      <rect x="770" y="240" width="190" height="60" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+      <text x="865" y="266" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#334155">MetricsCollector</text>
+      <text x="865" y="285" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#64748b">record_submit/success/...</text>
+    </g>
+
+    <g data-id="Worker.loop" data-kind="process">
+      <rect x="510" y="380" width="190" height="64" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+      <text x="605" y="406" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#064e3b">Worker::loop</text>
+      <text x="605" y="425" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#047857">blocking_pop + 执行</text>
+    </g>
+
+    <g data-id="task.work" data-kind="process">
+      <rect x="770" y="380" width="190" height="64" rx="8" fill="#ffffff" stroke="#0284c7"/>
+      <text x="865" y="406" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#0c4a6e">task.work()</text>
+      <text x="865" y="425" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#0369a1">业务负载，返回 code</text>
+    </g>
+
+    <g data-id="handle_completion" data-kind="process">
+      <rect x="510" y="510" width="190" height="70" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+      <text x="605" y="538" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#064e3b">handle_completion</text>
+      <text x="605" y="556" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#047857">Scheduler 回调</text>
+      <text x="605" y="571" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#047857">结算 TaskResult</text>
+    </g>
+
+    <g data-id="IRetryPolicy" data-kind="store">
+      <rect x="250" y="510" width="190" height="70" rx="8" fill="#ffffff" stroke="#d97706"/>
+      <text x="345" y="538" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#78350f">IRetryPolicy</text>
+      <text x="345" y="556" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">next_delay_ms</text>
+      <text x="345" y="571" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">是否还有重试机会</text>
+    </g>
+
+    <g data-id="INotifier" data-kind="process">
+      <rect x="770" y="640" width="190" height="60" rx="8" fill="#ffffff" stroke="#d97706"/>
+      <text x="865" y="666" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#78350f">INotifier.on_event</text>
+      <text x="865" y="685" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#92400e">广播 task.succeeded/failed</text>
+    </g>
+
+    <g data-id="Terminal" data-kind="terminal">
+      <rect x="1030" y="640" width="170" height="60" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+      <text x="1115" y="666" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#7f1d1d">终态</text>
+      <text x="1115" y="685" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#b91c1c">Succeeded / Failed</text>
+    </g>
+  </g>
+
+  <!-- ===== 边（flow） ===== -->
+  <g data-role="edges" stroke="#1d4ed8" stroke-width="1.8" fill="none">
+    <line data-from="Client" data-to="Scheduler.submit" data-kind="flow" x1="192" y1="140" x2="248" y2="140" marker-end="url(#arrowD)"/>
+    <text x="220" y="132" font-family="sans-serif" font-size="11" fill="#1d4ed8">Task</text>
+
+    <line data-from="Scheduler.submit" data-to="ITaskStore" data-kind="flow" x1="320" y1="170" x2="320" y2="238" marker-end="url(#arrowD)"/>
+    <text x="200" y="208" font-family="sans-serif" font-size="11" fill="#1d4ed8">save(status=Queued)</text>
+
+    <line data-from="Scheduler.submit" data-to="TaskQueue" data-kind="flow" x1="400" y1="170" x2="560" y2="238" marker-end="url(#arrowD)"/>
+    <text x="455" y="196" font-family="sans-serif" font-size="11" fill="#1d4ed8">push(按优先级)</text>
+
+    <line data-from="Scheduler.submit" data-to="MetricsCollector" data-kind="flow" x1="440" y1="150" x2="768" y2="262" marker-end="url(#arrowD)"/>
+    <text x="600" y="180" font-family="sans-serif" font-size="11" fill="#1d4ed8">record_submit</text>
+
+    <line data-from="TaskQueue" data-to="Worker.loop" data-kind="flow" x1="605" y1="300" x2="605" y2="378" marker-end="url(#arrowD)"/>
+    <text x="615" y="345" font-family="sans-serif" font-size="11" fill="#1d4ed8">blocking_pop(Task)</text>
+
+    <line data-from="Worker.loop" data-to="task.work" data-kind="flow" x1="700" y1="412" x2="768" y2="412" marker-end="url(#arrowD)"/>
+    <text x="722" y="404" font-family="sans-serif" font-size="11" fill="#1d4ed8">invoke</text>
+
+    <line data-from="task.work" data-to="Worker.loop" data-kind="flow" x1="770" y1="432" x2="702" y2="432" marker-end="url(#arrowD)"/>
+    <text x="720" y="450" font-family="sans-serif" font-size="11" fill="#1d4ed8">code</text>
+
+    <line data-from="Worker.loop" data-to="handle_completion" data-kind="flow" x1="605" y1="444" x2="605" y2="508" marker-end="url(#arrowD)"/>
+    <text x="615" y="480" font-family="sans-serif" font-size="11" fill="#1d4ed8">TaskResult（回调）</text>
+
+    <!-- handle_completion → store update_status / remove -->
+    <line data-from="handle_completion" data-to="ITaskStore" data-kind="flow" x1="510" y1="545" x2="442" y2="300" marker-end="url(#arrowD)"/>
+    <text x="448" y="430" font-family="sans-serif" font-size="11" fill="#1d4ed8">update_status / remove</text>
+
+    <!-- 成功 → notify → terminal -->
+    <line data-from="handle_completion" data-to="INotifier" data-kind="flow" x1="660" y1="580" x2="820" y2="638" marker-end="url(#arrowD)"/>
+    <text x="700" y="620" font-family="sans-serif" font-size="11" fill="#1d4ed8">成功/失败事件</text>
+
+    <line data-from="INotifier" data-to="Terminal" data-kind="flow" x1="962" y1="670" x2="1028" y2="670" marker-end="url(#arrowD)"/>
+    <text x="975" y="662" font-family="sans-serif" font-size="11" fill="#1d4ed8">终态</text>
+
+    <line data-from="handle_completion" data-to="MetricsCollector" data-kind="flow" x1="690" y1="540" x2="870" y2="302" marker-end="url(#arrowD)"/>
+    <text x="760" y="500" font-family="sans-serif" font-size="11" fill="#1d4ed8">record_success/failure/retry</text>
+
+    <!-- ★ 失败重试反馈环：handle_completion → IRetryPolicy 判定 → 重新 push 回 TaskQueue -->
+    <line data-from="handle_completion" data-to="IRetryPolicy" data-kind="flow" x1="510" y1="555" x2="442" y2="555" marker-end="url(#arrowD)"/>
+    <text x="445" y="548" font-family="sans-serif" font-size="11" fill="#1d4ed8">失败：问退避</text>
+
+    <path data-from="IRetryPolicy" data-to="TaskQueue" data-kind="flow"
+          d="M 345 508 C 345 380, 510 320, 560 295"
+          stroke="#be123c" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#arrowR)"/>
+    <text x="370" y="400" font-family="sans-serif" font-size="12" font-weight="700" fill="#be123c">① 重试反馈环</text>
+    <text x="370" y="416" font-family="sans-serif" font-size="11" fill="#be123c">load→attempt++→</text>
+    <text x="370" y="430" font-family="sans-serif" font-size="11" fill="#be123c">status=Retrying→push</text>
+  </g>
+
+  <!-- 说明框 -->
+  <g font-family="sans-serif" font-size="12" fill="#374151">
+    <rect x="1030" y="110" width="180" height="120" rx="6" fill="#ffffff" stroke="#d1d5db"/>
+    <text x="1042" y="132" font-weight="700">关键路径</text>
+    <text x="1042" y="152" font-size="11">submit→save→push</text>
+    <text x="1042" y="168" font-size="11">→pop→work→result</text>
+    <text x="1042" y="184" font-size="11">→handle_completion</text>
+    <text x="1042" y="200" font-size="11">→成功/失败/重试</text>
+    <text x="1042" y="220" font-size="11" fill="#be123c">失败重试回到队列</text>
+  </g>
+</svg>

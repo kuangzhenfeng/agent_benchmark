@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" data-style="deployment">
+<text x="600.0" y="35" font-family="Segoe UI, Arial, sans-serif" font-size="22" text-anchor="middle" fill="#222" font-weight="bold">TaskForge 部署 / 运行时拓扑图</text>
+<text x="600.0" y="55" font-family="Segoe UI, Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666" font-weight="normal">进程内多线程模型：1 主线程 + N Worker 线程 + 1 停止线程</text>
+<rect x="40" y="70" width="1120" height="700" fill="#f8f8ff" stroke="#888" stroke-width="1.5" rx="16"/>
+<text x="60" y="95" font-family="Segoe UI, Arial, sans-serif" font-size="15" text-anchor="start" fill="#444" font-weight="bold">TaskForge Process (进程内)</text>
+<rect x="60" y="110" width="350" height="240" fill="#e8f4fd" stroke="#6699cc" stroke-width="1.5" rx="10"/>
+<text x="80" y="132" font-family="Segoe UI, Arial, sans-serif" font-size="13" text-anchor="start" fill="#222" font-weight="bold">Main Thread (主线程)</text>
+<rect x="440" y="110" width="480" height="240" fill="#e8f8e8" stroke="#669966" stroke-width="1.5" rx="10"/>
+<text x="460" y="132" font-family="Segoe UI, Arial, sans-serif" font-size="13" text-anchor="start" fill="#222" font-weight="bold">WorkerPool (4 Worker Threads)</text>
+<rect x="60" y="380" width="1080" height="130" fill="#fff8e8" stroke="#cc9966" stroke-width="1.5" rx="10"/>
+<text x="80" y="402" font-family="Segoe UI, Arial, sans-serif" font-size="13" text-anchor="start" fill="#222" font-weight="bold">Shared Resources (共享资源)</text>
+<rect x="60" y="540" width="350" height="90" fill="#fce8e8" stroke="#cc6666" stroke-width="1.5" rx="10"/>
+<text x="80" y="562" font-family="Segoe UI, Arial, sans-serif" font-size="13" text-anchor="start" fill="#222" font-weight="bold">Stopper Thread (Demo)</text>
+<rect x="440" y="540" width="660" height="180" fill="#f5f5f5" stroke="#aaa" stroke-width="1.5" rx="10"/>
+<text x="460" y="562" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="start" fill="#888" font-weight="bold">编译进产物但运行时未实例化</text>
+<g data-role="nodes">
+<g data-id="main_loop" data-kind="thread">
+<rect x="80" y="145" width="310" height="45" fill="#b3d9f2" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="235.0" y="172.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">scheduler.run() 循环</text>
+</g>
+<g data-id="Scheduler_inst" data-kind="instance">
+<rect x="80" y="205" width="200" height="42" fill="#ffd699" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="180.0" y="231.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Scheduler (x1)</text>
+</g>
+<g data-id="MetricsCollector_inst" data-kind="instance">
+<rect x="80" y="265" width="230" height="42" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="195.0" y="291.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">MetricsCollector (x1)</text>
+</g>
+<g data-id="Store_inst" data-kind="instance">
+<rect x="315" y="265" width="85" height="42" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="357.5" y="291.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">ITaskStore</text>
+</g>
+<g data-id="Worker_0" data-kind="instance">
+<rect x="460" y="145" width="100" height="42" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="510.0" y="171.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Worker-0</text>
+</g>
+<g data-id="WorkerThread_0" data-kind="thread">
+<rect x="460" y="205" width="100" height="42" fill="#90c890" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="510.0" y="231.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Thread-0</text>
+</g>
+<g data-id="Worker_1" data-kind="instance">
+<rect x="570" y="145" width="100" height="42" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="620.0" y="171.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Worker-1</text>
+</g>
+<g data-id="WorkerThread_1" data-kind="thread">
+<rect x="570" y="205" width="100" height="42" fill="#90c890" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="620.0" y="231.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Thread-1</text>
+</g>
+<g data-id="Worker_2" data-kind="instance">
+<rect x="680" y="145" width="100" height="42" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="730.0" y="171.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Worker-2</text>
+</g>
+<g data-id="WorkerThread_2" data-kind="thread">
+<rect x="680" y="205" width="100" height="42" fill="#90c890" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="730.0" y="231.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Thread-2</text>
+</g>
+<g data-id="Worker_3" data-kind="instance">
+<rect x="790" y="145" width="100" height="42" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="840.0" y="171.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Worker-3</text>
+</g>
+<g data-id="WorkerThread_3" data-kind="thread">
+<rect x="790" y="205" width="100" height="42" fill="#90c890" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="840.0" y="231.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Thread-3</text>
+</g>
+<g data-id="WorkerPool_inst" data-kind="instance">
+<rect x="460" y="265" width="200" height="42" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="560.0" y="291.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">WorkerPool (x1)</text>
+</g>
+<g data-id="TaskQueue_inst" data-kind="instance">
+<rect x="80" y="415" width="250" height="50" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="205.0" y="436.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">TaskQueue (x1)</text>
+<text x="205.0" y="452.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">mutex + condvar</text>
+</g>
+<g data-id="IRetryPolicy_inst" data-kind="instance">
+<rect x="360" y="415" width="250" height="50" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="485.0" y="436.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">IRetryPolicy (x1)</text>
+<text x="485.0" y="452.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">ExponentialBackoff</text>
+</g>
+<g data-id="INotifier_inst" data-kind="instance">
+<rect x="640" y="415" width="280" height="50" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="780.0" y="436.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">INotifier (x1)</text>
+<text x="780.0" y="452.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">CompositeNotifier</text>
+</g>
+<g data-id="IClock_inst" data-kind="instance">
+<rect x="950" y="415" width="150" height="50" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="1025.0" y="436.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">IClock (x1)</text>
+<text x="1025.0" y="452.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">SystemClock</text>
+</g>
+<g data-id="StopperThread" data-kind="thread">
+<rect x="80" y="575" width="200" height="42" fill="#ff9999" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="180.0" y="592.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">std::thread (x1)</text>
+<text x="180.0" y="608.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">800ms 后 stop()</text>
+</g>
+<g data-id="PersistentTaskStore_inst" data-kind="unused">
+<rect x="460" y="580" width="190" height="42" fill="#e0e0e0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="555.0" y="606.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">PersistentTaskStore</text>
+</g>
+<g data-id="TaskQueueLegacy_inst" data-kind="unused">
+<rect x="670" y="580" width="180" height="42" fill="#e0e0e0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="760.0" y="606.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">TaskQueueLegacy</text>
+</g>
+<g data-id="FixedBackoffPolicy_inst" data-kind="unused">
+<rect x="870" y="580" width="190" height="42" fill="#e0e0e0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="965.0" y="606.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">FixedBackoffPolicy</text>
+</g>
+<g data-id="ILogger_inst" data-kind="unused">
+<rect x="460" y="640" width="130" height="42" fill="#e0e0e0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="525.0" y="666.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">ILogger</text>
+</g>
+<g data-id="ConsoleLogger_inst" data-kind="unused">
+<rect x="610" y="640" width="150" height="42" fill="#e0e0e0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="685.0" y="666.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">ConsoleLogger</text>
+</g>
+</g>
+<g data-role="edges">
+<line data-from="main_loop" data-to="Scheduler_inst" data-kind="contains" x1="235" y1="190" x2="180" y2="205" stroke="#555" stroke-width="1.5"/>
+<polygon points="186.66564094673342,199.0360054687122 180,205 188.7705801930703,206.75411603861406" fill="#555"/>
+<line data-from="Scheduler_inst" data-to="WorkerPool_inst" data-kind="connects" x1="280" y1="226" x2="560" y2="286" stroke="#6699cc" stroke-width="1.5"/>
+<polygon points="551.3394643324572,288.23497694646267 560,286 553.0156970423042,280.41255763384333" fill="#6699cc"/>
+<line data-from="Worker_0" data-to="TaskQueue_inst" data-kind="connects" x1="510" y1="187" x2="205" y2="415" stroke="#669966" stroke-width="1.5"/>
+<polygon points="209.01260006115797,407.0063124436093 205,415 213.80251008180733,413.41386751509197" fill="#669966"/>
+<line data-from="Worker_1" data-to="TaskQueue_inst" data-kind="connects" x1="620" y1="187" x2="205" y2="415" stroke="#669966" stroke-width="1.5"/>
+<polygon points="210.08545671023722,407.64213821492257 205,415 213.93756345420428,414.6536482971433" fill="#669966"/>
+<line data-from="Worker_2" data-to="TaskQueue_inst" data-kind="connects" x1="730" y1="187" x2="205" y2="415" stroke="#669966" stroke-width="1.5"/>
+<polygon points="210.74452199750885,408.14431133873944 205,415 213.93126412751377,415.4822044012507" fill="#669966"/>
+<line data-from="Worker_3" data-to="TaskQueue_inst" data-kind="connects" x1="840" y1="187" x2="205" y2="415" stroke="#669966" stroke-width="1.5"/>
+<polygon points="211.1776356469643,408.5318613331688 205,415 213.8810923216435,416.06122531747275" fill="#669966"/>
+<line data-from="Scheduler_inst" data-to="TaskQueue_inst" data-kind="connects" x1="180" y1="247" x2="205" y2="415" stroke="#6699cc" stroke-width="1.5"/>
+<polygon points="199.86605628468422,407.67588763548986 205,415 207.77892366241863,406.4983776090413" fill="#6699cc"/>
+<line data-from="Scheduler_inst" data-to="Store_inst" data-kind="contains" x1="250" y1="226" x2="357" y2="286" stroke="#555" stroke-width="1.5"/>
+<polygon points="348.0657781375733,285.5761135612717 357,286 351.9785760335266,278.5982906468217" fill="#555"/>
+<line data-from="Scheduler_inst" data-to="MetricsCollector_inst" data-kind="contains" x1="200" y1="247" x2="195" y2="265" stroke="#555" stroke-width="1.5"/>
+<polygon points="193.287079271769,256.2212812678161 195,265 200.99522254880853,258.3624321781048" fill="#555"/>
+<line data-from="Scheduler_inst" data-to="IRetryPolicy_inst" data-kind="connects" x1="230" y1="247" x2="485" y2="440" stroke="#cc9966" stroke-width="1.5"/>
+<polygon points="476.20708863352934,438.3614916230332 485,440 481.03505988169104,431.9825658806434" fill="#cc9966"/>
+<line data-from="Scheduler_inst" data-to="INotifier_inst" data-kind="connects" x1="250" y1="247" x2="780" y2="440" stroke="#cc9966" stroke-width="1.5"/>
+<polygon points="771.1142154050481,441.02119152567684 780,440 773.8515760224873,433.5040872394445" fill="#cc9966"/>
+<line data-from="Scheduler_inst" data-to="IClock_inst" data-kind="connects" x1="270" y1="247" x2="1025" y2="440" stroke="#cc9966" stroke-width="1.5"/>
+<polygon points="1016.2585737965968,441.8940612266916 1025,440 1018.2398952966049,434.14329577329244" fill="#cc9966"/>
+<line data-from="StopperThread" data-to="Scheduler_inst" data-kind="callback" x1="180" y1="575" x2="180" y2="247" stroke="#cc6666" stroke-width="1.5" stroke-dasharray="6,3"/>
+<polygon points="184.0,255.0 180,247 176.0,255.0" fill="#cc6666"/>
+<text x="180.0" y="405.0" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">stop()</text>
+<line data-from="Worker_0" data-to="Scheduler_inst" data-kind="callback" x1="510" y1="187" x2="250" y2="226" stroke="#e06060" stroke-width="1.5" stroke-dasharray="6,3"/>
+<polygon points="257.31812901122544,220.85753096508483 250,226 258.5048526346674,228.76902178803124" fill="#e06060"/>
+<text x="380.0" y="200.5" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">completion</text>
+<line data-from="Worker_0" data-to="WorkerThread_0" data-kind="runs-on" x1="510" y1="187" x2="510" y2="205" stroke="#336633" stroke-width="1.5"/>
+<polygon points="506.0,197.0 510,205 514.0,197.0" fill="#336633"/>
+<line data-from="Worker_1" data-to="WorkerThread_1" data-kind="runs-on" x1="620" y1="187" x2="620" y2="205" stroke="#336633" stroke-width="1.5"/>
+<polygon points="616.0,197.0 620,205 624.0,197.0" fill="#336633"/>
+<line data-from="Worker_2" data-to="WorkerThread_2" data-kind="runs-on" x1="730" y1="187" x2="730" y2="205" stroke="#336633" stroke-width="1.5"/>
+<polygon points="726.0,197.0 730,205 734.0,197.0" fill="#336633"/>
+<line data-from="Worker_3" data-to="WorkerThread_3" data-kind="runs-on" x1="840" y1="187" x2="840" y2="205" stroke="#336633" stroke-width="1.5"/>
+<polygon points="836.0,197.0 840,205 844.0,197.0" fill="#336633"/>
+</g>
+</svg>

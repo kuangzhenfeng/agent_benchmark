@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" font-family="Helvetica, Arial, sans-serif" data-style="component">
+<defs>
+<marker id="mk-depends" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52606d"/></marker>
+<marker id="mk-callback" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
+<marker id="mk-flow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/></marker>
+<marker id="mk-implements" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/></marker>
+<marker id="mk-inherits" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/></marker>
+<marker id="mk-composes" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#047857"/></marker>
+<marker id="mk-aggregates" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#059669"/></marker>
+<marker id="mk-uses" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker>
+<marker id="mk-contains" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+<marker id="mk-connects" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/></marker>
+<marker id="mk-runs-on" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b45309"/></marker>
+</defs>
+<rect x="0" y="0" width="1200" height="800" fill="#fbfcfd"/>
+<text x="600.0" y="38" font-size="22" font-weight="700" text-anchor="middle" fill="#1f2d3d">TaskForge 组件依赖图（编译期依赖 depends · 运行时回调 callback）</text>
+<text x="600" y="705" font-size="11.5" fill="#5a6b7b" text-anchor="middle" font-weight="400">关键区分：Worker→Scheduler 是经 set_completion_handler 运行时注入的回调（worker.hpp 不 include scheduler.hpp），不是编译期循环依赖。回调边用橙色虚线，编译期依赖用灰实线。</text>
+<g data-role="edges">
+<line data-from="main" data-to="Scheduler" data-kind="depends" x1="246.0" y1="400.0" x2="384.0" y2="400.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="main" data-to="MetricsCollector" data-kind="depends" x1="175.8" y1="427.0" x2="284.2" y2="613.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="main" data-to="EngineConfig" data-kind="depends" x1="193.5" y1="373.0" x2="440.2" y2="174.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="WorkerPool" data-kind="depends" x1="522.2" y1="373.0" x2="707.8" y2="277.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="TaskQueue" data-kind="depends" x1="520.5" y1="427.0" x2="709.5" y2="528.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="ITaskStore" data-kind="depends" x1="538.1" y1="373.0" x2="981.9" y2="197.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="INotifier" data-kind="depends" x1="556.0" y1="385.9" x2="964.0" y2="319.1" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="IRetryPolicy" data-kind="depends" x1="556.0" y1="405.9" x2="964.0" y2="434.1" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="IClock" data-kind="depends" x1="556.0" y1="425.9" x2="964.0" y2="549.1" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="MetricsCollector" data-kind="depends" x1="450.9" y1="427.0" x2="319.1" y2="613.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="EngineConfig" data-kind="depends" x1="470.0" y1="373.0" x2="470.0" y2="174.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Scheduler" data-to="Task" data-kind="depends" x1="435.1" y1="427.0" x2="194.9" y2="613.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="WorkerPool" data-to="Worker" data-kind="depends" x1="760.0" y1="277.0" x2="760.0" y2="373.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Worker" data-to="TaskQueue" data-kind="depends" x1="760.0" y1="427.0" x2="760.0" y2="528.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="Worker" data-to="Task" data-kind="depends" x1="692.5" y1="427.0" x2="227.5" y2="613.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="TaskQueue" data-to="Task" data-kind="depends" x1="674.0" y1="567.2" x2="246.0" y2="627.8" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="ITaskStore" data-to="Task" data-kind="depends" x1="998.9" y1="197.0" x2="211.1" y2="613.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="INotifier" data-to="Task" data-kind="depends" x1="978.3" y1="332.0" x2="231.7" y2="613.0" stroke="#52606d" stroke-width="1.7" fill="none" marker-end="url(#mk-depends)"/>
+<line data-from="WorkerPool" data-to="Scheduler" data-kind="callback" x1="707.8" y1="277.0" x2="522.2" y2="373.0" stroke="#d97706" stroke-width="1.7" fill="none" marker-end="url(#mk-callback)" stroke-dasharray="6 4"/>
+<text x="615.0" y="321.0" font-size="10.5" fill="#d97706" text-anchor="middle" font-weight="600">completion_handler 注入(scheduler.cpp:48)</text>
+<rect x="613.0" y="310.0" width="1" height="1" fill="none"/>
+<line data-from="Worker" data-to="Scheduler" data-kind="callback" x1="674.0" y1="400.0" x2="556.0" y2="400.0" stroke="#d97706" stroke-width="1.7" fill="none" marker-end="url(#mk-callback)" stroke-dasharray="6 4"/>
+<text x="615.0" y="396.0" font-size="10.5" fill="#d97706" text-anchor="middle" font-weight="600">on_done_ 回调(worker.cpp:69)</text>
+<rect x="613.0" y="385.0" width="1" height="1" fill="none"/>
+</g>
+<g data-role="nodes">
+<g data-id="main" data-kind="app">
+<rect x="74" y="373" width="172" height="54" rx="9" fill="#eaf2fb" stroke="#2f6db5" stroke-width="2"/>
+<text x="160" y="397" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">main</text>
+<text x="160" y="413" text-anchor="middle" font-size="10.5" fill="#5a6b7b">src/main.cpp</text>
+</g>
+<g data-id="Scheduler" data-kind="core">
+<rect x="384" y="373" width="172" height="54" rx="9" fill="#e3f3ea" stroke="#1f8a4c" stroke-width="2"/>
+<text x="470" y="397" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">Scheduler</text>
+<text x="470" y="413" text-anchor="middle" font-size="10.5" fill="#5a6b7b">scheduler.hpp</text>
+</g>
+<g data-id="EngineConfig" data-kind="infra">
+<rect x="380" y="126" width="180" height="48" rx="9" fill="#f1f2f4" stroke="#475569" stroke-width="2"/>
+<text x="470" y="147" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">EngineConfig</text>
+<text x="470" y="163" text-anchor="middle" font-size="10.5" fill="#5a6b7b">config.hpp</text>
+</g>
+<g data-id="WorkerPool" data-kind="exec">
+<rect x="674" y="223" width="172" height="54" rx="9" fill="#fdf3e1" stroke="#c2761b" stroke-width="2"/>
+<text x="760" y="247" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">WorkerPool</text>
+<text x="760" y="263" text-anchor="middle" font-size="10.5" fill="#5a6b7b">worker.hpp:37</text>
+</g>
+<g data-id="Worker" data-kind="exec">
+<rect x="674" y="373" width="172" height="54" rx="9" fill="#fdf3e1" stroke="#c2761b" stroke-width="2"/>
+<text x="760" y="397" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">Worker</text>
+<text x="760" y="413" text-anchor="middle" font-size="10.5" fill="#5a6b7b">worker.hpp:15</text>
+</g>
+<g data-id="TaskQueue" data-kind="exec">
+<rect x="674" y="528" width="172" height="54" rx="9" fill="#fdf3e1" stroke="#c2761b" stroke-width="2"/>
+<text x="760" y="552" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">TaskQueue</text>
+<text x="760" y="568" text-anchor="middle" font-size="10.5" fill="#5a6b7b">task_queue.hpp:13(在用)</text>
+</g>
+<g data-id="ITaskStore" data-kind="contract">
+<rect x="964" y="143" width="172" height="54" rx="9" fill="#efeaf7" stroke="#7c3aed" stroke-width="2"/>
+<text x="1050" y="167" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">ITaskStore</text>
+<text x="1050" y="183" text-anchor="middle" font-size="10.5" fill="#5a6b7b">task_store.hpp:11</text>
+</g>
+<g data-id="INotifier" data-kind="contract">
+<rect x="964" y="278" width="172" height="54" rx="9" fill="#efeaf7" stroke="#7c3aed" stroke-width="2"/>
+<text x="1050" y="302" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">INotifier</text>
+<text x="1050" y="318" text-anchor="middle" font-size="10.5" fill="#5a6b7b">notifier.hpp:11</text>
+</g>
+<g data-id="IRetryPolicy" data-kind="contract">
+<rect x="964" y="413" width="172" height="54" rx="9" fill="#efeaf7" stroke="#7c3aed" stroke-width="2"/>
+<text x="1050" y="437" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">IRetryPolicy</text>
+<text x="1050" y="453" text-anchor="middle" font-size="10.5" fill="#5a6b7b">retry_policy.hpp:9</text>
+</g>
+<g data-id="IClock" data-kind="contract">
+<rect x="964" y="548" width="172" height="54" rx="9" fill="#efeaf7" stroke="#7c3aed" stroke-width="2"/>
+<text x="1050" y="572" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">IClock</text>
+<text x="1050" y="588" text-anchor="middle" font-size="10.5" fill="#5a6b7b">clock.hpp:7</text>
+</g>
+<g data-id="MetricsCollector" data-kind="infra">
+<rect x="214" y="613" width="172" height="54" rx="9" fill="#f1f2f4" stroke="#475569" stroke-width="2"/>
+<text x="300" y="637" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">MetricsCollector</text>
+<text x="300" y="653" text-anchor="middle" font-size="10.5" fill="#5a6b7b">metrics.hpp:8</text>
+</g>
+<g data-id="Task" data-kind="data">
+<rect x="74" y="613" width="172" height="54" rx="9" fill="#f1f2f4" stroke="#475569" stroke-width="2"/>
+<text x="160" y="637" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d3d">Task</text>
+<text x="160" y="653" text-anchor="middle" font-size="10.5" fill="#5a6b7b">task.hpp:54</text>
+</g>
+</g>
+<rect x="40" y="110" width="300" height="62" rx="8" fill="#ffffff" stroke="#d7dde5"/>
+<text x="52" y="130" font-size="12" font-weight="700" fill="#33475b">图例</text>
+<line x1="52" y1="150" x2="84" y2="150" stroke="#52606d" stroke-width="2" marker-end="url(#mk-depends)"/>
+<text x="92" y="154" font-size="11.5" fill="#33475b">编译期依赖（#include / 类型）</text>
+<line x1="52" y1="172" x2="84" y2="172" stroke="#d97706" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#mk-callback)"/>
+<text x="92" y="176" font-size="11.5" fill="#33475b">仅运行时回调（注入的 handler，非类型依赖）</text>
+</svg>

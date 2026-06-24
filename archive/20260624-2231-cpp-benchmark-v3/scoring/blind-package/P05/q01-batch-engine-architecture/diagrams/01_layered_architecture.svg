@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" data-style="layered">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f7f8fc"/>
+      <stop offset="100%" stop-color="#eef3ff"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#425466"/>
+    </marker>
+    <style>
+      .title { font: 700 30px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #16324f; }
+      .subtitle { font: 400 14px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #51606f; }
+      .band-title { font: 700 17px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #17324d; }
+      .node-label { font: 600 14px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #17324d; text-anchor: middle; dominant-baseline: middle; }
+      .note { font: 12px 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #5b6875; }
+      .edge { stroke: #425466; stroke-width: 2.2; fill: none; marker-end: url(#arrow); opacity: 0.9; }
+      .band { rx: 24; ry: 24; stroke-width: 2; }
+      .node rect { rx: 16; ry: 16; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="800" fill="url(#bg)"/>
+  <text class="title" x="60" y="60">TaskForge Layered Architecture</text>
+  <text class="subtitle" x="60" y="88">Layers follow real dependency direction instead of self-described "core" comments.</text>
+
+  <g>
+    <rect class="band" x="40" y="120" width="1120" height="96" fill="#fff1dd" stroke="#f0b24a"/>
+    <rect class="band" x="40" y="244" width="1120" height="110" fill="#e8f2ff" stroke="#79a8e8"/>
+    <rect class="band" x="40" y="384" width="1120" height="128" fill="#edf6ec" stroke="#8dbb86"/>
+    <rect class="band" x="40" y="542" width="1120" height="210" fill="#f7ecff" stroke="#b08ad7"/>
+    <text class="band-title" x="62" y="150">Application / Composition Root</text>
+    <text class="band-title" x="62" y="274">Orchestration</text>
+    <text class="band-title" x="62" y="414">Contracts &amp; Model</text>
+    <text class="band-title" x="62" y="572">Infrastructure / Adapters / Historical Leftovers</text>
+  </g>
+
+  <g data-role="edges">
+    <line class="edge" x1="210" y1="194" x2="520" y2="286" data-from="main" data-to="Scheduler" data-kind="depends"/>
+    <line class="edge" x1="370" y1="194" x2="515" y2="430" data-from="main" data-to="ITaskStore" data-kind="depends"/>
+    <line class="edge" x1="370" y1="194" x2="700" y2="430" data-from="main" data-to="INotifier" data-kind="depends"/>
+    <line class="edge" x1="370" y1="194" x2="905" y2="430" data-from="main" data-to="IClock" data-kind="depends"/>
+    <line class="edge" x1="560" y1="332" x2="175" y2="430" data-from="Scheduler" data-to="Task" data-kind="depends"/>
+    <line class="edge" x1="560" y1="332" x2="340" y2="430" data-from="Scheduler" data-to="ITaskStore" data-kind="depends"/>
+    <line class="edge" x1="560" y1="332" x2="530" y2="430" data-from="Scheduler" data-to="IRetryPolicy" data-kind="depends"/>
+    <line class="edge" x1="560" y1="332" x2="730" y2="430" data-from="Scheduler" data-to="INotifier" data-kind="depends"/>
+    <line class="edge" x1="560" y1="332" x2="905" y2="430" data-from="Scheduler" data-to="IClock" data-kind="depends"/>
+    <line class="edge" x1="590" y1="332" x2="185" y2="590" data-from="Scheduler" data-to="TaskQueue" data-kind="depends"/>
+    <line class="edge" x1="620" y1="332" x2="370" y2="590" data-from="Scheduler" data-to="WorkerPool" data-kind="depends"/>
+    <line class="edge" x1="650" y1="332" x2="785" y2="590" data-from="Scheduler" data-to="MetricsCollector" data-kind="depends"/>
+    <line class="edge" x1="340" y1="462" x2="540" y2="590" data-from="ITaskStore" data-to="InMemoryTaskStore" data-kind="depends"/>
+    <line class="edge" x1="340" y1="462" x2="695" y2="590" data-from="ITaskStore" data-to="PersistentTaskStore" data-kind="depends"/>
+    <line class="edge" x1="530" y1="462" x2="960" y2="590" data-from="IRetryPolicy" data-to="ExponentialBackoffPolicy" data-kind="depends"/>
+    <line class="edge" x1="730" y1="462" x2="335" y2="680" data-from="INotifier" data-to="CompositeNotifier" data-kind="depends"/>
+    <line class="edge" x1="905" y1="462" x2="980" y2="680" data-from="IClock" data-to="SystemClock" data-kind="depends"/>
+    <line class="edge" x1="405" y1="622" x2="185" y2="622" data-from="WorkerPool" data-to="TaskQueue" data-kind="depends"/>
+    <line class="edge" x1="210" y1="462" x2="185" y2="590" data-from="Task" data-to="TaskQueue" data-kind="depends"/>
+  </g>
+
+  <g data-role="nodes">
+    <g class="node" data-id="main" data-kind="function">
+      <rect x="90" y="160" width="160" height="44" fill="#ffffff" stroke="#d68e26"/>
+      <text class="node-label" x="170" y="182">main()</text>
+    </g>
+    <g class="node" data-id="ConfigLoader" data-kind="module">
+      <rect x="290" y="160" width="160" height="44" fill="#ffffff" stroke="#d68e26"/>
+      <text class="node-label" x="370" y="182">ConfigLoader</text>
+    </g>
+
+    <g class="node" data-id="Scheduler" data-kind="class">
+      <rect x="470" y="286" width="180" height="46" fill="#ffffff" stroke="#4d8fda"/>
+      <text class="node-label" x="560" y="309">Scheduler</text>
+    </g>
+
+    <g class="node" data-id="Task" data-kind="model">
+      <rect x="100" y="418" width="150" height="44" fill="#ffffff" stroke="#6f9c66"/>
+      <text class="node-label" x="175" y="440">Task</text>
+    </g>
+    <g class="node" data-id="ITaskStore" data-kind="interface">
+      <rect x="265" y="418" width="150" height="44" fill="#ffffff" stroke="#6f9c66"/>
+      <text class="node-label" x="340" y="440">ITaskStore</text>
+    </g>
+    <g class="node" data-id="IRetryPolicy" data-kind="interface">
+      <rect x="455" y="418" width="150" height="44" fill="#ffffff" stroke="#6f9c66"/>
+      <text class="node-label" x="530" y="440">IRetryPolicy</text>
+    </g>
+    <g class="node" data-id="INotifier" data-kind="interface">
+      <rect x="655" y="418" width="150" height="44" fill="#ffffff" stroke="#6f9c66"/>
+      <text class="node-label" x="730" y="440">INotifier</text>
+    </g>
+    <g class="node" data-id="IClock" data-kind="interface">
+      <rect x="830" y="418" width="150" height="44" fill="#ffffff" stroke="#6f9c66"/>
+      <text class="node-label" x="905" y="440">IClock</text>
+    </g>
+
+    <g class="node" data-id="TaskQueue" data-kind="class">
+      <rect x="105" y="568" width="160" height="44" fill="#ffffff" stroke="#8f66c2"/>
+      <text class="node-label" x="185" y="590">TaskQueue</text>
+    </g>
+    <g class="node" data-id="WorkerPool" data-kind="class">
+      <rect x="290" y="568" width="160" height="44" fill="#ffffff" stroke="#8f66c2"/>
+      <text class="node-label" x="370" y="590">WorkerPool</text>
+    </g>
+    <g class="node" data-id="InMemoryTaskStore" data-kind="class">
+      <rect x="460" y="568" width="160" height="44" fill="#ffffff" stroke="#8f66c2"/>
+      <text class="node-label" x="540" y="590">InMemoryTaskStore</text>
+    </g>
+    <g class="node" data-id="PersistentTaskStore" data-kind="class">
+      <rect x="615" y="568" width="160" height="44" fill="#ffffff" stroke="#8f66c2"/>
+      <text class="node-label" x="695" y="590">PersistentTaskStore</text>
+    </g>
+    <g class="node" data-id="MetricsCollector" data-kind="class">
+      <rect x="705" y="646" width="160" height="44" fill="#ffffff" stroke="#8f66c2"/>
+      <text class="node-label" x="785" y="668">MetricsCollector</text>
+    </g>
+    <g class="node" data-id="ExponentialBackoffPolicy" data-kind="class">
+      <rect x="880" y="568" width="170" height="44" fill="#ffffff" stroke="#8f66c2"/>
+      <text class="node-label" x="965" y="590">ExponentialBackoffPolicy</text>
+    </g>
+    <g class="node" data-id="CompositeNotifier" data-kind="class">
+      <rect x="250" y="646" width="170" height="44" fill="#ffffff" stroke="#8f66c2"/>
+      <text class="node-label" x="335" y="668">CompositeNotifier</text>
+    </g>
+    <g class="node" data-id="SystemClock" data-kind="class">
+      <rect x="895" y="646" width="170" height="44" fill="#ffffff" stroke="#8f66c2"/>
+      <text class="node-label" x="980" y="668">SystemClock</text>
+    </g>
+    <g class="node" data-id="TaskQueueLegacy" data-kind="legacy">
+      <rect x="515" y="646" width="150" height="44" fill="#f4f2f7" stroke="#b2a7bf" stroke-dasharray="6 6"/>
+      <text class="node-label" x="590" y="668">TaskQueueLegacy</text>
+    </g>
+  </g>
+
+  <text class="note" x="515" y="716">Legacy queue remains compiled but has no inbound dependency from active runtime code.</text>
+  <text class="note" x="705" y="716">MetricsCollector is drawn as a leaf infrastructure helper even though its comment calls it "core".</text>
+</svg>

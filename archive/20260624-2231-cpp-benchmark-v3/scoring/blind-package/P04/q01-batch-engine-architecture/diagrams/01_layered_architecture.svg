@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" data-style="layered">
+<text x="600.0" y="35" font-family="Segoe UI, Arial, sans-serif" font-size="22" text-anchor="middle" fill="#222" font-weight="bold">TaskForge 分层架构图</text>
+<rect x="40" y="55" width="1120" height="90" fill="#e8f4fd" stroke="#bbb" stroke-width="1" rx="10"/>
+<text x="56" y="77" font-family="Segoe UI, Arial, sans-serif" font-size="13" text-anchor="start" fill="#444" font-weight="bold">应用入口层 (Application Entry)</text>
+<rect x="40" y="165" width="1120" height="100" fill="#fef3e2" stroke="#bbb" stroke-width="1" rx="10"/>
+<text x="56" y="187" font-family="Segoe UI, Arial, sans-serif" font-size="13" text-anchor="start" fill="#444" font-weight="bold">编排层 (Orchestration)</text>
+<rect x="40" y="285" width="1120" height="140" fill="#e8f8e8" stroke="#bbb" stroke-width="1" rx="10"/>
+<text x="56" y="307" font-family="Segoe UI, Arial, sans-serif" font-size="13" text-anchor="start" fill="#444" font-weight="bold">领域服务层 (Domain Services)</text>
+<rect x="40" y="445" width="1120" height="180" fill="#f3e8ff" stroke="#bbb" stroke-width="1" rx="10"/>
+<text x="56" y="467" font-family="Segoe UI, Arial, sans-serif" font-size="13" text-anchor="start" fill="#444" font-weight="bold">基础设施层 (Infrastructure)</text>
+<rect x="40" y="650" width="1120" height="90" fill="#f0f0f0" stroke="#bbb" stroke-width="1" rx="10"/>
+<text x="56" y="672" font-family="Segoe UI, Arial, sans-serif" font-size="13" text-anchor="start" fill="#444" font-weight="bold">死代码 / 历史遗留 (Dead Code)</text>
+<g data-role="nodes">
+<g data-id="main" data-kind="module">
+<rect x="500" y="72" width="200" height="50" fill="#b3d9f2" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="600.0" y="102.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">main (组合根)</text>
+</g>
+<g data-id="Scheduler" data-kind="class">
+<rect x="500" y="185" width="200" height="55" fill="#ffd699" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="600.0" y="208.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Scheduler</text>
+<text x="600.0" y="224.5" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">编排核心</text>
+</g>
+<g data-id="WorkerPool" data-kind="class">
+<rect x="80" y="310" width="170" height="50" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="165.0" y="340.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">WorkerPool</text>
+</g>
+<g data-id="Worker" data-kind="class">
+<rect x="270" y="310" width="140" height="50" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="340.0" y="340.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Worker</text>
+</g>
+<g data-id="TaskQueue" data-kind="class">
+<rect x="430" y="310" width="170" height="50" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="515.0" y="331.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">TaskQueue</text>
+<text x="515.0" y="347.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">优先级队列</text>
+</g>
+<g data-id="MetricsCollector" data-kind="class">
+<rect x="620" y="310" width="180" height="50" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="710.0" y="340.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">MetricsCollector</text>
+</g>
+<g data-id="IRetryPolicy" data-kind="interface">
+<rect x="820" y="310" width="180" height="50" fill="#c8e8c8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="910.0" y="340.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">IRetryPolicy</text>
+</g>
+<g data-id="Task" data-kind="class">
+<rect x="1020" y="310" width="100" height="50" fill="#a8d8a8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="1070.0" y="340.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">Task</text>
+</g>
+<g data-id="ITaskStore" data-kind="interface">
+<rect x="80" y="475" width="170" height="50" fill="#d4b8f0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="165.0" y="505.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">ITaskStore</text>
+</g>
+<g data-id="InMemoryTaskStore" data-kind="class">
+<rect x="80" y="545" width="190" height="50" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="175.0" y="566.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">InMemoryTaskStore</text>
+<text x="175.0" y="582.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">默认装配</text>
+</g>
+<g data-id="PersistentTaskStore" data-kind="class">
+<rect x="290" y="545" width="200" height="50" fill="#ddd" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="390.0" y="566.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">PersistentTaskStore</text>
+<text x="390.0" y="582.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">编译但未装配</text>
+</g>
+<g data-id="IClock" data-kind="interface">
+<rect x="510" y="475" width="130" height="50" fill="#d4b8f0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="575.0" y="505.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">IClock</text>
+</g>
+<g data-id="SystemClock" data-kind="class">
+<rect x="510" y="545" width="150" height="50" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="585.0" y="575.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">SystemClock</text>
+</g>
+<g data-id="INotifier" data-kind="interface">
+<rect x="680" y="475" width="150" height="50" fill="#d4b8f0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="755.0" y="505.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">INotifier</text>
+</g>
+<g data-id="ConsoleNotifier" data-kind="class">
+<rect x="680" y="545" width="170" height="50" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="765.0" y="575.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">ConsoleNotifier</text>
+</g>
+<g data-id="CallbackNotifier" data-kind="class">
+<rect x="870" y="545" width="170" height="50" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="955.0" y="575.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">CallbackNotifier</text>
+</g>
+<g data-id="CompositeNotifier" data-kind="class">
+<rect x="870" y="475" width="180" height="50" fill="#c8a8e8" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="960.0" y="505.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">CompositeNotifier</text>
+</g>
+<g data-id="EngineConfig" data-kind="class">
+<rect x="1060" y="475" width="80" height="50" fill="#d4b8f0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="1100.0" y="505.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">EngineConfig</text>
+</g>
+<g data-id="TaskQueueLegacy" data-kind="class">
+<rect x="80" y="670" width="200" height="50" fill="#e0e0e0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="180.0" y="691.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">TaskQueueLegacy</text>
+<text x="180.0" y="707.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">无人调用</text>
+</g>
+<g data-id="ILogger" data-kind="interface">
+<rect x="310" y="670" width="130" height="50" fill="#e0e0e0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="375.0" y="691.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">ILogger</text>
+<text x="375.0" y="707.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">未使用</text>
+</g>
+<g data-id="ConsoleLogger" data-kind="class">
+<rect x="460" y="670" width="160" height="50" fill="#e0e0e0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="540.0" y="691.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">ConsoleLogger</text>
+<text x="540.0" y="707.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">未使用</text>
+</g>
+<g data-id="run_legacy" data-kind="method">
+<rect x="640" y="670" width="160" height="50" fill="#e0e0e0" stroke="#333" stroke-width="1.5" rx="6"/>
+<text x="720.0" y="691.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#222" font-weight="bold">run_legacy()</text>
+<text x="720.0" y="707.0" font-family="Segoe UI, Arial, sans-serif" font-size="9" text-anchor="middle" fill="#555" font-weight="normal">兼容入口</text>
+</g>
+</g>
+<g data-role="edges">
+<line data-from="main" data-to="Scheduler" data-kind="depends" x1="600" y1="122" x2="600" y2="185" stroke="#555" stroke-width="1.5"/>
+<polygon points="596.0,177.0 600,185 604.0,177.0" fill="#555"/>
+<line data-from="Scheduler" data-to="WorkerPool" data-kind="depends" x1="520" y1="240" x2="165" y2="310" stroke="#555" stroke-width="1.5"/>
+<polygon points="172.07503632576427,304.5279015917917 165,310 173.6227005220252,312.3767700156864" fill="#555"/>
+<line data-from="Scheduler" data-to="TaskQueue" data-kind="depends" x1="580" y1="240" x2="515" y2="310" stroke="#555" stroke-width="1.5"/>
+<polygon points="517.512434828433,301.41584766952053 515,310 523.3747827614434,306.85945646445873" fill="#555"/>
+<line data-from="Scheduler" data-to="MetricsCollector" data-kind="depends" x1="620" y1="240" x2="710" y2="310" stroke="#555" stroke-width="1.5"/>
+<polygon points="701.2294198069296,308.24588396138597 710,310 706.140944715049,301.9310662223753" fill="#555"/>
+<line data-from="Scheduler" data-to="IRetryPolicy" data-kind="depends" x1="650" y1="240" x2="910" y2="310" stroke="#555" stroke-width="1.5"/>
+<polygon points="901.2351800380432,311.7826752464997 910,310 903.3149678256261,304.05774917833435" fill="#555"/>
+<line data-from="Scheduler" data-to="ITaskStore" data-kind="depends" x1="520" y1="240" x2="165" y2="475" stroke="#555" stroke-width="1.5"/>
+<polygon points="169.46287366831174,467.2486931024059 165,475 173.87876971906232,473.9195147960929" fill="#555"/>
+<line data-from="Scheduler" data-to="IClock" data-kind="depends" x1="590" y1="240" x2="575" y2="475" stroke="#555" stroke-width="1.5"/>
+<polygon points="571.5177249023483,466.7614467201896 575,475 579.5014775652572,467.27104795399237" fill="#555"/>
+<line data-from="Scheduler" data-to="INotifier" data-kind="depends" x1="630" y1="240" x2="755" y2="475" stroke="#555" stroke-width="1.5"/>
+<polygon points="747.7116066593761,469.81547277831913 755,475 754.7745857729705,466.0585689944924" fill="#555"/>
+<line data-from="Scheduler" data-to="EngineConfig" data-kind="depends" x1="660" y1="240" x2="1100" y2="475" stroke="#555" stroke-width="1.5"/>
+<polygon points="1091.0589638183483,474.75943400408113 1100,475 1094.827831087744,467.70283145712716" fill="#555"/>
+<line data-from="WorkerPool" data-to="Worker" data-kind="depends" x1="200" y1="335" x2="270" y2="335" stroke="#555" stroke-width="1.5"/>
+<polygon points="262.0,339.0 270,335 262.0,331.0" fill="#555"/>
+<line data-from="Worker" data-to="TaskQueue" data-kind="depends" x1="380" y1="335" x2="430" y2="335" stroke="#555" stroke-width="1.5"/>
+<polygon points="422.0,339.0 430,335 422.0,331.0" fill="#555"/>
+<line data-from="InMemoryTaskStore" data-to="ITaskStore" data-kind="depends" x1="175" y1="545" x2="165" y2="525" stroke="#555" stroke-width="1.5"/>
+<polygon points="172.1554175279993,530.3665631459995 165,525 165.0,533.9442719099992" fill="#555"/>
+<line data-from="SystemClock" data-to="IClock" data-kind="depends" x1="585" y1="545" x2="575" y2="525" stroke="#555" stroke-width="1.5"/>
+<polygon points="582.1554175279994,530.3665631459995 575,525 575.0,533.9442719099992" fill="#555"/>
+<line data-from="CompositeNotifier" data-to="INotifier" data-kind="depends" x1="960" y1="475" x2="755" y2="525" stroke="#555" stroke-width="1.5"/>
+<polygon points="761.824337989501,519.2182692033394 755,525 763.7199874310292,526.9904319136045" fill="#555"/>
+</g>
+</svg>

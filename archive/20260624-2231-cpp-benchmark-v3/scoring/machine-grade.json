@@ -1,0 +1,374 @@
+{
+  "P01": {
+    "views": {
+      "layered": {
+        "file": "01_layered_architecture.svg",
+        "data_style": "layered",
+        "node_precision": 1.0,
+        "node_recall": 0.52,
+        "edge_precision": 0.737,
+        "edge_recall": 0.583,
+        "edge_f1": 0.651,
+        "view_score": 0.671
+      },
+      "component_dependency": {
+        "file": "02_component_dependency.svg",
+        "data_style": "component",
+        "node_precision": 1.0,
+        "node_recall": 0.571,
+        "edge_precision": 0.65,
+        "edge_recall": 0.591,
+        "edge_f1": 0.619,
+        "view_score": 0.684
+      },
+      "dataflow": {
+        "file": "03_dataflow.svg",
+        "data_style": "dataflow",
+        "node_precision": 0.182,
+        "node_recall": 0.2,
+        "edge_precision": 0.0,
+        "edge_recall": 0.0,
+        "edge_f1": 0.0,
+        "view_score": 0.114
+      },
+      "class_relationship": {
+        "file": "04_class_relationship.svg",
+        "data_style": "class",
+        "node_precision": 0.95,
+        "node_recall": 0.864,
+        "edge_precision": 0.208,
+        "edge_recall": 0.208,
+        "edge_f1": 0.208,
+        "view_score": 0.626
+      },
+      "deployment": {
+        "file": "05_deployment_topology.svg",
+        "data_style": "deployment",
+        "node_precision": 0.19,
+        "node_recall": 0.4,
+        "edge_precision": 0.105,
+        "edge_recall": 0.182,
+        "edge_f1": 0.133,
+        "view_score": 0.208
+      }
+    },
+    "coverage_score_out_of_45": 23.68,
+    "coverage_raw_out_of_45": 21.68,
+    "trap_bonus": 2.0,
+    "trap_flags": {
+      "layering_present": true,
+      "no_compile_cycle": true,
+      "interface_deps": false
+    }
+  },
+  "P02": {
+    "views": {
+      "layered": {
+        "file": "01_layered_architecture.svg",
+        "data_style": "layered",
+        "node_precision": 1.0,
+        "node_recall": 0.64,
+        "edge_precision": 0.588,
+        "edge_recall": 0.417,
+        "edge_f1": 0.488,
+        "view_score": 0.663
+      },
+      "component_dependency": {
+        "file": "02_component_dependency.svg",
+        "data_style": "component",
+        "node_precision": 1.0,
+        "node_recall": 0.857,
+        "edge_precision": 0.5,
+        "edge_recall": 0.545,
+        "edge_f1": 0.522,
+        "view_score": 0.763
+      },
+      "dataflow": {
+        "file": "03_dataflow.svg",
+        "data_style": "dataflow",
+        "node_precision": 0.7,
+        "node_recall": 0.7,
+        "edge_precision": 0.545,
+        "edge_recall": 0.6,
+        "edge_f1": 0.571,
+        "view_score": 0.649
+      },
+      "class_relationship": {
+        "file": "04_class_relationship.svg",
+        "data_style": "class",
+        "node_precision": 0.95,
+        "node_recall": 0.864,
+        "edge_precision": 0.28,
+        "edge_recall": 0.292,
+        "edge_f1": 0.286,
+        "view_score": 0.657
+      },
+      "deployment": {
+        "file": "05_deployment_topology.svg",
+        "data_style": "deployment",
+        "node_precision": 0.312,
+        "node_recall": 0.5,
+        "edge_precision": 0.15,
+        "edge_recall": 0.273,
+        "edge_f1": 0.194,
+        "view_score": 0.308
+      }
+    },
+    "coverage_score_out_of_45": 30.24,
+    "coverage_raw_out_of_45": 28.24,
+    "trap_bonus": 2.0,
+    "trap_flags": {
+      "layering_present": true,
+      "no_compile_cycle": true,
+      "interface_deps": false
+    }
+  },
+  "P03": {
+    "views": {
+      "layered": {
+        "file": "01_layered_architecture.svg",
+        "data_style": "layered",
+        "node_precision": 1.0,
+        "node_recall": 0.92,
+        "edge_precision": 0.688,
+        "edge_recall": 0.458,
+        "edge_f1": 0.55,
+        "view_score": 0.795
+      },
+      "component_dependency": {
+        "file": "02_component_dependency.svg",
+        "data_style": "component",
+        "node_precision": 0.235,
+        "node_recall": 0.19,
+        "edge_precision": 0.118,
+        "edge_recall": 0.091,
+        "edge_f1": 0.103,
+        "view_score": 0.167
+      },
+      "dataflow": {
+        "file": "03_dataflow.svg",
+        "data_style": "dataflow",
+        "node_precision": 0.294,
+        "node_recall": 0.5,
+        "edge_precision": 0.062,
+        "edge_recall": 0.1,
+        "edge_f1": 0.077,
+        "view_score": 0.253
+      },
+      "class_relationship": {
+        "file": "04_class_relationship.svg",
+        "data_style": "class",
+        "node_precision": 0.76,
+        "node_recall": 0.864,
+        "edge_precision": 0.1,
+        "edge_recall": 0.083,
+        "edge_f1": 0.091,
+        "view_score": 0.521
+      },
+      "deployment": {
+        "file": "05_deployment_topology.svg",
+        "data_style": "deployment",
+        "node_precision": 0.261,
+        "node_recall": 0.6,
+        "edge_precision": 0.083,
+        "edge_recall": 0.091,
+        "edge_f1": 0.087,
+        "view_score": 0.253
+      }
+    },
+    "coverage_score_out_of_45": 19.94,
+    "coverage_raw_out_of_45": 17.94,
+    "trap_bonus": 2.0,
+    "trap_flags": {
+      "layering_present": true,
+      "no_compile_cycle": true,
+      "interface_deps": false
+    }
+  },
+  "P04": {
+    "views": {
+      "layered": {
+        "file": "01_layered_architecture.svg",
+        "data_style": "layered",
+        "node_precision": 0.955,
+        "node_recall": 0.84,
+        "edge_precision": 0.786,
+        "edge_recall": 0.458,
+        "edge_f1": 0.579,
+        "view_score": 0.768
+      },
+      "component_dependency": {
+        "file": "02_component_dependency.svg",
+        "data_style": "component",
+        "node_precision": 0.846,
+        "node_recall": 0.524,
+        "edge_precision": 0.643,
+        "edge_recall": 0.409,
+        "edge_f1": 0.5,
+        "view_score": 0.588
+      },
+      "dataflow": {
+        "file": "03_dataflow.svg",
+        "data_style": "dataflow",
+        "node_precision": 0.571,
+        "node_recall": 0.8,
+        "edge_precision": 0.133,
+        "edge_recall": 0.2,
+        "edge_f1": 0.16,
+        "view_score": 0.464
+      },
+      "class_relationship": {
+        "file": "04_class_relationship.svg",
+        "data_style": "class",
+        "node_precision": 0.955,
+        "node_recall": 0.955,
+        "edge_precision": 0.364,
+        "edge_recall": 0.333,
+        "edge_f1": 0.348,
+        "view_score": 0.712
+      },
+      "deployment": {
+        "file": "05_deployment_topology.svg",
+        "data_style": "deployment",
+        "node_precision": 0.031,
+        "node_recall": 0.1,
+        "edge_precision": 0.0,
+        "edge_recall": 0.0,
+        "edge_f1": 0.0,
+        "view_score": 0.029
+      }
+    },
+    "coverage_score_out_of_45": 27.42,
+    "coverage_raw_out_of_45": 24.42,
+    "trap_bonus": 3.0,
+    "trap_flags": {
+      "layering_present": true,
+      "no_compile_cycle": true,
+      "interface_deps": true
+    }
+  },
+  "P05": {
+    "views": {
+      "layered": {
+        "file": "01_layered_architecture.svg",
+        "data_style": "layered",
+        "node_precision": 1.0,
+        "node_recall": 0.68,
+        "edge_precision": 0.474,
+        "edge_recall": 0.375,
+        "edge_f1": 0.419,
+        "view_score": 0.653
+      },
+      "component_dependency": {
+        "file": "02_component_dependency.svg",
+        "data_style": "component",
+        "node_precision": 0.857,
+        "node_recall": 0.857,
+        "edge_precision": 0.72,
+        "edge_recall": 0.818,
+        "edge_f1": 0.766,
+        "view_score": 0.821
+      },
+      "dataflow": {
+        "file": "03_dataflow.svg",
+        "data_style": "dataflow",
+        "node_precision": 0.667,
+        "node_recall": 0.8,
+        "edge_precision": 0.357,
+        "edge_recall": 0.5,
+        "edge_f1": 0.417,
+        "view_score": 0.603
+      },
+      "class_relationship": {
+        "file": "04_class_relationship.svg",
+        "data_style": "class",
+        "node_precision": 1.0,
+        "node_recall": 0.864,
+        "edge_precision": 0.28,
+        "edge_recall": 0.292,
+        "edge_f1": 0.286,
+        "view_score": 0.67
+      },
+      "deployment": {
+        "file": "05_deployment_topology.svg",
+        "data_style": "deployment",
+        "node_precision": 0.25,
+        "node_recall": 0.5,
+        "edge_precision": 0.167,
+        "edge_recall": 0.455,
+        "edge_f1": 0.244,
+        "view_score": 0.298
+      }
+    },
+    "coverage_score_out_of_45": 30.39,
+    "coverage_raw_out_of_45": 28.39,
+    "trap_bonus": 2.0,
+    "trap_flags": {
+      "layering_present": true,
+      "no_compile_cycle": true,
+      "interface_deps": false
+    }
+  },
+  "P06": {
+    "views": {
+      "layered": {
+        "file": "01_layered_architecture.svg",
+        "data_style": "layered",
+        "node_precision": 0.929,
+        "node_recall": 0.52,
+        "edge_precision": 0.765,
+        "edge_recall": 0.542,
+        "edge_f1": 0.634,
+        "view_score": 0.654
+      },
+      "component_dependency": {
+        "file": "02_component_dependency.svg",
+        "data_style": "component",
+        "node_precision": 0.917,
+        "node_recall": 0.524,
+        "edge_precision": 0.524,
+        "edge_recall": 0.5,
+        "edge_f1": 0.512,
+        "view_score": 0.605
+      },
+      "dataflow": {
+        "file": "03_dataflow.svg",
+        "data_style": "dataflow",
+        "node_precision": 0.455,
+        "node_recall": 0.5,
+        "edge_precision": 0.0,
+        "edge_recall": 0.0,
+        "edge_f1": 0.0,
+        "view_score": 0.286
+      },
+      "class_relationship": {
+        "file": "04_class_relationship.svg",
+        "data_style": "class",
+        "node_precision": 1.0,
+        "node_recall": 0.955,
+        "edge_precision": 0.214,
+        "edge_recall": 0.25,
+        "edge_f1": 0.231,
+        "view_score": 0.678
+      },
+      "deployment": {
+        "file": "05_deployment_topology.svg",
+        "data_style": "deployment",
+        "node_precision": 0.25,
+        "node_recall": 0.4,
+        "edge_precision": 0.1,
+        "edge_recall": 0.182,
+        "edge_f1": 0.129,
+        "view_score": 0.236
+      }
+    },
+    "coverage_score_out_of_45": 25.08,
+    "coverage_raw_out_of_45": 23.08,
+    "trap_bonus": 2.0,
+    "trap_flags": {
+      "layering_present": true,
+      "no_compile_cycle": true,
+      "interface_deps": false
+    }
+  }
+}
