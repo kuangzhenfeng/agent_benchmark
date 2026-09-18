@@ -1,0 +1,18 @@
+{
+  "preset": "svg-animation",
+  "revision": "otter-apple-peeler-v1",
+  "language": "HTML/CSS/JavaScript",
+  "type": "creative-artifact",
+  "scoring": false,
+  "questions": [
+    {
+      "id": "otter-apple-peeler",
+      "title": "水獭操作手摇苹果削皮机",
+      "deliverable": "showcase/index.html",
+      "requirements": [
+        "单文件 HTML，可离线打开",
+        "CSS、JavaScript 与 SVG 均内联，不使用外部依赖"
+      ]
+    }
+  ]
+}
