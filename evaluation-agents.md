@@ -26,7 +26,7 @@
 
 ## 已登记组合
 
-此表是 `create_run.py --all` 的读取范围：每行生成一个 `Harness ID + 模型 ID` 参评对象，不对两张登记表做笛卡尔积。当前登记 3 个 omp 组合，其他 harness 可按已确认配置另行添加。
+此表是 `create_run.py` 默认 ALL（以及显式 `--all`）的读取范围：每行生成一个 `Harness ID + 模型 ID` 参评对象，不对两张登记表做笛卡尔积。当前登记 3 个 omp 组合。使用 `--agent 'codex + gpt-5.5'` 时，也可选择 Harness 与模型表中分别登记、但未加入 ALL 的组合。
 
 | Harness ID | 模型 ID | CLI 模型选择器 |
 |---|---|---|
@@ -36,9 +36,9 @@
 
 ## 选择与命名
 
-用户已经指定对象时沿用该选择；未指定时按 harness + 模型组合询问多选，并提供 ALL 建议选项。ALL 仅指已登记组合，不自动启动。维护登记表或题库时不询问参评对象。
+用户已经指定对象时沿用该选择；未指定时默认使用 ALL，不再询问。ALL 仅指“已登记组合”表中的全部对象，不扩展为 Harness 与模型的笛卡尔积。维护登记表或题库时不启动评测。
 
-`--agent 'codex + gpt-5.5'` 仍可选择单个对象；也保留自定义组合名称入口，自定义对象须在本轮 participants.md 补全 harness、模型和实际命令。分发脚本只生成副本，不解析或执行命令模板。
+`--agent 'codex + gpt-5.5'` 可选择单个对象，`--agent` 可重复。Harness 或模型未登记时，先更新本文件；分发脚本只生成副本和启动命令，不自动执行。
 
 分发脚本把显示名称转换为小写英文数字与短横线组成的 slug，拒绝空值和重名。显示名称保留在 participants.md，生成的作答 README 不带对象身份，并且各对象完全一致。同一组合需要不同配置时使用不同显示名称，在本轮记录准确映射。
 
@@ -46,12 +46,21 @@
 
 ## 统一启动提示词
 
-将 `<prompt>` 作为一个完整命令参数传入，内容为：
+每个对象都以自己目录内 `QUESTION.md` 的完整原文作为提示词，不添加实现建议、验收细节或模型专属提示。`create_run.py` 会在轮次目录生成可核对的 `launch.md`，例如：
 
-```text
-请按当前题目 QUESTION.md 和组织者提供的统一规则完成本题作答，填写 ANSWER.md；完成后停止。
+```bash
+cd benchmark/<run-id>/agents/omp-glm-5-2
+omp -p "$(cat QUESTION.md)" --model coding-glm
 ```
 
-详细权限、时间盒和提交规则来自分发后的 README.md，其源模板为 [agent-readme.md](.claude/skills/agent-benchmark/templates/agent-readme.md)。所有对象使用同一提示词，不追加针对某个模型的根因提示。
+每个对象使用独立工作目录，结果固定写入自己的 `showcase/index.html`。分发脚本不自动启动 Agent；只有用户明确要求开始评测时才执行 `launch.md` 中的命令。
 
-当前题库命令在对应对象当前单题的独立工作区执行，每题全新会话，不共享其他等级源码和上下文。工作目录本身不限制读取上级文件；实际环境须只提供该对象的题目副本，并把工具、网络、系统和编译器差异记入 participants.md。分发脚本只复制文件；自动执行必须属于用户已要求的范围。详细操作见 [分发与运行](.claude/skills/agent-benchmark/references/running.md)。
+## 结果汇总
+
+全部对象完成后运行：
+
+```bash
+python3 .claude/skills/agent-benchmark/scripts/build_showcase.py --run <run-id>
+```
+
+脚本读取 `run.json` 中的参评顺序，将每个 `agents/<slug>/showcase/index.html` 内嵌到同一个 `showcase/index.html`，同时在轮次目录保存 `showcase.html`。各结果在 `sandbox="allow-scripts"` 的 iframe 中运行，互不修改；缺失结果会明确显示为“等待结果”。该流程只做并列展示，不评分、不排名。

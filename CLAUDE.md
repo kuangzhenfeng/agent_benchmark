@@ -10,6 +10,7 @@
 
 - 当前仅维护一题：创建单文件 HTML，用 SVG 绘制水獭操作手摇苹果削皮机的 2D 动画。
 - 题面放在 `.claude/skills/agent-benchmark/presets/otter-apple-peeler/QUESTION.md`。
-- 最终结果统一写入 `showcase/index.html`，题意与成品合并在同一页面展示。
-- 不启动参评 Agent，不生成评分、排名、匿名包或私有参考。
-- 页面必须离线可用、响应式、可键盘操作，并尊重 `prefers-reduced-motion`。
+- 支持按 `evaluation-agents.md` 选择多个参评对象；启动评测且未指定对象时默认选择“已登记组合”中的 ALL，不再询问。
+- 每个参评对象在隔离目录内作答，提示词原样使用 `QUESTION.md`，不得追加实现提示。
+- 全部结果通过 `build_showcase.py` 合并到 `showcase/index.html`，同时保留各 Agent 原始 HTML。
+- 不生成评分、排名、匿名包或私有参考。
